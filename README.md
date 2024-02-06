@@ -39,7 +39,7 @@ Develop a comprehensive online learning platform with three user types (Student,
 ## *Tech Stack:*
 
 #### *UI/UX:*
-  - Figma 
+  - [figma](https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/Online-Learning-Platform?type=design&node-id=0-1&mode=design&t=HBUPk2hRYW3ioAUj-0) 
   - Dribbble
 
 #### *Frontend:*
