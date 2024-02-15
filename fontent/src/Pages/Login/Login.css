@@ -1,0 +1,113 @@
+
+ 
+.main{
+ height:100vh;
+  margin-left: 50px;
+  margin-top:10px;
+  color:white;
+  font-family: sans-serif;
+  display: flex;
+  gap:90px;
+ 
+}
+
+.main::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+
+
+.container{
+ height:550px; 
+ width:380px;
+ background-color: #0E3A59;
+ text-align: center;
+ border-radius: 15px;
+
+}
+
+.para1{
+  font-size: large;
+  margin-top: 10px;
+}
+
+.logo{
+ padding: 15px;
+  
+
+}
+
+.para{
+   margin-top: 20px;
+   font-size: 16px;
+   letter-spacing: 1px;
+}
+.form{
+    margin-top:40px;
+}
+input{
+    border:0;
+    outline: 0;
+    background: transparent;
+    border: 2px solid gray;
+    width: 70%;
+    padding-block:20px ;
+    border-radius: 15px;
+}
+
+input::placeholder{
+  font-size: 16px;
+   padding-left: 20px;
+}
+
+.input-2{
+  margin-top:20px;
+}
+
+.Remember{
+  display: flex;
+ justify-content: center;
+ gap: 30px;
+  margin-top: 40px;
+
+}
+
+.head-3{
+ 
+  font-size: 18px;
+  font-weight: 700;
+}
+.head-2{
+  
+  font-size: 18px;
+  font-weight: 700; 
+}
+
+
+.head-3.active{
+  color:#d99f32;
+}
+.head-2.active{
+  color:#d99f32;
+}
+
+.btns{
+ margin-top:30px;
+ display: flex;
+ justify-content: center;
+ gap: 80px;
+}
+
+.btns-1{
+  background-color: #157776;
+  padding: 10px;
+}
+.btns-2{
+  background-color: #157776;
+  padding: 5px;
+} 
+
+.img-3 img{
+  width:95%;
+}
+
