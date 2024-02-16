@@ -4,6 +4,7 @@
     height: 60vh;
     display: flex;
     gap: 10px;
+    margin-top: 10vh;
 }
 .top .left{
     padding: 25px;
