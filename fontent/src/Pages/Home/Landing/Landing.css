@@ -33,11 +33,13 @@
 }
 .search input{
     width: 450px;
-    height: 45px;
+    height: 5px;
     border: none;
     border-radius: 3px;
-    padding-left: 40px;
+    padding-left: 50px;
+    background-color: #fff;
 }
+
 .search button{
     position: absolute;
     right: 0;
@@ -84,4 +86,8 @@ p::before {
     height: 200px;
     width: 300px;
     border-radius: 5px;
+}
+
+button:hover{
+    cursor: pointer;
 }
