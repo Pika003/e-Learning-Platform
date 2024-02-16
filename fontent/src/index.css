@@ -2,3 +2,10 @@
     margin: 0;
     padding: 0;
 }
+body{
+  background:linear-gradient(90deg, #06425a 1.26%, rgba(20, 120, 118, 0.58) 99.96%);
+  overflow: scroll;
+}
+body::-webkit-scrollbar{
+    display: none;
+}
