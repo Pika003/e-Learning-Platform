@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch src/index.js"
+    "dev": "node --watch -r dotenv/config --experimental-json-modules src/index.js"
   },
   "github": "https://github.com/Pika003/e-Learning-Platform.git",
   "author": "Parag, Satyajit, Gopi, Aditya",

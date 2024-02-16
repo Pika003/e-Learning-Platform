@@ -1,6 +1,8 @@
-import {} from 'dotenv/config'
+import dotenv from "dotenv";
 import db from './database/db.js';
 import {app} from './app.js'
+
+dotenv.config({path: './env'});
 
 console.log(`${process.env.DB_NAME}`);
 
