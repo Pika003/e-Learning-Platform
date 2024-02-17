@@ -46,6 +46,8 @@ input{
     width: 70%;
     padding-block:20px ;
     border-radius: 15px;
+    padding-left: 1rem;
+    color: white;
 }
 
 input::placeholder{
@@ -91,24 +93,17 @@ input::placeholder{
 .btns-1{
   background-color: #157776;
   padding: 10px;
-}
-.btns-2{
-  background-color: #157776;
-  padding: 5px;
-} 
-
-.img-3 img{
-  width: 70%;
+  width: 200px;
 }
 
 .radio-btn{
-  margin-left: 3.6rem;
+  display: flex;
+  justify-content: center;
   margin-top: 2rem;
 }
 
 .signup-link{
   margin-top: 20px;
-  margin-left: -70px;
   font-size: small;
 }
 

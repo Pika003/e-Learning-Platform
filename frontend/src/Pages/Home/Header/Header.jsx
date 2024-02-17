@@ -1,4 +1,5 @@
 import './Header.css'
+import { NavLink } from 'react-router-dom'
 
 function Header() {
   return (
@@ -10,7 +11,7 @@ function Header() {
       </div>
       <div className="link-nav">
         <ul>
-          <li>Home</li>
+          <li><NavLink to='/'> Home </NavLink></li>
           <li>Courses</li>
           <li>About</li>
           <li>Contact us</li>

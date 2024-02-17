@@ -27,26 +27,16 @@ export default function LeftSec() {
               <input type="text" placeholder="Email Address" />
             </div>
             <div className="input-2">
-              <input type="text" placeholder="password" />
+              <input type="password" placeholder="password" />
             </div>
           </form>
         </div>
-
-        {/* forgot-passw click */}
-        {/* <div className="Remember">
-          <span className="head-2 ">Rememberme</span>
-          <span className="head-3 active">Forgot password?</span>
-        </div> */}
 
         {/* radio buttons */}
 
         <div className="radio-btn">
           <Radiobtn/>
         </div>
-
-        {/* <NavLink to='/signup' className="signup-link">
-          <p>Don't have an account?<span> sign up</span></p>
-        </NavLink> */}
 
         <div className="signup-link">
           <span>Don't have an account?  </span>
@@ -58,8 +48,7 @@ export default function LeftSec() {
         {/* btns */}
 
         <div className="btns">
-          <button className="btns-1">Log in</button>
-          <button className="btns-2">Sing up</button>
+          <button className="btns-1">Log In</button>
         </div>
       </div>
 
