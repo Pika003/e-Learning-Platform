@@ -9,6 +9,7 @@ header{
     left: 0;
     position: fixed;
     width: 100%;
+    z-index: 10;
 }
 .logo{
     display: flex;
@@ -21,6 +22,7 @@ header{
 .logo h3{
     color: #fff;
     font-family: 'Gill Sans MT', sans-serif;
+    text-decoration: none;
 }
 .link-nav ul{
     list-style: none;
@@ -36,4 +38,13 @@ button{
     width: 90px;
     border-radius: 5px;
     color: #fff;
+}
+
+.deactive{
+    color: #fff;
+    text-decoration: none;
+}
+.active{
+    color:#4979D1;
+    text-decoration: none;
 }

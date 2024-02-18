@@ -1,4 +1,8 @@
-/* top section */
+button:hover{
+    cursor: pointer;
+}
+
+/* === top section === */
 .top{
     background: linear-gradient(90.05deg, #008280 1.26%, rgba(31, 163, 161, 0.58) 99.96%);
     height: 60vh;
@@ -20,7 +24,7 @@
     padding: 25px;
 }
 
-/* search btn */
+/* === search btn === */
 .search{
     display: flex;
     padding-top: 4rem;
@@ -38,6 +42,8 @@
     border-radius: 3px;
     padding-left: 50px;
     background-color: #fff;
+    color:#042439;
+    font-weight: 600;
 }
 
 .search button{
@@ -48,12 +54,12 @@
     height: 35px;
 }
 
-/* features section */
+/* === features section === */
 .features {
     background-color: #042439;
     height: 45vh;
 }
-p{
+.features p{
     color: #9433E0;
     text-align: center;
     padding: 10px;
@@ -62,32 +68,44 @@ p{
     line-height: 2; 
 }
 
-p::before {
-    content: "";
-    position: absolute;
-    text-align: center;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 10%;
-    height: 2px;
-    background-color: #9433E0;
-}
-
-.fet{
+.fets{
     height: 75%;
     display: flex;
     gap: 4rem;
     justify-content: center;
     align-items: end;
 }
-.fet1, .fet2, .fet3{
+.fet{
     background-color: #0E3A59;
     height: 200px;
     width: 300px;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
-button:hover{
-    cursor: pointer;
+.fet img{
+    width: 70px;
+}
+.fet h4{
+    color: #9433E0;
+}
+.fet p{
+    color: #ffffff9f;
+    font-size: 10px;
+}
+
+/* === About === */
+
+.about{
+    background-color: #042439;
+    height: 40vh;
+}
+
+.about p{
+    color: #fff;
+    padding: 1rem;
 }
