@@ -24,10 +24,10 @@ export default function LeftSec() {
         <div className="form">
           <form action="">
             <div className="input-1">
-              <input type="text" placeholder="Email Address" />
+              <input type="text" placeholder="Email Address" className="input-0"/>
             </div>
             <div className="input-2">
-              <input type="password" placeholder="password" />
+              <input type="password" placeholder="password" className="input-0"/>
             </div>
           </form>
         </div>

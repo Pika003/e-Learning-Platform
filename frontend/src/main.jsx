@@ -6,6 +6,8 @@ import About from './Pages/Home/About/About'
 import Contact from './Pages/Home/Contact/Contact'
 import Courses from './Pages/Home/Courses/Courses'
 import LeftSec from './Pages/Login/leftSec'
+import Signup from './Pages/Signup/Signup'
+
 import { RouterProvider, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import Layout from './Layout'
 
@@ -14,12 +16,12 @@ const router = createBrowserRouter(
     <Route path='/' element={<Layout/>}>
       <Route path='/' element={<Landing/>}/>
       <Route path='/login' element={<LeftSec/>}/>
-      <Route path='/signup' element={<LeftSec/>}/>
+      <Route path='/Signup' element={<Signup/>}/>
       <Route path='/courses' element={<Courses/> }/>
       <Route path='/contact' element={<Contact/>}/>
       <Route path='/about' element={<About/>}/>
     </Route>
-  )
+ )
 )
 
 ReactDOM.createRoot(document.getElementById('root')).render(

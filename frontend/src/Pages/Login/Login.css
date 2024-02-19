@@ -38,7 +38,7 @@
 .form{
   margin-top:40px;
 }
-input{
+.input-0{
     border:0;
     outline: 0;
     background: transparent;
@@ -50,7 +50,7 @@ input{
     color: white;
 }
 
-input::placeholder{
+.input-0::placeholder{
   font-size: 16px;
   padding-left: 20px;
 }
