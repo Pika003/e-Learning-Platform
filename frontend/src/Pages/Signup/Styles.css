@@ -1,7 +1,7 @@
 .section{
    display: flex;
    align-items: center;  
-   margin-left: 200px;
+   /* margin-left: 200px; */
 }
 
 .article{
@@ -15,9 +15,7 @@
     border-radius: 15px;
     box-shadow: 2px 4px 10px black;
     margin: auto;
-    margin-top: 70px;
-    
-   
+    margin-top: 70px; 
 }
 
 .logo-1{

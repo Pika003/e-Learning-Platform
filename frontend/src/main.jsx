@@ -5,7 +5,7 @@ import Landing from './Pages/Home/Landing/Landing'
 import About from './Pages/Home/About/About'
 import Contact from './Pages/Home/Contact/Contact'
 import Courses from './Pages/Home/Courses/Courses'
-import LeftSec from './Pages/Login/leftSec'
+import Login from './Pages/Login/Login'
 import Signup from './Pages/Signup/Signup'
 
 import { RouterProvider, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
@@ -15,7 +15,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout/>}>
       <Route path='/' element={<Landing/>}/>
-      <Route path='/login' element={<LeftSec/>}/>
+      <Route path='/login' element={<Login/>}/>
       <Route path='/Signup' element={<Signup/>}/>
       <Route path='/courses' element={<Courses/> }/>
       <Route path='/contact' element={<Contact/>}/>

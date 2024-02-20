@@ -1,7 +1,7 @@
 import React from 'react'
 import './Landing.css'
 import Classroom from '../../Images/Classroom.svg' 
-import Search from './Search'
+import Search from '../../Components/Searchbtn/Search'
 import Courses from '../Courses/Courses'
 
 function Landing() {

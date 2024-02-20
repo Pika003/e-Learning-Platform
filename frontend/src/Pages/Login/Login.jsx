@@ -4,7 +4,7 @@ import "./Login.css";
 import { NavLink } from 'react-router-dom'
 import Radiobtn from "../Components/RadioBtn/Radiobtn";
 
-export default function LeftSec() {
+export default function Login() {
   return (
     <section className="main">
       <div className="container">

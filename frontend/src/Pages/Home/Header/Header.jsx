@@ -17,7 +17,7 @@ function Header() {
           <li><NavLink to='/contact' className={({isActive}) => isActive ? "active" : "deactive"}> Contact us </NavLink></li>
         </ul>
       </div>
-      <button><NavLink to='/login' className={({isActive}) => isActive ? "deactive" : "deactive"}>Sign up</NavLink></button>
+      {/* <button><NavLink to='/login' className={({isActive}) => isActive ? "deactive" : "deactive"}>Sign up</NavLink></button> */}
       <button><NavLink to='/Signup' className={({isActive}) => isActive ? "deactive" : "deactive"}>Login</NavLink></button>
     </header>
     </>

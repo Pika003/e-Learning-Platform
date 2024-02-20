@@ -24,36 +24,6 @@ button:hover{
     padding: 25px;
 }
 
-/* === search btn === */
-.search{
-    display: flex;
-    padding-top: 4rem;
-    width: 450px;
-    position: relative;
-}
-.search img{
-    position: absolute;
-    margin: 5px;
-}
-.search input{
-    width: 450px;
-    height: 5px;
-    border: none;
-    border-radius: 3px;
-    padding-left: 50px;
-    background-color: #fff;
-    color:#042439;
-    font-weight: 600;
-}
-
-.search button{
-    position: absolute;
-    right: 0;
-    border-radius: 2px;
-    margin: 5px 5px;
-    height: 35px;
-}
-
 /* === features section === */
 .features {
     background-color: #042439;

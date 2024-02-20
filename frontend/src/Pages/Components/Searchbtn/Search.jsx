@@ -1,5 +1,5 @@
 import React from 'react'
-import './Landing.css'
+import './Search.css'
 
 function Search() {
   return (
