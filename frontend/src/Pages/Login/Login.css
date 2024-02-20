@@ -1,21 +1,17 @@
-
- 
 .main{
- height:100vh;
-  margin-left: 50px;
-  margin-top:10px;
+  margin-top: 15vh;
+  margin-left: 10vh;
   color:white;
   font-family: sans-serif;
   display: flex;
-  gap:90px;
- 
+  gap: 10rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .main::-webkit-scrollbar {
   width: 0 !important;
 }
-
-
 
 .container{
  height:550px; 
@@ -23,7 +19,6 @@
  background-color: #0E3A59;
  text-align: center;
  border-radius: 15px;
-
 }
 
 .para1{
@@ -33,8 +28,6 @@
 
 .logo{
  padding: 15px;
-  
-
 }
 
 .para{
@@ -43,9 +36,9 @@
    letter-spacing: 1px;
 }
 .form{
-    margin-top:40px;
+  margin-top:40px;
 }
-input{
+.input-0{
     border:0;
     outline: 0;
     background: transparent;
@@ -53,18 +46,20 @@ input{
     width: 70%;
     padding-block:20px ;
     border-radius: 15px;
+    padding-left: 1rem;
+    color: white;
 }
 
-input::placeholder{
+.input-0::placeholder{
   font-size: 16px;
-   padding-left: 20px;
+  padding-left: 20px;
 }
 
 .input-2{
   margin-top:20px;
 }
 
-.Remember{
+/* .Remember{
   display: flex;
  justify-content: center;
  gap: 30px;
@@ -73,26 +68,23 @@ input::placeholder{
 }
 
 .head-3{
- 
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 400;
 }
 .head-2{
-  
-  font-size: 18px;
-  font-weight: 700; 
+  font-size: 15px;
+  font-weight: 400; 
 }
-
 
 .head-3.active{
   color:#d99f32;
 }
 .head-2.active{
   color:#d99f32;
-}
+} */
 
 .btns{
- margin-top:30px;
+ margin-top: 2rem;
  display: flex;
  justify-content: center;
  gap: 80px;
@@ -101,13 +93,25 @@ input::placeholder{
 .btns-1{
   background-color: #157776;
   padding: 10px;
-}
-.btns-2{
-  background-color: #157776;
-  padding: 5px;
-} 
-
-.img-3 img{
-  width:95%;
+  width: 200px;
 }
 
+.radio-btn{
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.signup-link{
+  margin-top: 20px;
+  font-size: small;
+}
+
+.signup-link p{
+  color: #fff; 
+}
+
+.signup-link .link{
+  color: green;
+  font-size: medium;
+}
