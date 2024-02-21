@@ -3,6 +3,7 @@ import {ApiError} from "../utils/ApiError.js";
 import {student} from "../models/student.model.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
 import nodemailer from "nodemailer";
+import jwt from "jsonwebtoken";
 
 
 
@@ -35,6 +36,25 @@ const verifyEmail = async (Email, Firstname, createdStudent_id) => {
         throw new ApiError(400, "Failed to send email verification");
     }
 };
+
+const generateAccessAndRefreshTokens = async (stdID) =>{ 
+    try {
+        
+        const std = await student.findById(stdID)
+        
+        const Accesstoken = std.generateAccessToken()
+        console.log("helo")
+        const Refreshtoken = std.generateRefreshToken()
+
+        std.Refreshtoken = Refreshtoken
+        await std.save({validateBeforeSave:false})
+
+        return{Accesstoken, Refreshtoken}
+
+    } catch (error) {
+        throw new ApiError(500, "Something went wrong while generating referesh and access token")
+    }
+}
 
 
 const signup = asyncHandler(async (req, res) =>{
@@ -82,7 +102,7 @@ const signup = asyncHandler(async (req, res) =>{
 })
 
 const mailVerified = asyncHandler(async(req,res)=>{
-    const id = req.query.id;
+        const id = req.query.id;
 
         const updatedInfo = await student.updateOne({ _id: id }, { $set: { Isverified: true } });
 
@@ -92,7 +112,62 @@ const mailVerified = asyncHandler(async(req,res)=>{
         return res.send("<p>Email successfully verified.</p>");
 } )
 
+const login = asyncHandler(async(req,res) => {
+
+    const {Email, Password} = req.body;
+
+    if(!Email){
+        throw new ApiError(400,"E-mail is required")
+    }
+    if(!Password){
+        throw new ApiError(400,"Password is required")
+    }
+
+    const StdLogin = await student.findOne({
+        Email
+    })
+
+    if(!StdLogin){
+        throw new ApiError(400, "Student does not exist")
+    }
+
+    if(!StdLogin.Isverified){
+        throw new ApiError(401, "Email is not verified");
+    }
+
+    const StdPassCheck = await StdLogin.isPasswordCorrect(Password)
+
+    if(!StdPassCheck){
+        throw new ApiError(401,"Password is incorrect")
+    }
+
+    const tempStd = StdLogin._id
+
+    console.log(tempStd)
+    const {Accesstoken, Refreshtoken} =  await generateAccessAndRefreshTokens(tempStd)
+
+    const loggedInStd = await student.findById(tempStd).select(-Password -Refreshtoken)
+
+    const options = {
+        httpOnly:true,
+        secure:true,
+    }
+
+    return res
+    .status(200)
+    .cookie("Accesstoken", Accesstoken, options)
+    .cookie("Refreshtoken", Refreshtoken, options)
+    .json(
+        new ApiResponse(
+            200,{
+            user:loggedInStd
+            }, "logged in"
+            )
+    )
+
+})
+
 
 export{
-    signup, mailVerified
+    signup, mailVerified, login
 }

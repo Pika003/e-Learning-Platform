@@ -14,10 +14,14 @@ app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(express.static("public"))
 app.use(cookieParser())
 
-  //student routes
+//student routes
 import studentRouter from "./routes/student.routes.js";
-
 app.use("/api/student", studentRouter)
+
+
+//teacher routes
+import teacherRouter from "./routes/teacher.routes.js"
+app.use("/api/teacher", teacherRouter)
 
 
 

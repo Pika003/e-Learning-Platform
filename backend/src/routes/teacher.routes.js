@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {signup, mailVerified, login} from "../controllers/student.controller.js";
+import {signup, mailVerified, login} from "../controllers/teacher.controller.js";
 import {upload} from "../middlewares/multer.middleware.js"
 
 const router = Router()
@@ -15,5 +15,4 @@ router.route("/verify").get(
 router.route("/login").post(
     login
 )
-
 export default router;
