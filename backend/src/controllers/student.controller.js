@@ -131,6 +131,10 @@ const login = asyncHandler(async(req,res) => {
         throw new ApiError(400, "Student does not exist")
     }
 
+    if(!StdLogin.Isverified){
+        throw new ApiError(401, "Email is not verified");
+    }
+
     const StdPassCheck = await StdLogin.isPasswordCorrect(Password)
 
     if(!StdPassCheck){
