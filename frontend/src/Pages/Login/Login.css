@@ -14,7 +14,7 @@
 }
 
 .container{
- height:550px; 
+ height:530px; 
  width:380px;
  background-color: #0E3A59;
  text-align: center;
@@ -44,7 +44,7 @@
     background: transparent;
     border: 2px solid gray;
     width: 70%;
-    padding-block:20px ;
+    padding-block: 17px ;
     border-radius: 15px;
     padding-left: 1rem;
     color: white;
@@ -58,30 +58,6 @@
 .input-2{
   margin-top:20px;
 }
-
-/* .Remember{
-  display: flex;
- justify-content: center;
- gap: 30px;
-  margin-top: 40px;
-
-}
-
-.head-3{
-  font-size: 15px;
-  font-weight: 400;
-}
-.head-2{
-  font-size: 15px;
-  font-weight: 400; 
-}
-
-.head-3.active{
-  color:#d99f32;
-}
-.head-2.active{
-  color:#d99f32;
-} */
 
 .btns{
  margin-top: 2rem;

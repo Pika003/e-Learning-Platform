@@ -1,21 +1,22 @@
 .section{
    display: flex;
    align-items: center;  
-   /* margin-left: 200px; */
+   margin-left: 200px;
+   margin-top: 7vh;
 }
 
 .article{
 
-    height: 490px;
-    width:360px;
+    height: 33rem;
+    width: 23rem;
     color: #FFF;
     font-family: sans-serif;
     background-color:#0E3A59;
     padding: 3px;
     border-radius: 15px;
-    box-shadow: 2px 4px 10px black;
+    /* box-shadow: 2px 4px 10px black; */
     margin: auto;
-    margin-top: 70px; 
+    margin-top: 60px; 
 }
 
 .logo-1{
@@ -50,7 +51,7 @@
     border: 2px solid gray;
     width: 70%;
     padding-block:10px ;
-    border-radius: 15px;
+    border-radius: 10px;
     padding-left: 1rem;
     color: white;
     margin:10px;
@@ -62,13 +63,16 @@
 }
 
 .rad-btns{
-   margin-left: 52px;
-   margin-top: 10px;
+   margin: 1.2rem;
+   margin-left: 5rem;
 }
 
 .signupage{
-    margin-top: 10px;
+    margin-top: 15px;
     text-align: center;
+}
+.signupage span{
+    font-size: small;
 }
 
 .btn-4{
@@ -76,11 +80,11 @@
     background-color:#157776;
     display:block;
     text-align: center;
-    margin-top: 12px;
-    margin-left: 70px;
+    margin-top: 25px;
+    margin-left: 5.5rem;
     width:50%;
     padding: 10px;
-   border-radius: 8px;
+   border-radius: 5px;
    transition: all linear 0.1s;
   
 }
@@ -95,11 +99,11 @@
 }
 
 .imgs{
-    width: 90%;
+    width: 80%;
     margin-top: 40px;
 }
 
 .right-part{
     margin-left: 90px;
-  }
+}
 
