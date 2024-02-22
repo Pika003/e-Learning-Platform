@@ -141,4 +141,27 @@ const login = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, { user: loggedInTeacher }, "Logged in"));
 });
 
-export { signup, mailVerified, login };
+const logout = asyncHandler(async(req, res)=>{
+    await Teacher.findByIdAndUpdate(req.teacher?._id,
+        {
+            $set:{
+                Refreshtoken:undefined,
+            }
+        },
+        {
+            new:true
+        }
+    )
+
+    const options ={
+        httpOnly:true,
+        secure:true,
+    }
+
+    return res
+    .status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken",  options)
+    .json(new ApiResponse(200, {}, "User logged out"))
+})
+export { signup, mailVerified, login, logout };
