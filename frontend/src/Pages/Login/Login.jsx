@@ -6,8 +6,8 @@ import Radiobtn from "../Components/RadioBtn/Radiobtn";
 
 export default function Login() {
   // State to hold user input
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [Email, setEmail] = useState('');
+  const [Password, setPassword] = useState('');
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
@@ -15,8 +15,8 @@ export default function Login() {
 
     // Prepare data object to send to the backend
     const data = {
-      email: email,
-      password: password
+      Email: Email,
+      Password: Password
     };
 
     try {
@@ -65,7 +65,7 @@ export default function Login() {
                 type="text" 
                 placeholder="Email Address" 
                 className="input-0"
-                value={email}
+                value={Email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -74,7 +74,7 @@ export default function Login() {
                 type="password" 
                 placeholder="Password" 
                 className="input-0"
-                value={password}
+                value={Password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
