@@ -21,7 +21,7 @@ export default function Login() {
 
     try {
       // Send data to backend (you need to implement this part)
-      const response = await fetch('http://localhost:4400/api/student/login', {
+      const response = await fetch('/api/student/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
