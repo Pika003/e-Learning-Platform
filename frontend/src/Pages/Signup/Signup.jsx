@@ -27,6 +27,7 @@ const Signup = () => {
       // Send data to backend (you need to implement this part)
       const response = await fetch("http://localhost:4400/api/student/signup", {
         method: "POST",
+        mode:"no-cors",
         headers: {
           "Content-Type": "application/json",
         },
