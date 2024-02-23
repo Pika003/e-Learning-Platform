@@ -6,10 +6,10 @@ import Radiobtn from "../Components/RadioBtn/Radiobtn";
 
 const Signup = () => {
   // State to hold user input
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [Firstname, setFirstName] = useState("");
+  const [Lastname, setLastName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
@@ -17,15 +17,15 @@ const Signup = () => {
 
     // Prepare data object to send to the backend
     const data = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
+      Firstname: Firstname,
+      Lastname: Lastname,
+      Email: Email,
+      Password: Password,
     };
 
     try {
       // Send data to backend (you need to implement this part)
-      const response = await fetch("http://localhost:4400/api/student/signup", {
+      const response = await fetch("localhost:4400/api/student/signup", {
         method: "POST",
         mode:"no-cors",
         headers: {
@@ -65,7 +65,7 @@ const Signup = () => {
               type="text"
               className="input-x input-4"
               placeholder="Firstname"
-              value={firstName}
+              value={Firstname}
               onChange={(e) => setFirstName(e.target.value)}
             />
 
@@ -73,7 +73,7 @@ const Signup = () => {
               type="text"
               className="input-x input-5"
               placeholder="Lastname"
-              value={lastName}
+              value={Lastname}
               onChange={(e) => setLastName(e.target.value)}
             />
 
@@ -81,7 +81,7 @@ const Signup = () => {
               type="text"
               className="input-x input-6"
               placeholder="Email"
-              value={email}
+              value={Email}
               onChange={(e) => setEmail(e.target.value)}
             />
 
@@ -89,7 +89,7 @@ const Signup = () => {
               type="text"
               className="input-x input-7"
               placeholder="Password"
-              value={password}
+              value={Password}
               onChange={(e) => setPassword(e.target.value)}
             />
 
