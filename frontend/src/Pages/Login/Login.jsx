@@ -5,13 +5,31 @@ import { NavLink } from 'react-router-dom';
 import Radiobtn from "../Components/RadioBtn/Radiobtn";
 
 export default function Login() {
-  // State to hold user input
+  // State to hold user input and errors
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Client-side validation
+    const newErrors = {};
+
+    if (!Email.trim()) {
+      newErrors.email = 'Email is required';
+    }
+
+    if (!Password.trim()) {
+      newErrors.password = 'Password is required';
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      // Update the errors state and prevent form submission
+      setErrors(newErrors);
+      return;
+    }
 
     // Prepare data object to send to the backend
     const data = {
@@ -33,9 +51,16 @@ export default function Login() {
       if (response.ok) {
         // Authentication successful, you can redirect or do something else
         console.log('Login successful');
+      } else if (response.status === 401) {
+        // Incorrect password
+        setErrors({ password: 'Incorrect password' });
+      } else if (response.status === 403) {
+        // Account locked, disabled, or other authentication issues
+        const errorData = await response.json();
+        setErrors({ general: errorData.message || 'Login failed' });
       } else {
-        // Authentication failed, handle accordingly
-        console.error('Login failed');
+        // Other unexpected errors
+        setErrors({ general: 'An unexpected error occurred' });
       }
     } catch (error) {
       console.error('Error:', error);
@@ -68,6 +93,7 @@ export default function Login() {
                 value={Email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+              {errors.email && <div className="error-message">{errors.email}</div>}
             </div>
             <div className="input-2">
               <input 
@@ -77,6 +103,7 @@ export default function Login() {
                 value={Password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              {errors.password && <div className="error-message">{errors.password}</div>}
             </div>
 
             {/* radio buttons */}
@@ -93,9 +120,9 @@ export default function Login() {
           
             {/* btns */}
             <div className="btns">
+              {errors.general && <div className="error-message">{errors.general}</div>}
               <button type="submit" className="btns-1">Log In</button>
             </div>
-            
           </form>
         </div>
       </div>
@@ -106,4 +133,7 @@ export default function Login() {
       </div>
     </section>
   );
+ 
+  {/* the above code is modified by Aditya */}
+
 }
