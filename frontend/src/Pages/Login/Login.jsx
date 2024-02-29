@@ -126,7 +126,7 @@ export default function Login() {
           </form>
         </div>
       </div>
-
+   
       {/* image */}
       <div className="img-3">
         <img src={HR} width={600} alt="" />
