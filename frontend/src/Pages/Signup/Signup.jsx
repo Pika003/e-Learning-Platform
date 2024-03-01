@@ -78,7 +78,8 @@ const Signup = () => {
         console.error("Registration failed with status code:", response.status);
       }
     } catch (error) {
-      console.error("Error:", error);
+      setErrors(error.message);
+     
     }
   };
 

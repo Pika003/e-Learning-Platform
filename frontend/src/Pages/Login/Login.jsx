@@ -77,7 +77,7 @@ export default function Login() {
         setErrors({ general: "An unexpected error occurred" });
       }
     } catch (error) {
-      console.log("Error:", error.message);
+   
       setErrors(error.message);
     }
   };
