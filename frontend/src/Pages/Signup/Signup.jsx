@@ -148,10 +148,11 @@ const Signup = () => {
                 login
               </NavLink>
             </div>
-
+            <div className="btn">  
             <button type="submit" className="btn-4">
               Signup
             </button>
+            </div>
           </form>
         </div>
       </article>

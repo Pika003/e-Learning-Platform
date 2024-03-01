@@ -6,8 +6,7 @@
 }
 
 .article{
-
-    min-height: 38rem;
+    min-height: auto;
     width: 23rem;
     color: #FFF;
     font-family: sans-serif;
@@ -92,10 +91,10 @@
 .btn-4:hover{
     background-color: #04848492;
     color:#fff;
-    /* border: 3px solid #157776 ;
-    font-size: 12px;
-    font-weight: 700;
-     */
+}
+
+.btn{
+    margin-bottom: 1rem;
 }
 
 .imgs{
@@ -107,3 +106,7 @@
     margin-left: 90px;
 }
 
+.error-message{
+    color: #d41717;
+    font-size: 0.9rem;
+}
