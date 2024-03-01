@@ -3,8 +3,6 @@ import { ApiError } from "../utils/ApiError.js";
 import { Teacher } from "../models/teacher.model.js"; 
 import { ApiResponse } from "../utils/ApiResponse.js";
 import nodemailer from "nodemailer";
-import jwt from "jsonwebtoken";
-import { authSchema } from "../middlewares/formvalidate.middleware.js";
 
 const verifyEmail = async (Email, Firstname, createdTeacherId) => {
     try {
@@ -102,9 +100,8 @@ const mailVerified = asyncHandler(async (req, res) => {
 
 const login = asyncHandler(async (req, res) => {
 
-    const { Email, Password } = req.body;
-
-    const result = await authSchema.validateAsync(req.body)
+    const Email = req.user.Email
+    const Password = req.user.Password
 
     if (!Email) {
         throw new ApiError(400, "E-mail is required");

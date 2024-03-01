@@ -2,6 +2,7 @@ import {Router} from "express";
 import {signup, mailVerified, login, logout} from "../controllers/teacher.controller.js";
 import {upload} from "../middlewares/multer.middleware.js"
 import { authTeacher } from "../middlewares/teacherAuth.middleware.js";
+import { authSchema } from "../middlewares/joiLogin.middleware.js";
 
 const router = Router()
 
@@ -14,7 +15,7 @@ router.route("/verify").get(
 )
 
 router.route("/login").post(
-    login
+    authSchema, login
 )
 
 router.route("/logout").post(

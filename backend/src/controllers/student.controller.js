@@ -3,8 +3,6 @@ import {ApiError} from "../utils/ApiError.js";
 import {student} from "../models/student.model.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
 import nodemailer from "nodemailer";
-import jwt from "jsonwebtoken";
-import { authSchema } from "../middlewares/formvalidate.middleware.js";
 
 
 
@@ -114,17 +112,10 @@ const mailVerified = asyncHandler(async(req,res)=>{
 
 const login = asyncHandler(async(req,res) => {
 
-    const {Email, Password} = req.body;
+    const Email = req.user.Email
+    const Password = req.user.Password
 
-    /*if(!Email){
-        throw new ApiError(400,"E-mail is required")
-    }
-    if(!Password){
-        throw new ApiError(400,"Password is required")
-    }*/
-
-    const result = await authSchema.validateAsync(req.body)
-
+    console.log(Email)
     const StdLogin = await student.findOne({
         Email
     })
