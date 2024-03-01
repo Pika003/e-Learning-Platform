@@ -9,7 +9,7 @@ export default function Login() {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [userType, setUserType] = useState('student');
+  const [userType, setUserType] = useState('');
 
 
 

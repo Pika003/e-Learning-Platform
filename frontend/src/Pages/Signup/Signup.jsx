@@ -11,7 +11,7 @@ const Signup = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [userType, setUserType] = useState('student');
+  const [userType, setUserType] = useState('');
 
 
   // Function to handle form submission
@@ -55,7 +55,7 @@ const Signup = () => {
 
     try {
       // Send data to backend (you need to implement this part)
-      const response = await fetch("/api/student/signup", {
+      const response = await fetch(`/api/${userType}/signup`, {
         method: "POST",
         mode: "cors",
         headers: {

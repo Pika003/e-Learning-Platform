@@ -25,8 +25,8 @@ function Radiobtn({userType,setUserType}) {
             id="radio1"
             className="radio-button__input"
             type="radio"
-            checked={userType === 'student'}
-            onChange={()=>setUserType('student')}
+            checked={userType === 'teacher'}
+            onChange={()=>setUserType('teacher')}
           />
           <label htmlFor="radio1" className="radio-button__label">
             <span className="radio-button__custom" />
