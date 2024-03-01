@@ -6,6 +6,7 @@ function Courses() {
     <>
     <div className="courses">
       <p>Find Your Subject</p>
+      <hr className="underLine"/>
       <div className="subjects">
         <div className="subject">
           <img src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/8e9bf690d23d886f63466a814cfbec78187f91d2" alt="Physics" />

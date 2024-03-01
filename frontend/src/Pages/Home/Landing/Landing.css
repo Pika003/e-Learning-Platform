@@ -2,6 +2,11 @@ button:hover{
     cursor: pointer;
 }
 
+.underLine{
+    width: 10rem;
+    margin-left: 45%;
+}
+
 /* === top section === */
 .top{
     background: linear-gradient(90.05deg, #008280 1.26%, rgba(31, 163, 161, 0.58) 99.96%);
@@ -75,7 +80,37 @@ button:hover{
     height: 40vh;
 }
 
-.about p{
+.about h4{
     color: #fff;
     padding: 1rem;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.about p{
+    color: #fff;
+    padding: 50px;
+    line-height: 2rem;
+}
+
+.content{
+    padding: 0 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around; /* Apply for all */
+    gap: 5rem;
+}
+
+/* === Contact Us === */
+
+.contact h4{
+    text-align: center;
+    margin: 1rem;
+    font-size: 1.1rem;
+}
+
+.contact .form-submit{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
