@@ -9,6 +9,9 @@ export default function Login() {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [userType, setUserType] = useState('student');
+
+
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
@@ -41,8 +44,8 @@ export default function Login() {
 
     try {
       // Send data to backend (you need to implement this part)
-      const response = await fetch("/api/student/login", {
-        method: "POST",
+      const response = await fetch(`/api/${userType}/login`, {
+        method: 'POST',
         headers: {
           "Content-Type": "application/json",
         },
@@ -124,7 +127,7 @@ export default function Login() {
 
             {/* radio buttons */}
             <div className="radio-btn">
-              <Radiobtn />
+              <Radiobtn  userType={userType} setUserType={setUserType}  />
             </div>
 
             <div className="signup-link">
@@ -153,4 +156,5 @@ export default function Login() {
       </div>
     </section>
   );
+ 
 }

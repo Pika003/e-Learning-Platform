@@ -1,7 +1,7 @@
 import React from "react";
 import './Radiobtn.css'
 
-function Radiobtn() {
+function Radiobtn({userType,setUserType}) {
   return (
     <>
       <div className="radio-buttons-container">
@@ -11,6 +11,8 @@ function Radiobtn() {
             id="radio2"
             className="radio-button__input"
             type="radio"
+            checked={userType === 'student'}
+            onChange={()=>setUserType('student')}
           />
           <label htmlFor="radio2" className="radio-button__label">
             <span className="radio-button__custom" />
@@ -23,6 +25,8 @@ function Radiobtn() {
             id="radio1"
             className="radio-button__input"
             type="radio"
+            checked={userType === 'student'}
+            onChange={()=>setUserType('student')}
           />
           <label htmlFor="radio1" className="radio-button__label">
             <span className="radio-button__custom" />
