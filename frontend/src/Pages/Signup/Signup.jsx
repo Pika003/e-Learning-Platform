@@ -11,6 +11,8 @@ const Signup = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [userType, setUserType] = useState('student');
+
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
@@ -139,7 +141,7 @@ const Signup = () => {
             )}
 
             <div className="rad-btns">
-              <Radiobtn />
+              <Radiobtn userType={userType} setUserType={setUserType}/>
             </div>
 
             <div className="signupage">
