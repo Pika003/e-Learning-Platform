@@ -14,7 +14,7 @@
 }
 
 .container{
- height:530px; 
+ min-height: auto; 
  width:380px;
  background-color: #0E3A59;
  text-align: center;
@@ -64,6 +64,7 @@
  display: flex;
  justify-content: center;
  gap: 80px;
+ margin-bottom: 1rem;
 }
 
 .btns-1{
