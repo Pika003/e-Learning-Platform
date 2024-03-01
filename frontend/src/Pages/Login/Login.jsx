@@ -24,6 +24,10 @@ export default function Login() {
     if (!Password.trim()) {
       newErrors.password = 'Password is required';
     }
+    
+    
+
+
 
     if (Object.keys(newErrors).length > 0) {
       // Update the errors state and prevent form submission
@@ -120,9 +124,9 @@ export default function Login() {
           
             {/* btns */}
             <div className="btns">
-              {errors.general && <div className="error-message">{errors.general}</div>}
               <button type="submit" className="btns-1">Log In</button>
             </div>
+            {errors.general && <div className="error-message">{errors.general}</div>}
           </form>
         </div>
       </div>
