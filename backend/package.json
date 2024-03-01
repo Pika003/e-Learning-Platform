@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch -r dotenv/config --experimental-json-modules src/index.js"
+    "dev": "nodemon  -r dotenv/config --experimental-json-modules src/index.js"
   },
   "github": "https://github.com/Pika003/e-Learning-Platform.git",
   "author": "Parag, Satyajit, Gopi, Aditya",
@@ -21,6 +21,7 @@
     "mongoose": "^8.1.2",
     "mongoose-aggregate-paginate-v2": "^1.0.7",
     "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.9.9"
+    "nodemailer": "^6.9.9",
+    "nodemon": "^3.1.0"
   }
 }
