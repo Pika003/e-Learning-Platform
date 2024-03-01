@@ -7,7 +7,7 @@
 
 .article{
 
-    height: 33rem;
+    min-height: 38rem;
     width: 23rem;
     color: #FFF;
     font-family: sans-serif;

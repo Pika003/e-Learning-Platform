@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import HR from "../Login/Images/HR.svg";
 import "./Login.css";
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 import Radiobtn from "../Components/RadioBtn/Radiobtn";
+
 
 export default function Login() {
   // State to hold user input and errors
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+
+
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
@@ -19,6 +22,9 @@ export default function Login() {
 
     if (!Email.trim()) {
       newErrors.email = 'Email is required';
+      
+    }else if (!/\S+@\S+\.\S+/.test(Email)) {
+      newErrors.email = 'Invalid email format';
     }
 
     if (!Password.trim()) {
@@ -57,18 +63,22 @@ export default function Login() {
       if (response.ok) {
         // Authentication successful, you can redirect or do something else
         console.log('Login successful');
+        Navigate('/')
+
       } else if (response.status === 401) {
         // Incorrect password
-        setErrors({ password: 'Incorrect password' });
+        setErrors({ password: errorData.message ||'Incorrect password' });
       } else if (response.status === 403) {
         // Account locked, disabled, or other authentication issues
         
         setErrors({ general: errorData.message || 'Login failed' });
 
       } else if (response.status === 400) {
-
   
         setErrors({general: errorData.message || 'User does not exist'})
+    } else if(response.status === 422) {
+
+      setErrors({general: errorData.message || '"Email" must be a valid email'})
     }
       
       
