@@ -51,6 +51,8 @@ export default function Login() {
         body: JSON.stringify(data)
       });
 
+      const errorData = await response.json();
+      console.log(errorData)
       // Handle response
       if (response.ok) {
         // Authentication successful, you can redirect or do something else
@@ -60,14 +62,23 @@ export default function Login() {
         setErrors({ password: 'Incorrect password' });
       } else if (response.status === 403) {
         // Account locked, disabled, or other authentication issues
-        const errorData = await response.json();
+        
         setErrors({ general: errorData.message || 'Login failed' });
-      } else {
+
+      } else if (response.status === 400) {
+
+  
+        setErrors({general: errorData.message || 'User does not exist'})
+    }
+      
+      
+      else {
         // Other unexpected errors
         setErrors({ general: 'An unexpected error occurred' });
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.log('Error:', error.message);
+      setErrors( error.message)
     }
   };
 
