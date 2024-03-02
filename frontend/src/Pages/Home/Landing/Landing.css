@@ -9,7 +9,7 @@ button:hover{
 
 /* === top section === */
 .top{
-    background: linear-gradient(90.05deg, #008280 1.26%, rgba(31, 163, 161, 0.58) 99.96%);
+    /* background: linear-gradient(90.05deg, #008280 1.26%, rgba(31, 163, 161, 0.58) 99.96%); */
     height: 60vh;
     display: flex;
     gap: 10px;
@@ -76,8 +76,8 @@ button:hover{
 /* === About === */
 
 .about{
-    background-color: #042439;
-    height: 40vh;
+    height: 39vh;
+    margin: 0 0 8rem 0;
 }
 
 .about h4{
@@ -101,7 +101,49 @@ button:hover{
     gap: 5rem;
 }
 
+/* === Subjects sectuon === */
+
+.courses{
+    margin: 5.5rem 0;
+}
+.courses p{
+    color: #042439;
+    font-size: larger;
+    font-weight: 700;
+    text-align: center;
+}
+.subjects{
+    display: flex;
+    gap: 2.5rem;
+    margin: 4rem;
+}
+
+.subject{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    background-color: #042439;
+    width: 150px;
+    height: 130px;
+    border-radius: 5px;
+}
+
+.subject p{
+    color: #fff;
+    font-size: medium;
+}
+
+.subject img{
+    width: 70px;
+}
+
 /* === Contact Us === */
+
+.contact-us{
+    margin-top: -5rem;
+}
 
 .contact h4{
     text-align: center;
@@ -112,5 +154,84 @@ button:hover{
 .contact .form-submit{
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 2rem;
+}
+
+.form-submit input{
+    width: 300px;
+    padding: 1rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #042439;
+    color: #fff;
+}
+
+.textArea{
+    height: 200px;
+    width: 300px;
+    resize: none;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #042439;
+    color: #fff;
+    line-height: 1.5rem;
+}
+
+.Submit-btn{
+    width: 333px;
+    background-color: #1021ba;
+    margin-bottom: 1rem;
+}
+
+/* === Footer === */
+.footer{
+    height: 230px;
+    background-color: #042439;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5rem;
+}
+
+.footer .leftPart{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #fff;
+}
+
+.footer .leftPart .title{
+    display: flex;
+    align-items: center;
+    color: #fff;
+    gap: 1rem;
+}
+
+.rightPart .links{
+    width: 25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    color: #fff;
+}
+
+.rightPart .links .link{
+    display: flex;
+    gap: 0.7rem;
+    width: 7rem;
+}
+
+.rightPart .links .link :hover{
+    color: #9433E0;
+}
+
+.hr{
+    margin: 2rem 0;
+}
+
+.icons{
+    margin-left: 15rem;
+    display: flex;
+    gap: 1rem;
 }

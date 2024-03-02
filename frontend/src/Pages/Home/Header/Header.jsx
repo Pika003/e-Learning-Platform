@@ -17,8 +17,9 @@ function Header() {
           <li><NavLink to='/contact' className={({isActive}) => isActive ? "active" : "deactive"}> Contact us </NavLink></li>
         </ul>
       </div>
-      <NavLink to='/Signup' className={({isActive}) => isActive ? "deactive" : "deactive"}><button>Login</button></NavLink>
+      <NavLink to='/login' className={({isActive}) => isActive ? "deactive" : "deactive"}><button>Login</button></NavLink>
     </header>
+    <div className="gapError"></div>
     </>
   )
 }

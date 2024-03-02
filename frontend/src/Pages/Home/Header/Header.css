@@ -10,7 +10,10 @@ header{
     position: fixed;
     width: 100%;
     z-index: 10;
-    box-shadow: 0 5px 5px #4979D1;
+    box-shadow: 0 10px 15px #4979D1;
+}
+.gapError{
+    height: 10vh;
 }
 .logo{
     display: flex;

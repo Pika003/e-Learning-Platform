@@ -1,5 +1,6 @@
 import React from 'react'
-import './cources.css'
+import '../Landing/Landing.css'
+import Footer from '../../Footer/Footer'
 
 function Courses() {
   return (
@@ -43,6 +44,7 @@ function Courses() {
         
       </div>
     </div>
+    <Footer/>
     </>
   )
 }

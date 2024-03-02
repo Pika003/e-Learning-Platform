@@ -1,8 +1,34 @@
 import React from 'react'
+import "../Landing/Landing.css";
+import Mail from "../../Images/Meet-the-team.svg";
 
 function Contact() {
   return (
-    <div>Contact</div>
+    <div className="contact">
+        <h4>Contact Us</h4>
+        <hr className="underLine"/>
+        <div className="content">
+          <img src={Mail} width={700} alt="" />
+          <form  className="form-submit">
+            <h4>Send Message</h4>
+            <input
+              type="text"
+              placeholder="Name"
+              className="input"
+            />
+            <input
+              type="text"
+              placeholder="Email Address"
+            />
+            <textarea
+              placeholder="Message"
+              className="textArea"
+              name="message"
+            />
+            <button className="Submit-btn">Send A Message</button>
+          </form>
+        </div>
+      </div>
   )
 }
 
