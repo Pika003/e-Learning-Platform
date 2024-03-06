@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {signup, mailVerified, login,logout} from "../controllers/student.controller.js";
+import {signup, mailVerified, login,logout, addStudentDetails} from "../controllers/student.controller.js";
 import {upload} from "../middlewares/multer.middleware.js"
 import {authSTD} from "../middlewares/stdAuth.middleware.js"
 import { authSchema } from "../middlewares/joiLogin.middleware.js";
@@ -19,5 +19,22 @@ router.route("/login").post(
 )
 
 router.route("/logout").post(authSTD, logout)
+
+router.route("/Verification/:id").post(authSTD,
+    upload.fields([
+        {
+            name:"Aadhaar",
+            maxCount:1,
+        },
+        {
+            name:"Secondary",
+            maxCount:1,
+        },
+        {
+            name:"Higher",
+            maxCount:1
+        }
+    ]) ,
+     addStudentDetails)
 
 export default router;

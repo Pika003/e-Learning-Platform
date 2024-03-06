@@ -1,8 +1,9 @@
 import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js";
-import {student} from "../models/student.model.js";
+import {student, studentdocs} from "../models/student.model.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
 import nodemailer from "nodemailer";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 
 
@@ -138,7 +139,6 @@ const login = asyncHandler(async(req,res) => {
     const Email = req.user.Email
     const Password = req.user.Password
 
-    console.log(Email)
     const StdLogin = await student.findOne({
         Email
     })
@@ -207,6 +207,71 @@ const logout = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200, {}, "User logged out"))
 })
 
+const addStudentDetails = asyncHandler(async(req, res)=>{
+    const {Phone, Address, Highesteducation, SecondarySchool, HigherSchool, SecondaryMarks, HigherMarks}  = req.body
+
+    if ([Phone, Address, Highesteducation, SecondarySchool, HigherSchool, SecondaryMarks, HigherMarks].some((field) => field?.trim() === "")) {
+        throw new ApiError(400, "All fields are required");
+    }
+
+    const id = req.params.id
+    if(req.Student._id != id){
+        throw new ApiError(400,"not authorized ")
+    }
+
+    const alreadyExist = await studentdocs.findOne({Phone})
+
+    if(alreadyExist){
+        throw new ApiError(400, "phone number already exists")
+    }
+
+    const AadhaarLocalPath = req.files?.Aadhaar?.[0]?.path;
+
+    const SecondaryLocalPath = req.files?.Secondary?.[0]?.path;
+
+    const HigherLocalPath = req.files?.Higher?.[0]?.path
+
+    if(!AadhaarLocalPath){
+        throw new ApiError(400, "Aadhaar is required")
+    }
+
+    if(!SecondaryLocalPath){
+        throw new ApiError(400, "Secondary marksheet is required")
+    }
+
+    if(!HigherLocalPath){
+        throw new ApiError(400, "Higher marksheet is required")
+    }
+
+    const Aadhaar = await uploadOnCloudinary(AadhaarLocalPath)
+    console.log(Aadhaar)
+    const Secondary = await uploadOnCloudinary(SecondaryLocalPath)
+
+    const Higher = await uploadOnCloudinary(HigherLocalPath)
+
+    const studentdetails = await studentdocs.create({
+        Phone,
+        Address,
+        Highesteducation,
+        SecondarySchool,
+        HigherSchool,
+        SecondaryMarks,
+        HigherMarks,
+        Aadhaar: Aadhaar.url,
+        Secondary: Secondary.url,
+        Higher: Higher.url,
+    })
+
+    console.log(studentdetails)
+
+    const loggedstd = await student.findByIdAndUpdate(id, { Studentdetails: studentdetails._id });
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, loggedstd, "documents uploaded successfully"))
+
+})
+
 export{
-    signup, mailVerified, login, logout
+    signup, mailVerified, login, logout, addStudentDetails
 }

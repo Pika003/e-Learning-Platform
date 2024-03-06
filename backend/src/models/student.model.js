@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -35,10 +35,20 @@ const studentSchema = new mongoose.Schema({
         type: Boolean,
         default: false 
     },
+
+    Isapproved:{
+        type:Boolean,
+        default:false,
+    },
     
     Refreshtoken:{
         type:String,
-    }
+    },
+
+    Studentdetails:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"studentdocs"
+    },
 
 },
 {
@@ -89,4 +99,68 @@ studentSchema.methods.generateRefreshToken = function(){
 }
 
 
-export const student = mongoose.model("student",studentSchema)
+
+const studentDetailsSchema = new mongoose.Schema({
+    Phone:{
+        type:Number,
+        required: true,
+        trim:true,
+        unique:true,
+    },
+
+    Address:{
+        type:String,
+        required:true,
+    },
+
+    Highesteducation:{
+        type:String,
+        required:true,
+    },
+
+    SecondarySchool:{
+        type:String,
+        required:true,
+    },
+
+    HigherSchool:{
+        type:String,
+        required:true,
+    },
+
+    SecondaryMarks:{
+        type:Number,
+        required:true,
+    },
+
+    HigherMarks:{
+        type:Number,
+        required:true,
+    },
+
+    Aadhaar:{
+        type:String,
+        required:true,
+    },
+
+    Secondary:{
+        type:String,
+        required:true,
+    },
+
+    Higher:{
+        type:String,
+        required:true,
+    },
+
+}, {
+    timestamps:true,
+})
+
+
+
+const student = mongoose.model("student",studentSchema)
+
+const studentdocs = mongoose.model("studentdocs", studentDetailsSchema)
+
+export {student, studentdocs}
