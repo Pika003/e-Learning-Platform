@@ -15,7 +15,7 @@ const authSTD = asyncHandler(async(req,_,next) =>{
     const decodedAccToken = jwt.verify(accToken,
         process.env.ACCESS_TOKEN_SECRET)
 
-    const Student = await student.findById(decodedAccToken?._id).select("-password -requestToken")
+    const Student = await student.findById(decodedAccToken?._id).select("-password -Refreshtoken")
 
     if(!Student){
         throw new ApiError(401, "invalid access token")

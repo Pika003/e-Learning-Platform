@@ -162,7 +162,7 @@ const login = asyncHandler(async(req,res) => {
     
     const {Accesstoken, Refreshtoken} =  await generateAccessAndRefreshTokens(tempStd)
 
-    const loggedInStd = await student.findById(tempStd).select(-Password -Refreshtoken)
+    const loggedInStd = await student.findById(tempStd).select("-Password -Refreshtoken")
 
     const options = {
         httpOnly:true,
@@ -208,15 +208,16 @@ const logout = asyncHandler(async(req,res)=>{
 })
 
 const addStudentDetails = asyncHandler(async(req, res)=>{
-    const {Phone, Address, Highesteducation, SecondarySchool, HigherSchool, SecondaryMarks, HigherMarks}  = req.body
-
-    if ([Phone, Address, Highesteducation, SecondarySchool, HigherSchool, SecondaryMarks, HigherMarks].some((field) => field?.trim() === "")) {
-        throw new ApiError(400, "All fields are required");
-    }
 
     const id = req.params.id
     if(req.Student._id != id){
         throw new ApiError(400,"not authorized ")
+    }
+
+    const {Phone, Address, Highesteducation, SecondarySchool, HigherSchool, SecondaryMarks, HigherMarks}  = req.body
+
+    if ([Phone, Address, Highesteducation, SecondarySchool, HigherSchool, SecondaryMarks, HigherMarks].some((field) => field?.trim() === "")) {
+        throw new ApiError(400, "All fields are required");
     }
 
     const alreadyExist = await studentdocs.findOne({Phone})
@@ -262,9 +263,8 @@ const addStudentDetails = asyncHandler(async(req, res)=>{
         Higher: Higher.url,
     })
 
-    console.log(studentdetails)
 
-    const loggedstd = await student.findByIdAndUpdate(id, { Studentdetails: studentdetails._id });
+    const loggedstd = await student.findByIdAndUpdate(id, { Studentdetails: studentdetails._id }).select("-Password -Refreshtoken")
 
     return res
     .status(200)

@@ -7,7 +7,7 @@ const authSchema = asyncHandler(async(req,_, next) =>{
 
     const schema = joi.object({
         Email: joi.string().email().lowercase().required(),
-        Password: joi.string().min(8).max(16).required()
+        Password: joi.string().min(6).max(16).required()
     })
     
     const result = await schema.validateAsync(req.body)

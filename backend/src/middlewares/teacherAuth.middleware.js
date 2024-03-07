@@ -14,11 +14,13 @@ const authTeacher = asyncHandler(async(req,_,next)=>{
     const decodedAccToken = jwt.verify(accToken,
         process.env.ACCESS_TOKEN_SECRET)
 
-    const teacher = Teacher.findById(decodedAccToken?._id).select("-password -refreshToken")
+    const teacher = await Teacher.findById(decodedAccToken?._id).select("-Password -Refreshtoken")
 
     if(!teacher){
         throw new ApiError(401, "invalid access token")
     }
+
+    console.log("lele", teacher)
 
     req.teacher = teacher
     next()

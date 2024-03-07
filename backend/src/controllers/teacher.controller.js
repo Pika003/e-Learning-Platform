@@ -1,8 +1,9 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
-import { Teacher } from "../models/teacher.model.js"; 
+import { Teacher, Teacherdocs } from "../models/teacher.model.js"; 
 import { ApiResponse } from "../utils/ApiResponse.js";
 import nodemailer from "nodemailer";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const verifyEmail = async (Email, Firstname, createdTeacherId) => {
     try {
@@ -44,13 +45,13 @@ const verifyEmail = async (Email, Firstname, createdTeacherId) => {
 const generateAccessAndRefreshTokens = async (teacherId) => { 
     try {
         const teacher = await Teacher.findById(teacherId);
-        const accessToken = teacher.generateAccessToken();
-        const refreshToken = teacher.generateRefreshToken();
+        const Accesstoken = teacher.generateAccessToken();
+        const Refreshtoken = teacher.generateRefreshToken();
 
-        teacher.refreshToken = refreshToken;
+        teacher.Refreshtoken = Refreshtoken;
         await teacher.save({ validateBeforeSave: false });
 
-        return { accessToken, refreshToken };
+        return { Accesstoken, Refreshtoken };
     } catch (error) {
         throw new ApiError(500, "Something went wrong while generating refresh and access token");
     }
@@ -140,9 +141,9 @@ const login = asyncHandler(async (req, res) => {
         throw new ApiError(401, "Password is incorrect");
     }
 
-    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(teacher._id);
+    const { Accesstoken, Refreshtoken } = await generateAccessAndRefreshTokens(teacher._id);
 
-    const loggedInTeacher = await Teacher.findById(teacher._id).select("-Password -RefreshToken");
+    const loggedInTeacher = await Teacher.findById(teacher._id).select("-Password -Refreshtoken");
 
     const options = {
         httpOnly: true,
@@ -151,8 +152,8 @@ const login = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
+        .cookie("Accesstoken", Accesstoken, options)
+        .cookie("Refreshtoken", Refreshtoken, options)
         .json(new ApiResponse(200, { user: loggedInTeacher }, "Logged in"));
 });
 
@@ -179,4 +180,86 @@ const logout = asyncHandler(async(req, res)=>{
     .clearCookie("refreshToken",  options)
     .json(new ApiResponse(200, {}, "User logged out"))
 })
-export { signup, mailVerified, login, logout };
+
+const addTeacherDetails = asyncHandler(async(req,res)=>{
+
+    const id = req.params.id
+    if(req.teacher._id != id){
+        throw new ApiError(400, "unauthroized access")
+    }
+
+    const{Phone, Address, Experience, SecondarySchool, HigherSchool,UGcollege, PGcollege, SecondaryMarks, HigherMarks, UGmarks, PGmarks} = req.body
+
+    if([Phone, Address, Experience, SecondarySchool, HigherSchool,UGcollege, PGcollege, SecondaryMarks, HigherMarks, UGmarks, PGmarks].some((field)=> field?.trim() === "")){
+        throw new ApiError(400, "All fields are required")
+    }
+
+    const alreadyExist = await Teacherdocs.findOne({Phone})
+
+    if(alreadyExist){
+        throw new ApiError(400, "Phone number already exist")
+    }
+
+    const AadhaarLocalPath = req.files?.Aadhaar?.[0]?.path;
+
+    const SecondaryLocalPath = req.files?.Secondary?.[0]?.path;
+
+    const HigherLocalPath = req.files?.Higher?.[0]?.path
+
+    const UGLocalPath = req.files?.UG?.[0]?.path
+
+    const PGLocalPath = req.files?.PG?.[0]?.path
+
+
+    if(!AadhaarLocalPath){
+        throw new ApiError(400, "Aadhaar is required")
+    }
+    if(!SecondaryLocalPath){
+        throw new ApiError(400, "Secondary marksheet is required")
+    }
+    if(!HigherLocalPath){
+        throw new ApiError(400, "Higher marksheet is required")
+    }
+    if(!UGLocalPath){
+        throw new ApiError(400, "UG marksheet is required")
+    }
+    if(!PGLocalPath){
+        throw new ApiError(400, "PG marksheet is required")
+    }
+
+
+    const Aadhaar = await uploadOnCloudinary(AadhaarLocalPath)
+    console.log(Aadhaar)
+    const Secondary = await uploadOnCloudinary(SecondaryLocalPath)
+    const Higher = await uploadOnCloudinary(HigherLocalPath)
+    const UG = await uploadOnCloudinary(UGLocalPath)
+    const PG = await uploadOnCloudinary(PGLocalPath)
+
+    const teacherdetails = await Teacherdocs.create({
+        Phone,
+        Address,
+        Experience,
+        SecondarySchool,
+        HigherSchool,
+        UGcollege,
+        PGcollege,
+        SecondaryMarks,
+        HigherMarks,
+        UGmarks,
+        PGmarks,
+        Aadhaar: Aadhaar.url,
+        Secondary: Secondary.url,
+        Higher: Higher.url,
+        UG:UG.url,
+        PG:PG.url,
+    })
+
+    const loggedTeacher = await Teacher.findByIdAndUpdate(id, {Teacherdetails: teacherdetails._id}).select("-Password -Refreshtoken")
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, loggedTeacher, "documents uploaded successfully"))
+
+})
+
+export { signup, mailVerified, login, logout, addTeacherDetails };
