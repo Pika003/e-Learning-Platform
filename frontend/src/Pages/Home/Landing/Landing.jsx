@@ -26,8 +26,8 @@ function Landing() {
       {/* Features */}
       <div className="features">
         <p>Why You Choose Us</p>
-        <hr className="underLine"/>
-        <div className="fets">
+        {/* <hr className="underLine"/> */}
+        <div className="fets2">
           <div className="fet">
             <img
               src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/622a85ea75414daadf6055613c074c5280b95444"

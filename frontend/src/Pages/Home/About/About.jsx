@@ -12,7 +12,7 @@ function About({backgroundC}) {
         <hr className="underLine"/>
         <div className="content">
           <div className="left-svg">
-            <img src={Plant2} width={100} alt="" />
+            <img src={Plant2} className="w-[22rem]" alt="" />
           </div>
           <p>
             Welcome to our platform! We are a team of final year students
@@ -22,7 +22,7 @@ function About({backgroundC}) {
             website as a bridge between proficient teachers and eager students.
           </p>
           <div className="right-svg">
-            <img src={Plant} width={170} alt="" />
+            <img src={Plant} className="w-[30rem]" alt="" />
           </div>
         </div>
     </div>

@@ -43,12 +43,12 @@ button:hover{
     line-height: 2; 
 }
 
-.fets{
+.fets2{
     height: 75%;
     display: flex;
     gap: 4rem;
     justify-content: center;
-    align-items: end;
+    /* align-items: end; */
 }
 .fet{
     background-color: #0E3A59;

@@ -25,7 +25,7 @@ function Contact() {
               className="textArea"
               name="message"
             />
-            <button className="Submit-btn">Send A Message</button>
+            <button className="w-[19rem] bg-light-blue-800">Send A Message</button>
           </form>
         </div>
       </div>

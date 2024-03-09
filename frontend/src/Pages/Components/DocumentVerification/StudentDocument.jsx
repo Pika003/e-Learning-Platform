@@ -1,75 +1,25 @@
-import React from 'react'
-import Input from './InputCOmponent/Input'
-import InputUpload from './Inputupload/InputUpload'
-
-
-
-
-
-
+import React from 'react';
 
 const StudentDocument = () => {
-
-
-  
-
-
   return (
-    <div>
-     <h1 className='text-center font-sans text-2xl text-white mt-7 font-semibold'>Document  Verification (Teacher)</h1>
-     <div className='border-[1.4px] border-white mt-5'></div>
-     <h2 className='mt-5 text-[#4b8fdd] font-sans font-bold text-2xl ml-[200px] '>Personal Information</h2>
-   
-   
-   
-   
-     <div className=' min-h-[100vh] w-[1200px]  mx-auto'>
-      {/* input-1 */}
-     <div className="flex justify-around mt-10">
-      <Input placeholder={'FirstName'}  label={'FirstName'} />
-      <Input placeholder={'LastName'}  label={'LastName'}/>
-    </div>
-      {/* input-2 */}
-     <div className="flex justify-around mt-10">
-      <Input placeholder={'Phone no.'}  label={'Phone no.'} />
-      <Input placeholder={'Home Address'}  label={'Home Address'}/>
-    </div>
-      {/* input-3 */}
-     <div className="flex justify-around mt-10">
-      <Input placeholder={'Experience(in years)'}  label={'Experience(in years)'} />
-      <InputUpload placeholder={'Upload Adhar'} label={'Upload Adhar'}/>
-     </div>
-
-    <div className='mt-20'>
-    <table className="table-auto w-full">
-      <tbody>
-        <tr className="border">
-          <td className="border-b-2 p-4"> <span>Secondary school</span></td>
-          <td className="border-b-2 p-4"><span>10Th school</span></td>
-          <td className="border-b-2 p-4">/<span>Total Marks in%</span></td>
-          <td className="border-b-2 border-l-2  border-r-2 p-4"><span></span></td>
-        </tr>
-        <tr className="bg-transparent">
-          <td className=" border-b-2 border-l-2 p-4"><span>Secondary school</span></td>
-          <td className=" border-b-2  p-4"><span>Secondary school</span></td>
-          <td className=" border-b-2 p-4 "><span>Secondary school</span></td>
-          <td className=" border-b-2  border-l-2  border-r-2 p-4 "><span>Secondary school</span></td>
-        </tr>
-        <tr className="bg-transparent">
-          <td className=" border-b-2 border-l-2 p-4"><span>Secondary school</span></td>
-          <td className=" border-b-2 p-4"><span>Secondary school</span></td>
-          <td className=" border-b-2 p-4 "><span>Secondary school</span></td>
-          <td className=" border-b-2  border-l-2 p-4 border-r-2  "><span>Secondary school</span></td>
-        </tr>
-      </tbody> 
-    </table>
-  
-
-    </div>
-  
-    </div>
-
-  </div>
+    <>
+      <div className='flex items-center gap-[25rem] px-32 py-2'>
+        <div className='flex items-center gap-3'>
+          <img src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/53619c42501fb7619406ed947b38c5fa4f07597c"
+          className="w-14" alt="" />
+          <h1 className='text-3xl text-[#4E84C1] font-bold'>Title</h1>
+        </div>
+        <h2 className='text-white'>Document Verification (Student) </h2>
+      </div>
+      <hr />
+      <p className='text-[#4E84C1] p-5 px-10'>Personal Information</p>
+      <div className='flex flex-col'>
+        <label className='text-white ml-7 font-bold'> First Name </label>
+        <input type="text" name="inputField" placeholder='First Name'
+        className=" focus:border-blue-800 outline-none placeholder:text-[#e5e5e5]  mt-3 py-3 px-7  border-2 text-[#e5e5e5] bg-transparent rounded-md w-80">
+        </input>
+      </div>
+    </>
   )
 }
 
