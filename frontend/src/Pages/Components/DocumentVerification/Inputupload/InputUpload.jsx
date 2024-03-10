@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-const InputUpload = ({ label, placeholder, button }) => {
+const InputUpload = ({ label, placeholder }) => {
   const [file, setFile] = useState(null);
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
   };
 
   const uploadFile = () => {
@@ -32,23 +33,25 @@ const InputUpload = ({ label, placeholder, button }) => {
   };
 
   return (
-    <div>
-      <label className='text-xl text-white ml-3 font-bold relative'>
-        {label}:
-        <div className="mt-4 relative rounded-md shadow-sm">
-         
-          <input
+      <div>
+      <label className='text-white ml-7 font-bold'>{label}</label>
+      <div className="mt-3 relative">
+        {/* Hidden file input */}
+        <input
           type="file"
-            value={file ? file.name : ''}
-            placeholder={placeholder}
-            onChange={handleFileChange}
-            className="focus:border-blue-800 outline-none  placeholder:text-white ring-5 block o  py-3 px-1 border-white border-2 text-white bg-transparent rounded-md"
-            readOnly
-          />
-         
-         
+          // value={file ? file.name : ''}
+          className="absolute inset-0 z-50 opacity-0 cursor-pointer"
+          onChange={handleFileChange}
+          readOnly
+        />
+        {/* Custom styled button */}
+        <div className="relative z-0 flex items-center justify-center w-80 py-3 px-7 border-2 text-[#e5e5e5] rounded-md cursor-pointer">
+          <span className='mr-28'>
+            {file ? file.name : placeholder}
+          </span>
+          <span className=' bg-[#0D286F] text-white p-[0.4rem] rounded-sm absolute right-2'>Browse Files</span>
         </div>
-      </label>
+      </div>
     </div>
   );
 }
