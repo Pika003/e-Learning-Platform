@@ -24,7 +24,7 @@ const TeacherDocument = () => {
 
       <div className='flex flex-wrap gap-20 px-36'>
         <Input label={"Home Address"} placeholder={"Home Address"}/>
-        <Input label={"Experience (In years)"} placeholder={"Experience (In years)"}/>
+        <Input label={"Experience (years)"} placeholder={"Experience (years)"}/>
         <InputUpload label={"Upload Aadhar Card"} placeholder={"Upload Aadhar Card"}/>
       </div>
       
@@ -37,7 +37,7 @@ const TeacherDocument = () => {
           <Input placeholder={"10th School Name"}/>
           <Input placeholder={"Total Marks (%)"}/>
           <div className=' mt-[-1.5rem]'>
-            <InputUpload placeholder={"Upload 12th Result"}/>
+            <InputUpload placeholder={"Upload 10th Result"}/>
           </div>
         </div>
         <hr />
@@ -54,30 +54,29 @@ const TeacherDocument = () => {
         <hr />
         <div className='flex flex-row gap-7'>
           <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm'>
-            <p className=' text-white text-sm'>Higher Secondary</p>
+            <p className=' text-white text-sm'>Under Graduation</p>
           </div>
-          <Input placeholder={"12th School Name"}/>
-          <Input placeholder={"Total Marks (%)"}/>
+          <Input placeholder={"U.G. College/University Name"}/>
+          <Input placeholder={"CGP/SGP out of 10"}/>
           <div className=' mt-[-1.5rem]'>
-            <InputUpload placeholder={"Upload 12th Result"}/>
+            <InputUpload placeholder={"Upload U.G. Result"}/>
           </div>
         </div>
         <hr />
         <div className='flex flex-row gap-7'>
-          <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm'>
-            <p className=' text-white text-sm'>Higher Secondary</p>
+          <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm px-5'>
+            <p className=' text-white text-sm'>Post Graduation</p>
           </div>
-          <Input placeholder={"12th School Name"}/>
-          <Input placeholder={"Total Marks (%)"}/>
+          <Input placeholder={"P.G. College/University Name"}/>
+          <Input placeholder={"CGP/SGP out of 10"}/>
           <div className=' mt-[-1.5rem]'>
-            <InputUpload placeholder={"Upload 12th Result"}/>
+            <InputUpload placeholder={"Upload P.G. Result"}/>
           </div>
         </div>
       </div>
-      <div className=' bg-[#0D286F] p-3 m-3 rounded-md absolute right-2 bottom-0 cursor-pointer'>
+      <div className=' bg-[#0D286F] p-3 m-6 rounded-md w-[5.7rem] ml-[85%] cursor-pointer'>
         <p className=' text-white text-sm'>Submit ▶️</p>
       </div>
-
     </>
   )
 }

@@ -85,10 +85,10 @@ export default function Login() {
   return (
     <section className="main">
       <div className="container">
-        <div className="logo">
+        {/* <div className="logo">
           <img src="" alt="" />
           <h1 className="head">Logo</h1>
-        </div>
+        </div> */}
         {/* headings */}
         <div className="para1">
           <h2> WELCOME BACK!</h2>

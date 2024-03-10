@@ -86,10 +86,10 @@ const Signup = () => {
   return (
     <div className="section">
       <article className="article">
-        <div className="logo-1">
+        {/* <div className="logo-1">
           <img src="" alt="" />
           <h4 className="logo-head">logo</h4>
-        </div>
+        </div> */}
         <div className="header">
           <h3 className="head">WELCOME</h3>
           <h4 className="Sub-head">join us today !!</h4>
