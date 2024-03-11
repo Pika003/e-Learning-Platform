@@ -5,30 +5,38 @@ import { useParams } from 'react-router-dom';
 
 const TeacherDocument = () => {
 
-  const{Data}=useParams()
-  console.log(Data);
-
-  const [data,setData]=useState([]);
- 
- async function fetchdata(url){
-  try{
-
-   const response=await fetch(url);
-   const result=response.json();
-   setData(result)
-
-  }catch(e){
-    console.log(e.message);
-  }
- }
+    const { Data } = useParams();
   
- useEffect(()=>{
-
-  fetchdata(`/teacher/TeacherDocument/${Data}`)
-
- },[])
+    useEffect(() => {
+      getData();
+    }, [Data]);
   
- console.log("coming",data);
+    const getData = async () => {
+      try {
+        const response = await fetch(`/api/teacher/TeacherDocument/${Data}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+  
+        const user = await response.json();
+
+        console.log("First name: ", user.data.Firstname);
+        console.log("Last name: ", user.data.Lastname);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+
+
+
+  
 
 
   const [firstName, setFirstName] = useState('');

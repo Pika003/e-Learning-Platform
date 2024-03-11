@@ -20,7 +20,6 @@ const authTeacher = asyncHandler(async(req,_,next)=>{
         throw new ApiError(401, "invalid access token")
     }
 
-    console.log("lele", teacher)
 
     req.teacher = teacher
     next()

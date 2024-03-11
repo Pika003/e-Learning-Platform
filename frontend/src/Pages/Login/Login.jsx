@@ -59,7 +59,7 @@ export default function Login() {
       // Handle response
       if (response.ok) {
         // Authentication successful, you can redirect or do something else
-        console.log("Login successful",responesData.data.user);
+        console.log("Login successful");
         
         
        if(userType === 'student'){

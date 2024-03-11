@@ -189,6 +189,7 @@ const inTeacher = asyncHandler(async(req,res) =>{
         throw new ApiError(400, "unauthroized access")
     }
 
+    console.log("here")
     return res
     .status(200)
     .json(new ApiResponse(200, user, "done"))
