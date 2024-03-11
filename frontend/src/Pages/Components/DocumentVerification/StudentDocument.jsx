@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import Input from './InputCOmponent/Input';
 import InputUpload from './Inputupload/InputUpload';
+import { useParams } from 'react-router-dom';
 
-const StudentDocument = ({firstName,lastName}) => {
-  // const [firstName, setFirstName] = useState(firstName);
-  // const [lastName, setLastName] = useState(lastName);
+const StudentDocument = () => {
+
+ 
+
+
+
+  // const [firstName, setFirstName] = useState();
+  // const [lastName, setLastName] = useState();
   const [phoneNo, setPhoneNo] = useState("");
   const [homeAddress, setHomeAddress] = useState("");
   const [highestEducation, setHighestEducation] = useState("");
@@ -49,13 +55,7 @@ function higherSecondarychange(e){
 
 
 
-  const handleInput = (e) => {
-    setFirstName(e.target.value);
-  };
 
-  const handleLastName = (e) => {
-    setLastName(e.target.value);
-  };
 
   const handlePhoneNo = (e) => {
     setPhoneNo(e.target.value);

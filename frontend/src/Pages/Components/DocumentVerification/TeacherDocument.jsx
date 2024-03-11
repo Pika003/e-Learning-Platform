@@ -1,9 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from './InputCOmponent/Input';
 import InputUpload from './Inputupload/InputUpload';
 import { useParams } from 'react-router-dom';
 
 const TeacherDocument = () => {
+
+  const { Data   }=useParams(); ///data coming
+
+  const [data,setData]=useState("");
+ 
+
+  
+
+  
+  useEffect(()=>{
+
+    setData(JSON.parse(Data))
+
+  },[])
+
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNo, setPhoneNo] = useState('');
@@ -25,7 +41,8 @@ const TeacherDocument = () => {
   const [pgFile, setPgFile] = useState(null);
   
   
-  
+ 
+ 
 
   // Function to handle file input change
   function handleFileChange(fileType, e) {
