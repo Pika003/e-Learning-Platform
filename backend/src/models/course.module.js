@@ -1,18 +1,15 @@
-import moonguse from "mongoose"
-import { student } from "./student.model"
-import { Teacher } from "./teacher.model"
+import mongoose from "mongoose"
 
-
-const courseSchema= new  moonguse.Schema({
+const courseSchema= new  mongoose.Schema({
 
 enrolledStudents:{
-    type:moonguse.Schema.Types.ObjectId,
+    type:mongoose.Schema.Types.ObjectId,
     ref:"student"
 
 },
 
 enrolledteacher:{
-    type:moonguse.Schema.Types.ObjectId,
+    type:mongoose.Schema.Types.ObjectId,
     ref:"Teacher"
 },
 
@@ -35,6 +32,6 @@ coursename:{
 
 },{timestamps:true})
 
-const course= moonguse.model('course',courseSchema)
+const course= mongoose.model('course',courseSchema)
 
 export default course;
