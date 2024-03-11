@@ -53,31 +53,33 @@ export default function Login() {
         body: JSON.stringify(data),
       });
 
-      const errorData = await response.json();
+      const responesData = await response.json()
     
       // Handle response
       if (response.ok) {
         // Authentication successful, you can redirect or do something else
         console.log("Login successful",errorData);
-          console.log(userType);
+        
+        
        if(userType === 'student'){
            navigate(`/StudentDocument1/${JSON.stringify(errorData)}`)
        }else if(userType === 'teacher'){
            navigate(`/TeacherDocument/${JSON.stringify(errorData)}`)
        }
       
+
       } else if (response.status === 401) {
         // Incorrect password
-        setErrors({ password: errorData.message || "Incorrect password" });
+        setErrors({ password: responesData.message || "Incorrect password" });
       } else if (response.status === 403) {
         // Account locked, disabled, or other authentication issues
 
-        setErrors({ general: errorData.message || "Login failed" });
+        setErrors({ general: responesData.message || "Login failed" });
       } else if (response.status === 400) {
-        setErrors({ general: errorData.message || "User does not exist" });
+        setErrors({ general: responesData.message || "User does not exist" });
       } else if (response.status === 422) {
         setErrors({
-          general: errorData.message || '"Email" must be a valid email',
+          general: responesData.message || '"Email" must be a valid email',
         });
       } else {
         // Other unexpected errors
