@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Input from './InputCOmponent/Input';
 import InputUpload from './Inputupload/InputUpload';
 
-const StudentDocument = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+const StudentDocument = ({firstName,lastName}) => {
+  // const [firstName, setFirstName] = useState(firstName);
+  // const [lastName, setLastName] = useState(lastName);
   const [phoneNo, setPhoneNo] = useState("");
   const [homeAddress, setHomeAddress] = useState("");
   const [highestEducation, setHighestEducation] = useState("");
@@ -142,8 +142,8 @@ function higherSecondarychange(e){
       <hr />
       <p className='text-[#4E84C1] p-5 px-10'>Personal Information</p>
       <div className='flex flex-wrap gap-20 px-36 mb-10'>
-        <Input label={"First Name"} placeholder={"First Name"} value={firstName} onChange={handleInput} />
-        <Input label={"Last Name"} placeholder={"Last Name"} value={lastName} onChange={handleLastName} />
+        <Input label={"First Name"} placeholder={"First Name"} value={firstName}  />
+        <Input label={"Last Name"} placeholder={"Last Name"} value={lastName}  />
         <Input label={"Phone No."} placeholder={"Phone No."} value={phoneNo} onChange={handlePhoneNo} />
       </div>
 

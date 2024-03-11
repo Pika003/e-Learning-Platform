@@ -57,8 +57,14 @@ export default function Login() {
       // Handle response
       if (response.ok) {
         // Authentication successful, you can redirect or do something else
-        console.log("Login successful");
-        Navigate("/");
+        console.log("Login successful",response);
+      
+       if(userType === 'student'){
+           Navigate('/StudentDocument1/')
+       }else if(userType === 'teacher'){
+           Navigate('/TeacherDocument')
+       }
+      
       } else if (response.status === 401) {
         // Incorrect password
         setErrors({ password: errorData.message || "Incorrect password" });
