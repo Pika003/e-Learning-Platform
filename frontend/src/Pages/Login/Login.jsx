@@ -58,13 +58,13 @@ export default function Login() {
       // Handle response
       if (response.ok) {
         // Authentication successful, you can redirect or do something else
-        console.log("Login successful",errorData);
+        console.log("Login successful",responesData.data.user);
         
         
        if(userType === 'student'){
-           navigate(`/StudentDocument1/${JSON.stringify(errorData)}`)
+           navigate(`/StudentDocument1/${JSON.stringify(responesData.data.user)}`)
        }else if(userType === 'teacher'){
-           navigate(`/TeacherDocument/${JSON.stringify(errorData)}`)
+           navigate(`/TeacherDocument/${JSON.stringify(responesData.data.user._id)}`)
        }
       
 

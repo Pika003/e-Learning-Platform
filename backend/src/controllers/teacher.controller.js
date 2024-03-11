@@ -181,6 +181,19 @@ const logout = asyncHandler(async(req, res)=>{
     .json(new ApiResponse(200, {}, "User logged out"))
 })
 
+const inTeacher = asyncHandler(async(req,res) =>{
+    const user = req.teacher
+
+    const id = req.params.id
+    if(req.teacher._id != id){
+        throw new ApiError(400, "unauthroized access")
+    }
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, user, "done"))
+})
+
 const addTeacherDetails = asyncHandler(async(req,res)=>{
 
     const id = req.params.id
@@ -262,4 +275,4 @@ const addTeacherDetails = asyncHandler(async(req,res)=>{
 
 })
 
-export { signup, mailVerified, login, logout, addTeacherDetails };
+export { signup, mailVerified, login, logout, addTeacherDetails, inTeacher };
