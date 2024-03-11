@@ -53,7 +53,7 @@ export default function Login() {
       });
 
       const errorData = await response.json();
-      console.log(errorData);
+    
       // Handle response
       if (response.ok) {
         // Authentication successful, you can redirect or do something else
