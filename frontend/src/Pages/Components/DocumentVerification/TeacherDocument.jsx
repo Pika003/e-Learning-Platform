@@ -5,19 +5,30 @@ import { useParams } from 'react-router-dom';
 
 const TeacherDocument = () => {
 
-  const { Data   }=useParams(); ///data coming
+  const{Data}=useParams()
+  console.log(Data);
 
-  const [data,setData]=useState("");
+  const [data,setData]=useState([]);
  
+ async function fetchdata(url){
+  try{
 
+   const response=await fetch(url);
+   const result=response.json();
+   setData(result)
+
+  }catch(e){
+    console.log(e.message);
+  }
+ }
   
+ useEffect(()=>{
 
+  fetchdata(`/teacher/TeacherDocument/${Data}`)
+
+ },[])
   
-  useEffect(()=>{
-
-    setData(Data)
-
-  },[])
+ console.log("coming",data);
 
 
   const [firstName, setFirstName] = useState('');

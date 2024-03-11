@@ -63,7 +63,7 @@ export default function Login() {
         
         
        if(userType === 'student'){
-           navigate(`/StudentDocument1/${JSON.stringify(responesData.data.user)}`)
+           navigate(`/StudentDocument1/${userid}`)
        }else if(userType === 'teacher'){
            navigate(`/TeacherDocument/${userid}`)
        }
