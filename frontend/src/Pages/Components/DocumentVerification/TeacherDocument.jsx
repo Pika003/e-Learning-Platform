@@ -1,19 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from './InputCOmponent/Input';
 import InputUpload from './Inputupload/InputUpload';
+import { useParams } from 'react-router-dom';
 
 const TeacherDocument = () => {
+
+  const { Data   }=useParams(); ///data coming
+
+  const [data,setData]=useState("");
+ 
+
+  
+
+  
+  useEffect(()=>{
+
+    setData(JSON.parse(Data))
+
+  },[])
+
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNo, setPhoneNo] = useState('');
   const [homeAddress, setHomeAddress] = useState('');
   const [experience, setExperience] = useState('');
+  const [Secondary,SecondarySchool]=useState('');
+  const [SecondaryMarks,SetsecondaryMarks] = useState('');
+  const [HigherSecondaryName,setHigherSecondaryName]=useState('')
+  const [HigherSecondaryMarks,setHigherSecondaryMarks]=useState('')
+  const [UgName,setUgName]=useState('')
+  const [cgp,setCgp]=useState('')
+  const [pgName,setPgName]=useState('')
+  const [SgpName,setSgpName]=useState('')
 
   const [aadharFile, setAadharFile] = useState(null);
   const [secondaryFile, setSecondaryFile] = useState(null);
   const [higherSecondaryFile, setHigherSecondaryFile] = useState(null);
   const [ugFile, setUgFile] = useState(null);
   const [pgFile, setPgFile] = useState(null);
+  
+  
+ 
+ 
 
   // Function to handle file input change
   function handleFileChange(fileType, e) {
@@ -43,22 +72,34 @@ const TeacherDocument = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Form data object
-    const data = {
-      FirstName: firstName,
-      LastName: lastName,
-      Phone: phoneNo,
-      Address: homeAddress,
-      Experience: experience,
-      Aadhaar: aadharFile ? aadharFile.name : 'Not Uploaded',
-      Secondary: secondaryFile ? secondaryFile.name : 'Not Uploaded',
-      Higher: higherSecondaryFile ? higherSecondaryFile.name : 'Not Uploaded',
-      UG: ugFile ? ugFile.name : 'Not Uploaded',
-      PG: pgFile ? pgFile.name : 'Not Uploaded',
-    };
+
+
+ const data={
+
+        Phone:phoneNo,
+        Address:homeAddress,
+        Experience:experience,
+        SecondarySchool:Secondary,
+        HigherSchool:HigherSecondaryName,
+        UGcollege:UgName,
+        PGcollege:pgName,
+        SecondaryMarks:SecondaryMarks,
+        HigherMarks:HigherSecondaryMarks,
+        UGmarks:cgp,
+        PGmarks:SgpName,
+        Aadhaar:aadharFile ? aadharFile.name : 'Not Uploaded',
+        Secondary: secondaryFile ? secondaryFile.name : 'Not Uploaded',
+        Higher: higherSecondaryFile ? higherSecondaryFile.name : 'Not Uploaded',
+        UG: ugFile ? ugFile.name : 'Not Uploaded',
+        PG: pgFile ? pgFile.name : 'Not Uploaded',
+
+    }
+
+
+
 
     
-    const backendurl = 'YOUR_BACKEND_URL'; 
+    const backendurl = '/api/teacher/verification/'; 
 
     try {
     
@@ -108,8 +149,8 @@ const TeacherDocument = () => {
           <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm'>
             <p className=' text-white text-sm'>Secondary School</p>
           </div>
-          <Input placeholder={"10th School Name"} />
-          <Input placeholder={"Total Marks (%)"}/>
+          <Input placeholder={"10th School Name"} onChange={(e)=>SecondarySchool(e.target.value)} />
+          <Input placeholder={"Total Marks (%)"}  onChange={(e)=>SetsecondaryMarks(e.target.value)}  />
           <div className=' mt-[-1.5rem]'>
             <InputUpload placeholder={"Upload 10th Result"} value={secondaryFile} onChange={(e) => handleFileChange('secondary', e)} />
           </div>
@@ -119,8 +160,8 @@ const TeacherDocument = () => {
           <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm'>
             <p className=' text-white text-sm'>Higher Secondary</p>
           </div>
-          <Input placeholder={"12th School Name"} />
-          <Input placeholder={"Total Marks (%)"}/>
+          <Input placeholder={"12th School Name"} onChange={(e)=>setHigherSecondaryName(e.target.value)} />
+          <Input placeholder={"Total Marks (%)"} onChange={(e)=>setHigherSecondaryMarks(e.target.value)}/>
           <div className=' mt-[-1.5rem]'>
             <InputUpload placeholder={"Upload 12th Result"} value={higherSecondaryFile}onChange={(e) => handleFileChange('higherSecondary', e)} />
           </div>
@@ -130,8 +171,8 @@ const TeacherDocument = () => {
           <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm'>
             <p className=' text-white text-sm'>Under Graduation</p>
           </div>
-          <Input placeholder={"U.G. College/University Name"} />
-          <Input placeholder={"CGP/SGP out of 10"}/>
+          <Input placeholder={"U.G. College/University Name"} onChange={(e)=>setUgName(e.target.value)} />
+          <Input placeholder={"CGP/SGP out of 10"} onChange={(e)=>setCgp(e.target.value)}/>
           <div className=' mt-[-1.5rem]'>
             <InputUpload placeholder={"Upload U.G. Result"} value={ugFile} onChange={(e) => handleFileChange('ug', e)} />
           </div>
@@ -141,8 +182,8 @@ const TeacherDocument = () => {
           <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm px-5'>
             <p className=' text-white text-sm'>Post Graduation</p>
           </div>
-          <Input placeholder={"P.G. College/University Name"} />
-          <Input placeholder={"CGP/SGP out of 10"}/>
+          <Input placeholder={"P.G. College/University Name"} onChange={(e)=>setPgName(e.target.value)}/>
+          <Input placeholder={"CGP/SGP out of 10"}onChange={(e)=>setSgpName(e.target.value)}/>
           <div className=' mt-[-1.5rem]'>
             <InputUpload placeholder={"Upload P.G. Result"} value={pgFile} onChange={(e) => handleFileChange('pg', e)} />
           </div>

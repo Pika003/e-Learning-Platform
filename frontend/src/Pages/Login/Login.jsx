@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import HR from "../Login/Images/HR.svg";
 import "./Login.css";
-import { NavLink, Navigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Radiobtn from "../Components/RadioBtn/Radiobtn";
 
 export default function Login() {
@@ -12,6 +12,7 @@ export default function Login() {
   const [userType, setUserType] = useState('');
 
 
+  const navigate=useNavigate()
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
@@ -57,8 +58,16 @@ export default function Login() {
       // Handle response
       if (response.ok) {
         // Authentication successful, you can redirect or do something else
-        console.log("Login successful", responesData);
-        Navigate("/");
+        console.log("Login successful",errorData);
+        
+        
+       if(userType === 'student'){
+           navigate(`/StudentDocument1/${JSON.stringify(errorData)}`)
+       }else if(userType === 'teacher'){
+           navigate(`/TeacherDocument/${JSON.stringify(errorData)}`)
+       }
+      
+
       } else if (response.status === 401) {
         // Incorrect password
         setErrors({ password: responesData.message || "Incorrect password" });
