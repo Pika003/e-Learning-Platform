@@ -15,7 +15,7 @@ const TeacherDocument = () => {
   
   useEffect(()=>{
 
-    setData(JSON.parse(Data))
+    setData(Data)
 
   },[])
 
