@@ -8,10 +8,10 @@ const TeacherDocument = () => {
   const [data,setdata]=useState([])
 
     const { Data } = useParams();
-  
+ 
     useEffect(() => {
       getData();
-    }, [Data]);
+    }, []);
   
     const getData = async () => {
       try {
@@ -92,7 +92,6 @@ const TeacherDocument = () => {
     e.preventDefault();
 
 
-
  const details={
 
         Phone:phoneNo,
@@ -106,14 +105,13 @@ const TeacherDocument = () => {
         HigherMarks:HigherSecondaryMarks,
         UGmarks:cgp,
         PGmarks:SgpName,
-        Aadhaar:aadharFile ? aadharFile.name : 'Not Uploaded',
-        Secondary: secondaryFile ? secondaryFile.name : 'Not Uploaded',
-        Higher: higherSecondaryFile ? higherSecondaryFile.name : 'Not Uploaded',
-        UG: ugFile ? ugFile.name : 'Not Uploaded',
-        PG: pgFile ? pgFile.name : 'Not Uploaded',
+        Aadhaar:aadharFile ,
+        Secondary: secondaryFile ,
+        Higher: higherSecondaryFile ,
+        UG: ugFile ,
+        PG: pgFile ,
 
     }
-
 
 
 
@@ -133,15 +131,15 @@ const TeacherDocument = () => {
       const responseData=await response.json()
 console.log('response',responseData);
 
-      if (response.ok) {
-       console.log('posted SUccessfully');
+      if (!response.ok) {
+       console.log('!notdone');
       }    
 
     } catch (err) {
       console.log('Error:', err)
     }
 
-    console.log('Teacher form data:', data);
+    console.log('Teacher form data:', details);
   };
 
   return (
@@ -155,6 +153,7 @@ console.log('response',responseData);
         <h2 className='text-white text-xl'>Document Verification (Teacher) </h2>
       </div>
       <hr />
+      <form onSubmit={handleSubmit}>
       <p className='text-[#4E84C1] p-5 px-10'>Personal Information</p>
       <div className='flex flex-wrap gap-20 px-36 mb-10'>
         <Input label={"First Name"} placeholder={"First Name"} value={ data.Firstname }   />
@@ -214,9 +213,10 @@ console.log('response',responseData);
           </div>
         </div>
       </div>
-      <div className=' bg-[#0D286F] p-3 m-6 rounded-md w-[5.7rem] ml-[85%] cursor-pointer' onClick={handleSubmit}>
-        <p className=' text-white text-sm'>Submit ▶️</p>
+      <div className=' bg-[#0D286F] p-3 m-6 rounded-md w-[5.7rem] ml-[85%] cursor-pointer' >
+        <button className=' text-white text-sm' type='Submit' >Submit ▶️</button>
       </div>
+      </form>
     </>
   );
 };
