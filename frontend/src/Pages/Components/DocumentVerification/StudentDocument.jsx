@@ -1,164 +1,92 @@
 import React, { useEffect, useState } from 'react';
-import Input from './InputCOmponent/Input';
+import Input from './InputComponent/Input';
 import InputUpload from './Inputupload/InputUpload';
 import { useParams } from 'react-router-dom';
 
 const StudentDocument = () => {
+  const [data,setdata]=useState([]);
+  const { Data } =useParams()
 
- const { Data } =useParams()
- const [data,setdata]=useState([]);
- const [Error,SetError]=useState({});
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetch(`/api/student/StudentDocument/${Data}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
- useEffect(() => {
-  getData();
-}, [Data]);
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
 
-const getData = async () => {
-  try {
-    const response = await fetch(`/api/student/StudentDocument/${Data}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch data');
-    }
-
-    const user = await response.json();
-    
-    setdata(user.data)
-
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-console.log(data);
-
-  const [phoneNo, setPhoneNo] = useState("");
-  const [homeAddress, setHomeAddress] = useState("");
-  const [highestEducation, setHighestEducation] = useState("");
-  const [secondaryMarks, setSecondaryMarks] = useState("");
-  const [secondarySchool, setSecondarySchool] = useState("");
-  const [higherSecondarySchool, setHigherSecondarySchool] = useState("");
-  const [higherSchoolMarks, setHigherSchoolMarks] = useState("");
-
-
-  const [aadharFile, setAadharFile] = useState(null);
-  const [secondaryFile, setSecondaryFile] = useState(null);
-  const [higherSecondaryFile, setHigherSecondaryFile] = useState(null);
-
-
- 
-
-
-
-
-
-
-
-
- function handleadharChange(e){
-  
-  const selectedFile = e.target.files[0];
-  setAadharFile(selectedFile)
-  
- }
-
-
- function handleSecondaryFile(e){
-   const selectedFile=e.target.files[0];
-   setSecondaryFile(selectedFile)
- }
-
-
-
-function higherSecondarychange(e){
-  const selectedFile=e.target.files[0];
-  setHigherSecondaryFile(selectedFile)
-}
-
-
-
-
-
-
-
-
-  const handlePhoneNo = (e) => {
-    setPhoneNo(e.target.value);
-   
-  };
-
-  const handleAddress = (e) => {
-    setHomeAddress(e.target.value);
-  };
-
-  const handleEducation = (e) => {
-    setHighestEducation(e.target.value);
-  };
-
-  const handleSchool = (e) => {
-    setSecondarySchool(e.target.value);
-  };
-
-  const handleMarks = (e) => {
-    setSecondaryMarks(e.target.value);
-  };
-
-  const handleSecondarySchool = (e) => {
-    setHigherSecondarySchool(e.target.value);
-  };
-
-  const handleSchoolMarks = (e) => {
-    setHigherSchoolMarks(e.target.value);
-  };
-
-
- async function handleSubmit(e){
-    e.preventDefault();
-    const data = {
-      Phone: phoneNo,
-      Address: homeAddress,
-      HighestEducation: highestEducation,
-      SecondarySchool: secondarySchool,
-      HigherSecondarySchool: higherSecondarySchool,
-      SecondaryMarks: secondaryMarks,
-      HigherSchoolMarks: higherSchoolMarks,
-      Aadhaar: aadharFile ? aadharFile.name : 'Not Uploaded',
-      Secondary: secondaryFile ? secondaryFile.name : 'Not Uploaded',
-      Higher: higherSecondaryFile ? higherSecondaryFile.name : 'Not Uploaded',
+        const user = await response.json();
+        setdata(user.data);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
-    const backendurl='';
-  
-    try{
-      const response=await fetch(backendurl,{
-        method:'POST',
-        headers:{
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+    getData();
+  },[]);
+
+  const [formData, setFormData] = useState({
+    Phone: data.Phone || '',
+    Address: data.Address || '',
+    Highesteducation: data.Highesteducation || '',
+    SecondarySchool: data.SecondarySchool || '',
+    HigherSchool: data.HigherSchool || '',
+    SecondaryMarks: data.SecondaryMarks || '',
+    HigherMarks: data.HigherMarks || '',
+    Aadhaar: null,
+    Secondary: null,
+    Higher: null,
+  });
+
+  const handleFileChange = (fileType, e) => {
+    setFormData({
+      ...formData,
+      [fileType]: e.target.files[0],
+    });
+  };
+
+  const handleInputChange = (field, value) => {
+    setFormData({
+      ...formData,
+      [field]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formDataObj = new FormData();
+
+    Object.keys(formData).forEach((key) => {
+      formDataObj.append(key, formData[key]);
+    });
+
+    try {
+      const response = await fetch(`/api/student/verification/${Data}`, {
+        method: 'POST',
+        body: formDataObj,
       });
 
-       
-      const user=await response.json()
-      if(response.ok){
-        console.log('Posted Succesfully',user);
-      }
+      const responseData = await response.json();
+      console.log('response', responseData);
 
-
-    }catch(err){
+      if (!response.ok) {
+        console.log(responseData.message); 
+      } else {
+        
+        console.log('Form submitted successfully!');
     
-      SetError(err.message);
-      console.log(e.message);
-  
+      }
+    } catch (e) {
+      console.error('Error:', e);
     }
-    console.log("gopi",data);
-
-  }
+  };
   
 
   return (
@@ -172,48 +100,50 @@ function higherSecondarychange(e){
         <h2 className='text-white text-xl'>Document Verification (Student) </h2>
       </div>
       <hr />
-      <p className='text-[#4E84C1] p-5 px-10'>Personal Information</p>
-      <div className='flex flex-wrap gap-20 px-36 mb-10'>
-        <Input label={"First Name"} placeholder={"First Name"} value={data.Firstname} readonly />
-        <Input label={"Last Name"} placeholder={"Last Name"} value={data.Lastname} readonly  />
-        <Input label={"Phone No."} placeholder={"Phone No."} value={phoneNo} onChange={handlePhoneNo} />
-      </div>
+      <form onSubmit={handleSubmit}>
+        <p className='text-[#4E84C1] p-5 px-10'>Personal Information</p>
+        <div className='flex flex-wrap gap-20 px-36 mb-10'>
+          <Input label={"First Name"} placeholder={"First Name"} value={data.Firstname} readonly />
+          <Input label={"Last Name"} placeholder={"Last Name"} value={data.Lastname} readonly  />
+          <Input label={"Phone No."} placeholder={"Phone No."} value={formData.Phone} onChange={(e)=>handleInputChange("Phone", e.target.value)} />
+        </div>
 
-      <div className='flex flex-wrap gap-20 px-36'>
-        <Input label={"Home Address"} placeholder={"Home Address"} value={homeAddress} onChange={handleAddress} />
-        <Input label={"Highest Education"} placeholder={"Highest Education"} value={highestEducation} onChange={handleEducation} />
-        <InputUpload label={"Upload Aadhar Card"} placeholder={"Upload Aadhar Card"} value={aadharFile} onChange={(e)=>handleadharChange(e)}/>
-      </div>
-       
-      <p className='text-[#4E84C1] p-5 px-10 pt-10'>Educational Information</p>
-      <div className='border h-full mx-36 '>
-        <div className='flex flex-row gap-7 '>
-          <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm'>
-            <p className=' text-white text-sm'>Secondary School</p>
+        <div className='flex flex-wrap gap-20 px-36'>
+          <Input label={"Home Address"} placeholder={"Home Address"} value={formData.Address} onChange={(e) => handleInputChange("Address", e.target.value)} />
+          <Input label={"Highest Education"} placeholder={"Highest Education"} value={formData.Highesteducation} onChange={(e) => handleInputChange("Highesteducation", e.target.value)} />
+          <InputUpload label={"Upload Aadhar Card"} placeholder={"Upload Aadhar Card"} value={formData.Aadhaar}  onChange={(e) => handleFileChange('Aadhaar', e)}/>
+        </div>
+        
+        <p className='text-[#4E84C1] p-5 px-10 pt-10'>Educational Information</p>
+        <div className='border h-full mx-36 '>
+          <div className='flex flex-row gap-7 '>
+            <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm'>
+              <p className=' text-white text-sm'>Secondary School</p>
+            </div>
+            <Input placeholder={"10th School Name"} value={formData.SecondarySchool}  onChange={(e) => handleInputChange("SecondarySchool", e.target.value)} />
+            <Input placeholder={"Total Marks (%)"} value={formData.SecondaryMarks} onChange={(e) => handleInputChange("SecondaryMarks", e.target.value)} />
+            <div className=' mt-[-1.5rem]'>
+              <InputUpload placeholder={"Upload 10th Result"} value={formData.Secondary} onChange={(e) => handleFileChange('Secondary', e)} />
+            </div>
           </div>
-          <Input placeholder={"10th School Name"} value={secondarySchool} onChange={handleSchool} />
-          <Input placeholder={"Total Marks (%)"} value={secondaryMarks} onChange={handleMarks} />
-          <div className=' mt-[-1.5rem]'>
-            <InputUpload placeholder={"Upload 10th Result"} value={secondaryFile} onChange={(e)=>handleSecondaryFile(e)} />
+          <hr />
+          <div className='flex flex-row gap-7'>
+            <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm'>
+              <p className=' text-white text-sm'>Higher Secondary</p>
+            </div>
+            <Input placeholder={"12th School Name"} value={formData.HigherSchool} onChange={(e) => handleInputChange("HigherSchool", e.target.value)} />
+            <Input placeholder={"Total Marks (%)"} value={formData.HigherMarks} onChange={(e) => handleInputChange("HigherMarks", e.target.value)}/>
+            <div className=' mt-[-1.5rem]'>
+              <InputUpload placeholder={"Upload 12th Result"} value={formData.Higher} onChange={(e) => handleFileChange('Higher', e)} />
+            </div>
           </div>
         </div>
-        <hr />
-        <div className='flex flex-row gap-7'>
-          <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm'>
-            <p className=' text-white text-sm'>Higher Secondary</p>
-          </div>
-          <Input placeholder={"12th School Name"} value={higherSecondarySchool} onChange={handleSecondarySchool} />
-          <Input placeholder={"Total Marks (%)"} value={higherSchoolMarks} onChange={handleSchoolMarks} />
-          <div className=' mt-[-1.5rem]'>
-            <InputUpload placeholder={"Upload 12th Result"} value={higherSecondaryFile} onChange={(e)=>higherSecondarychange(e)} />
-          </div>
+        <div className=' bg-[#0D286F] p-3 m-3 rounded-md absolute right-32 bottom-5 cursor-pointer'>
+          <button className=' text-white text-sm' type='Submit'>Submit ▶️</button>
         </div>
-      </div>
-      <div className=' bg-[#0D286F] p-3 m-3 rounded-md absolute right-32 bottom-5 cursor-pointer' onClick={()=>handleSubmit}>
-        <p className=' text-white text-sm'>Submit ▶️</p>
-      </div>
+      </form>
     </>
   );
- };
+};
 
 export default StudentDocument;
