@@ -43,7 +43,7 @@ const TeacherDocument = () => {
     cgp: data.cgp || '',
     pgName: data.pgName || '',
     SgpName: data.SgpName || '',
-    aadharFile: null,
+    Aadhaar: null,
     secondaryFile: null,
     higherSecondaryFile: null,
     ugFile: null,
@@ -71,18 +71,20 @@ const TeacherDocument = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a new FormData object
-    const formDataObj = new FormData();
+ 
+    // const formDataObj = new FormData();
 
-    // Append data to the FormData object
-    Object.keys(formData).forEach((key) => {
-      formDataObj.append(key, formData[key]);
-    });
+    // Object.keys(formData).forEach((key) => {
+    //   formDataObj.append(key, formData[key]);
+    // });
+
+    // console.log("dataobject",formDataObj);
 
     try {
       const response = await fetch(`/api/teacher/verification/${Data}`, {
         method: 'POST',
-        body: formDataObj,
+        body: formData,
+     
       });
 
       const responseData = await response.json();
@@ -91,8 +93,8 @@ const TeacherDocument = () => {
       if (!response.ok) {
         console.log('!notdone');
       }
-    } catch (err) {
-      console.log('Error:', err);
+    } catch (e) {
+      console.log('Error:',e);
     }
 
     console.log('Teacher form data:', formData);
@@ -148,8 +150,8 @@ const TeacherDocument = () => {
           <InputUpload
             label={"Upload Aadhar Card"}
             placeholder={"Upload Aadhar Card"}
-            value={formData.aadharFile}
-            onChange={(e) => handleFileChange('aadharFile', e)}
+            value={formData.Aadhaar}
+            onChange={(e) => handleFileChange('Aadhaar', e)}
           />
         </div>
 
