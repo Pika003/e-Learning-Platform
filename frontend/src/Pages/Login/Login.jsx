@@ -54,6 +54,7 @@ export default function Login() {
       });
 
       const responesData = await response.json()
+      console.log(responesData);
       const userid = responesData.data.user._id
  
       // Handle response
