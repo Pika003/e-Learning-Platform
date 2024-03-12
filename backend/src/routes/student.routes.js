@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {signup, mailVerified, login,logout, addStudentDetails} from "../controllers/student.controller.js";
+import {signup, mailVerified, login,logout, addStudentDetails, getStudent} from "../controllers/student.controller.js";
 import {upload} from "../middlewares/multer.middleware.js"
 import {authSTD} from "../middlewares/stdAuth.middleware.js"
 import { authSchema } from "../middlewares/joiLogin.middleware.js";
@@ -35,6 +35,8 @@ router.route("/Verification/:id").post(authSTD,
             maxCount:1
         }
     ]) ,
-     addStudentDetails)
+    addStudentDetails)
+     
+router.route("/StudentDocument/:id").get(authSTD, getStudent)
 
 export default router;

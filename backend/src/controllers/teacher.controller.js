@@ -181,7 +181,7 @@ const logout = asyncHandler(async(req, res)=>{
     .json(new ApiResponse(200, {}, "User logged out"))
 })
 
-const inTeacher = asyncHandler(async(req,res) =>{
+const getTeacher = asyncHandler(async(req,res) =>{
     const user = req.teacher
 
     const id = req.params.id
@@ -189,7 +189,6 @@ const inTeacher = asyncHandler(async(req,res) =>{
         throw new ApiError(400, "unauthroized access")
     }
 
-    console.log("here")
     return res
     .status(200)
     .json(new ApiResponse(200, user, "done"))
