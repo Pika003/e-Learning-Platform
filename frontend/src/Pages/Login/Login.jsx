@@ -55,7 +55,7 @@ export default function Login() {
 
       const responesData = await response.json()
       const userid = responesData.data.user._id
-      console.log("lelo", userid)
+ 
       // Handle response
       if (response.ok) {
         // Authentication successful, you can redirect or do something else
@@ -63,7 +63,7 @@ export default function Login() {
         
         
        if(userType === 'student'){
-           navigate(`/StudentDocument1/${userid}`)
+           navigate(`/StudentDocument/${userid}`)
        }else if(userType === 'teacher'){
            navigate(`/TeacherDocument/${userid}`)
        }

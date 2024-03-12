@@ -1,16 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from './InputCOmponent/Input';
 import InputUpload from './Inputupload/InputUpload';
 import { useParams } from 'react-router-dom';
 
 const StudentDocument = () => {
 
- 
+ const { Data } =useParams()
+ const [data,setdata]=useState([]);
+ const [Error,SetError]=useState({});
 
+ useEffect(() => {
+  getData();
+}, [Data]);
 
+const getData = async () => {
+  try {
+    const response = await fetch(`/api/student/StudentDocument/${Data}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-  // const [firstName, setFirstName] = useState();
-  // const [lastName, setLastName] = useState();
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
+
+    const user = await response.json();
+    
+    setdata(user.data)
+
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+console.log(data);
+
   const [phoneNo, setPhoneNo] = useState("");
   const [homeAddress, setHomeAddress] = useState("");
   const [highestEducation, setHighestEducation] = useState("");
@@ -25,7 +51,11 @@ const StudentDocument = () => {
   const [higherSecondaryFile, setHigherSecondaryFile] = useState(null);
 
 
-  const [Error,SetError]=useState({});
+ 
+
+
+
+
 
 
 
@@ -113,7 +143,11 @@ function higherSecondarychange(e){
         body: JSON.stringify(data),
       });
 
-      console.log(response.ok);
+       
+      const user=await response.json()
+      if(response.ok){
+        console.log('Posted Succesfully',user);
+      }
 
 
     }catch(err){
@@ -122,9 +156,7 @@ function higherSecondarychange(e){
       console.log(e.message);
   
     }
-    console.log("gopi ki gaand",data);
-
-    
+    console.log("gopi",data);
 
   }
   
@@ -142,8 +174,8 @@ function higherSecondarychange(e){
       <hr />
       <p className='text-[#4E84C1] p-5 px-10'>Personal Information</p>
       <div className='flex flex-wrap gap-20 px-36 mb-10'>
-        <Input label={"First Name"} placeholder={"First Name"} value={firstName}  />
-        <Input label={"Last Name"} placeholder={"Last Name"} value={lastName}  />
+        <Input label={"First Name"} placeholder={"First Name"} value={data.Firstname} readonly />
+        <Input label={"Last Name"} placeholder={"Last Name"} value={data.Lastname} readonly  />
         <Input label={"Phone No."} placeholder={"Phone No."} value={phoneNo} onChange={handlePhoneNo} />
       </div>
 
