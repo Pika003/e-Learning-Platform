@@ -12,6 +12,7 @@ import { RouterProvider, Route, createBrowserRouter, createRoutesFromElements } 
 import Layout from './Layout'
 import StudentDocument from './Pages/Components/DocumentVerification/StudentDocument'
 import TeacherDocument from './Pages/Components/DocumentVerification/TeacherDocument'
+import VarifyEmail from './Pages/Components/VarifyEmail/VarifyEmail'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
       <Route path='/courses' element={<Courses/> }/>
       <Route path='/contact' element={<Contact/>}/>
       <Route path='/about' element={<About/>}/>
+      <Route path='/varifyEmail' element={<VarifyEmail/>}/>
     </Route>
  )
 )
@@ -31,7 +33,5 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-    {/* <TeacherDocument/>
-    <StudentDocument/> */}
   </React.StrictMode>,
 )

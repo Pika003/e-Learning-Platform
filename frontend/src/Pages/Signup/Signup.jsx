@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Styles.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Images from "../Images/Grammar-correction.svg";
 import Radiobtn from "../Components/RadioBtn/Radiobtn";
 
@@ -12,6 +12,8 @@ const Signup = () => {
   const [Password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [userType, setUserType] = useState('');
+
+  const navigate = useNavigate()
 
 
   // Function to handle form submission
@@ -70,6 +72,7 @@ const Signup = () => {
       if (response.ok) {
         // Registration successful, you can redirect or do something else
         console.log("Registration successful");
+        navigate('/varifyEmail');
       } else if (response.status === 400) {
         // Handle specific validation errors returned by the server
         setErrors(responseData.errors || {});
