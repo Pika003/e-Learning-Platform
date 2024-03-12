@@ -275,4 +275,4 @@ const addTeacherDetails = asyncHandler(async(req,res)=>{
 
 })
 
-export { signup, mailVerified, login, logout, addTeacherDetails, inTeacher };
+export { signup, mailVerified, login, logout, addTeacherDetails, getTeacher };
