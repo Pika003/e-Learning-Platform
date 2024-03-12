@@ -1,103 +1,97 @@
-import React, { useEffect, useState } from 'react';
-import Input from './InputCOmponent/Input'
-import InputUpload from './Inputupload/InputUpload';
+import React, { useState, useEffect } from 'react';
+import Input from './InputComponent/Input';
+import InputUpload from './Inputupload/InputUpload'; 
 import { useParams } from 'react-router-dom';
 
 const TeacherDocument = () => {
-  const [data, setdata] = useState([]);
+  const [data, setData] = useState([]);
   const { Data } = useParams();
 
   useEffect(() => {
-    getData();
-  }, []);
+    const getData = async () => {
+      try {
+        const response = await fetch(`/api/teacher/TeacherDocument/${Data}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
-  const getData = async () => {
-    try {
-      const response = await fetch(`/api/teacher/TeacherDocument/${Data}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
+        const user = await response.json();
+        setData(user.data);
+      } catch (error) {
+        console.error(error);
       }
+    };
 
-      const user = await response.json();
-      setdata(user.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    getData();
+  }, []); 
 
   const [formData, setFormData] = useState({
-    phoneNo: data.phoneNo || '',
-    homeAddress: data.homeAddress || '',
-    experience: data.experience || '',
-    Secondary: data.Secondary || '',
+    Phone: data.Phone || '',
+    Address: data.Address || '',
+    Experience: data.Experience || '',
+    SecondarySchool: data.SecondarySchool || '',
     SecondaryMarks: data.SecondaryMarks || '',
-    HigherSecondaryName: data.HigherSecondaryName || '',
-    HigherSecondaryMarks: data.HigherSecondaryMarks || '',
-    UgName: data.UgName || '',
-    cgp: data.cgp || '',
-    pgName: data.pgName || '',
-    SgpName: data.SgpName || '',
+    HigherSchool: data.HigherSchool || '',
+    HigherMarks: data.HigherMarks || '',
+    UGcollege: data.UGcollege || '',
+    UGmarks: data.UGmarks || '', 
+    PGcollege: data.PGcollege || '',
+    PGmarks: data.PGmarks || '', 
     Aadhaar: null,
-    secondaryFile: null,
-    higherSecondaryFile: null,
-    ugFile: null,
-    pgFile: null,
+    Secondary: null,
+    Higher: null,
+    UG: null,
+    PG: null,
   });
 
-  // Function to handle file input change
-  function handleFileChange(fileType, e) {
-    const selectedFile = e.target.files[0];
+  const handleFileChange = (fileType, e) => {
     setFormData({
       ...formData,
-      [fileType]: selectedFile,
+      [fileType]: e.target.files[0],
     });
-  }
+  };
 
-  // Function to handle input change
-  function handleInputChange(field, value) {
+  const handleInputChange = (field, value) => {
     setFormData({
       ...formData,
       [field]: value,
     });
-  }
+  };
 
-  //posting to backend
   const handleSubmit = async (e) => {
     e.preventDefault();
 
- 
-    // const formDataObj = new FormData();
+    const formDataObj = new FormData();
 
-    // Object.keys(formData).forEach((key) => {
-    //   formDataObj.append(key, formData[key]);
-    // });
-
-    // console.log("dataobject",formDataObj);
+    Object.keys(formData).forEach((key) => {
+      formDataObj.append(key, formData[key]);
+    });
 
     try {
       const response = await fetch(`/api/teacher/verification/${Data}`, {
         method: 'POST',
-        body: formData,
-     
+        body: formDataObj,
       });
 
       const responseData = await response.json();
       console.log('response', responseData);
 
       if (!response.ok) {
-        console.log('!notdone');
+        console.log(responseData.message); 
+      } else {
+        
+        console.log('Form submitted successfully!');
+    
       }
     } catch (e) {
-      console.log('Error:',e);
+      console.error('Error:', e);
     }
-
-    console.log('Teacher form data:', formData);
   };
 
   return (
@@ -129,8 +123,8 @@ const TeacherDocument = () => {
           <Input
             label={"Phone No."}
             placeholder={"Phone No."}
-            value={formData.phoneNo}
-            onChange={(e) => handleInputChange("phoneNo", e.target.value)}
+            value={formData.Phone}
+            onChange={(e) => handleInputChange("Phone", e.target.value)}
           />
         </div>
 
@@ -138,14 +132,14 @@ const TeacherDocument = () => {
           <Input
             label={"Home Address"}
             placeholder={"Home Address"}
-            value={formData.homeAddress}
-            onChange={(e) => handleInputChange("homeAddress", e.target.value)}
+            value={formData.Address}
+            onChange={(e) => handleInputChange("Address", e.target.value)}
           />
           <Input
             label={"Experience (years)"}
             placeholder={"Experience (years)"}
-            value={formData.experience}
-            onChange={(e) => handleInputChange("experience", e.target.value)}
+            value={formData.Experience}
+            onChange={(e) => handleInputChange("Experience", e.target.value)}
           />
           <InputUpload
             label={"Upload Aadhar Card"}
@@ -163,8 +157,8 @@ const TeacherDocument = () => {
             </div>
             <Input
               placeholder={"10th School Name"}
-              value={formData.Secondary}
-              onChange={(e) => handleInputChange("Secondary", e.target.value)}
+              value={formData.SecondarySchool}
+              onChange={(e) => handleInputChange("SecondarySchool", e.target.value)}
             />
             <Input
               placeholder={"Total Marks (%)"}
@@ -174,8 +168,8 @@ const TeacherDocument = () => {
             <div className=' mt-[-1.5rem]'>
               <InputUpload
                 placeholder={"Upload 10th Result"}
-                value={formData.secondaryFile}
-                onChange={(e) => handleFileChange('secondaryFile', e)}
+                value={formData.Secondary}
+                onChange={(e) => handleFileChange('Secondary', e)}
               />
             </div>
           </div>
@@ -188,19 +182,19 @@ const TeacherDocument = () => {
   </div>
   <Input
     placeholder={"12th School Name"}
-    value={formData.HigherSecondaryName}
-    onChange={(e) => handleInputChange("HigherSecondaryName", e.target.value)}
+    value={formData.HigherSchool}
+    onChange={(e) => handleInputChange("HigherSchool", e.target.value)}
   />
   <Input
     placeholder={"Total Marks (%)"}
-    value={formData.HigherSecondaryMarks}
-    onChange={(e) => handleInputChange("HigherSecondaryMarks", e.target.value)}
+    value={formData.HigherMarks}
+    onChange={(e) => handleInputChange("HigherMarks", e.target.value)}
   />
   <div className=' mt-[-1.5rem]'>
     <InputUpload
       placeholder={"Upload 12th Result"}
-      value={formData.higherSecondaryFile}
-      onChange={(e) => handleFileChange('higherSecondaryFile', e)}
+      value={formData.Higher}
+      onChange={(e) => handleFileChange('Higher', e)}
     />
   </div>
 </div>
@@ -211,19 +205,19 @@ const TeacherDocument = () => {
   </div>
   <Input
     placeholder={"U.G. College/University Name"}
-    value={formData.UgName}
-    onChange={(e) => handleInputChange("UgName", e.target.value)}
+    value={formData.UGcollege}
+    onChange={(e) => handleInputChange("UGcollege", e.target.value)}
   />
   <Input
-    placeholder={"CGP/SGP out of 10"}
-    value={formData.cgp}
-    onChange={(e) => handleInputChange("cgp", e.target.value)}
+    placeholder={"UGmarks/SGP out of 10"}
+    value={formData.UGmarks}
+    onChange={(e) => handleInputChange("UGmarks", e.target.value)}
   />
   <div className=' mt-[-1.5rem]'>
     <InputUpload
       placeholder={"Upload U.G. Result"}
-      value={formData.ugFile}
-      onChange={(e) => handleFileChange('ugFile', e)}
+      value={formData.UG}
+      onChange={(e) => handleFileChange('UG', e)}
     />
   </div>
 </div>
@@ -234,19 +228,19 @@ const TeacherDocument = () => {
   </div>
   <Input
     placeholder={"P.G. College/University Name"}
-    value={formData.pgName}
-    onChange={(e) => handleInputChange("pgName", e.target.value)}
+    value={formData.PGcollege}
+    onChange={(e) => handleInputChange("PGcollege", e.target.value)}
   />
   <Input
     placeholder={"CGP/SGP out of 10"}
-    value={formData.SgpName}
-    onChange={(e) => handleInputChange("SgpName", e.target.value)}
+    value={formData.PGmarks}
+    onChange={(e) => handleInputChange("PGmarks", e.target.value)}
   />
   <div className=' mt-[-1.5rem]'>
     <InputUpload
       placeholder={"Upload P.G. Result"}
-      value={formData.pgFile}
-      onChange={(e) => handleFileChange('pgFile', e)}
+      value={formData.PG}
+      onChange={(e) => handleFileChange('PG', e)}
     />
   </div>
 </div>
