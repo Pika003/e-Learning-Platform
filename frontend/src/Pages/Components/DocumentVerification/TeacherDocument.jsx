@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 
 const TeacherDocument = () => {
 
+  const [data,setdata]=useState([])
+
     const { Data } = useParams();
   
     useEffect(() => {
@@ -25,22 +27,17 @@ const TeacherDocument = () => {
         }
   
         const user = await response.json();
-
-        console.log("First name: ", user.data.Firstname);
-        console.log("Last name: ", user.data.Lastname);
+        
+        setdata(user.data)
+    
       } catch (error) {
         console.error(error);
       }
     };
   
 
+   
 
-
-  
-
-
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [phoneNo, setPhoneNo] = useState('');
   const [homeAddress, setHomeAddress] = useState('');
   const [experience, setExperience] = useState('');
@@ -88,12 +85,15 @@ const TeacherDocument = () => {
     }
   }
 
+
+  //posting to backend
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
 
 
- const data={
+ const details={
 
         Phone:phoneNo,
         Address:homeAddress,
@@ -118,21 +118,27 @@ const TeacherDocument = () => {
 
 
     
-    const backendurl = '/api/teacher/verification/'; 
+    
 
     try {
     
-      const response = await fetch(backendurl, {
+      const response = await fetch(`/api/teacher/verification/${Data}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(details),
       });
 
+      const responseData=await response.json()
+console.log('response',responseData);
+
+      if (response.ok) {
+       console.log('posted SUccessfully');
+      }    
 
     } catch (err) {
-      console.error('Error:', err)
+      console.log('Error:', err)
     }
 
     console.log('Teacher form data:', data);
@@ -151,8 +157,8 @@ const TeacherDocument = () => {
       <hr />
       <p className='text-[#4E84C1] p-5 px-10'>Personal Information</p>
       <div className='flex flex-wrap gap-20 px-36 mb-10'>
-        <Input label={"First Name"} placeholder={"First Name"} onChange={(e) => setFirstName(e.target.value)} />
-        <Input label={"Last Name"} placeholder={"Last Name"} onChange={(e) => setLastName(e.target.value)} />
+        <Input label={"First Name"} placeholder={"First Name"} value={ data.Firstname }   />
+        <Input label={"Last Name"} placeholder={"Last Name"} value={ data.Lastname }/>
         <Input label={"Phone No."} placeholder={"Phone No."} onChange={(e) => setPhoneNo(e.target.value)} />
       </div>
 
