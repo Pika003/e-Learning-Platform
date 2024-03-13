@@ -7,6 +7,7 @@ import Contact from './Pages/Home/Contact/Contact'
 import Courses from './Pages/Home/Courses/Courses'
 import Login from './Pages/Login/Login'
 import Signup from './Pages/Signup/Signup'
+import AdminLogin from './Pages/Login/AdminLogin'
 
 import { RouterProvider, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import Layout from './Layout'
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route path='/contact' element={<Contact/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/varifyEmail' element={<VarifyEmail/>}/>
+      <Route path='/adminLogin' element={<AdminLogin/>}/>
     </Route>
  )
 )
