@@ -49,6 +49,10 @@ const teacherSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Teacherdocs"
     },
+    courses: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "course"
+    }]
 
 },
 {

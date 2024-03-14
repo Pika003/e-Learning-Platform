@@ -50,6 +50,11 @@ const studentSchema = new mongoose.Schema({
         ref:"studentdocs"
     },
 
+    courses: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'course'
+    }]
+
 },
 {
     timestamps:true,

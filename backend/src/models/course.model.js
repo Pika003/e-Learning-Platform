@@ -2,31 +2,36 @@ import mongoose from "mongoose"
 
 const courseSchema= new  mongoose.Schema({
 
-enrolledStudents:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"student"
-
+coursename:{
+    type:String,
+    require:true
 },
+
+description: {
+    type: String,
+    required: true
+},
+
+liveClasses: [{
+    title: String,
+    timing: Date, 
+    link: String,
+    status: {
+        type: String,
+        enum: ['upcoming', 'in-progress', 'completed'],
+        default: 'upcoming'
+      }
+  }],
 
 enrolledteacher:{
     type:mongoose.Schema.Types.ObjectId,
-    ref:"Teacher"
+    ref: "Teacher"
 },
 
-coursename:{
-    type:String,
-    require:true,
-
-},
-
-
-
-
-
-
-
-
-
+enrolledStudent: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'student' 
+  }],
 
 
 
