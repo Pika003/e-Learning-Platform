@@ -69,6 +69,43 @@ const courseTeacher = asyncHandler(async(req,res)=>{
 })
 
 
+const addCourse = asyncHandler(async(req,res)=>{
+    const loggedTeacher = req.teacher
+
+    const teacherParams = req.params.id
+
+    if(!teacherParams){
+      throw new ApiError(400,"Invalid user")
+    }
+ 
+    if(loggedTeacher._id != teacherParams){
+      throw new ApiError(400,"not authorized")
+    }
+
+    const{coursename,description} = req.body
+
+    //will add one more condition if same teacher already have a course on the subject (LATER)
+    if ([coursename,description].some((field) => field?.trim() === "")) {
+      throw new ApiError(400, "All fields are required");
+    }
+
+    const newCourse = await course.create({
+      coursename,
+      description,
+      enrolledteacher: loggedTeacher._id,
+    })
+
+    if(!newCourse){
+      throw new ApiError(400, "couldnt create course")
+    }
+
+    return res
+    .send(200)
+    .json(new ApiResponse(200, {newCourse, loggedTeacher}, "new course created"))
+    
+})
+
+
 
 
 
