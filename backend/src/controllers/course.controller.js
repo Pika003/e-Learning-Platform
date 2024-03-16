@@ -3,6 +3,7 @@ import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js"; 
 import {ApiResponse} from "../utils/ApiResponse.js";
 import mongoose from "mongoose";
+import { student } from "../models/student.model.js";
 
 
 const getCourse = asyncHandler(async(req,res)=>{
@@ -15,7 +16,7 @@ const getCourse = asyncHandler(async(req,res)=>{
 
 })
 
-const courseTeacher = asyncHandler(async(req,res)=>{
+const getcourseTeacher = asyncHandler(async(req,res)=>{
 
     const coursename = req.body;
 
@@ -69,7 +70,7 @@ const courseTeacher = asyncHandler(async(req,res)=>{
 })
 
 
-const addCourse = asyncHandler(async(req,res)=>{
+const addCourseTeacher = asyncHandler(async(req,res)=>{
     const loggedTeacher = req.teacher
 
     const teacherParams = req.params.id
@@ -103,6 +104,58 @@ const addCourse = asyncHandler(async(req,res)=>{
     .send(200)
     .json(new ApiResponse(200, {newCourse, loggedTeacher}, "new course created"))
     
+})
+
+
+const addCourseStudent = asyncHandler(async(req,res)=>{
+
+  const loggedStudent = req.Student
+
+  const studentParams = req.params.id
+
+  if(!studentParams){
+    throw new ApiError(400, "no params found")
+  }
+
+  if(loggedStudent._id != studentParams){
+    throw new ApiError(400, "not authorized")
+  }
+
+  const courseID = req.body
+
+  if(!courseID){
+    throw new ApiError(400, "select a course")
+  }
+
+  const selectedCourse = await course.findByIdAndUpdate(courseID, 
+    {
+      $push: {
+        enrolledStudent:loggedStudent._id
+      }
+    }, {
+      new: true
+    })
+
+  if(!selectedCourse){
+    throw new ApiError(400, "failed to add student in course schema")
+  }
+     
+  const selectedStudent = await student.findByIdAndUpdate(loggedStudent._id,
+    {
+      $push: {
+        courses:courseID
+      }
+    },{
+      new:true
+    })
+  
+  if(!selectedStudent){
+    throw new ApiError(400, "failed to add course in student schema")
+  }
+
+  return res
+  .send(200)
+  .json( new ApiResponse(200, {selectedCourse, selectedStudent}, "successfully opted in course"))
 })
 
 
