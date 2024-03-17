@@ -1,4 +1,4 @@
-import course from "../models/course.model";
+import {course} from "../models/course.model.js";
 import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js"; 
 import {ApiResponse} from "../utils/ApiResponse.js";
@@ -18,7 +18,7 @@ const getCourse = asyncHandler(async(req,res)=>{
 
 const getcourseTeacher = asyncHandler(async(req,res)=>{
 
-    const coursename = req.body;
+    const coursename = req.params.coursename;
 
     if(!coursename){
         throw new ApiError(400, "Choose a course")
@@ -50,6 +50,7 @@ const getcourseTeacher = asyncHandler(async(req,res)=>{
             $project: {
               _id: 1,
               coursename: 1,
+              description:1,
               enrolledteacher: {
                 _id: 1,
                 Firstname: 1,
@@ -78,10 +79,14 @@ const addCourseTeacher = asyncHandler(async(req,res)=>{
     if(!teacherParams){
       throw new ApiError(400,"Invalid user")
     }
+
+    console.log("running");
  
     if(loggedTeacher._id != teacherParams){
       throw new ApiError(400,"not authorized")
     }
+
+    
 
     const{coursename,description} = req.body
 
@@ -89,6 +94,15 @@ const addCourseTeacher = asyncHandler(async(req,res)=>{
     if ([coursename,description].some((field) => field?.trim() === "")) {
       throw new ApiError(400, "All fields are required");
     }
+
+    const existingCourse = await course.findOne({
+      coursename,
+      enrolledteacher: loggedTeacher._id
+  });
+
+  if (existingCourse) {
+      throw new ApiError(400, "A course with the same name already exists for this teacher");
+  }
 
     const newCourse = await course.create({
       coursename,
@@ -101,14 +115,14 @@ const addCourseTeacher = asyncHandler(async(req,res)=>{
     }
 
     return res
-    .send(200)
+    .status(200)
     .json(new ApiResponse(200, {newCourse, loggedTeacher}, "new course created"))
     
 })
 
 
 const addCourseStudent = asyncHandler(async(req,res)=>{
-
+ 
   const loggedStudent = req.Student
 
   const studentParams = req.params.id
@@ -121,7 +135,7 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
     throw new ApiError(400, "not authorized")
   }
 
-  const courseID = req.body
+  const courseID = req.params.courseID
 
   if(!courseID){
     throw new ApiError(400, "select a course")
@@ -154,9 +168,12 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
   }
 
   return res
-  .send(200)
+  .status(200)
   .json( new ApiResponse(200, {selectedCourse, selectedStudent}, "successfully opted in course"))
 })
+
+
+export {getCourse, getcourseTeacher, addCourseTeacher, addCourseStudent}
 
 
 

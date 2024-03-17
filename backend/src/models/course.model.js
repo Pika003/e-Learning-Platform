@@ -25,7 +25,8 @@ liveClasses: [{
 
 enrolledteacher:{
     type:mongoose.Schema.Types.ObjectId,
-    ref: "Teacher"
+    ref: "Teacher",
+    require:true
 },
 
 enrolledStudent: [{
@@ -39,4 +40,4 @@ enrolledStudent: [{
 
 const course= mongoose.model('course',courseSchema)
 
-export default course;
+export {course}
