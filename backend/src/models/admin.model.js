@@ -10,24 +10,23 @@ const adminSchema =  new mongoose.Schema({
         trim:true,
         lowercase:true
     },
-    Password:{
+    password:{
         type:String,
         required: true,
     },
-
-
-   
 
 }) 
 
 
 adminSchema.pre("save", async function (next) {
-    if(!this.isModified("Password")) return next(); 
-      this.Password = await bcrypt.hash(this.Password, 10)
+    if(!this.isModified("password")) return next(); 
+      this.password = await bcrypt.hash(this.password, 10)
     next()
 })
-adminSchema.methods.isPasswordCorrect = async function (Password){
-    return await bcrypt.compare(Password, this.Password)
+adminSchema.methods.isPasswordCorrect = async function (password){
+    return await bcrypt.compare(password, this.password)
 }
 
 const admin = mongoose.model("admin",adminSchema);
+
+export {admin}

@@ -139,6 +139,11 @@ const login = asyncHandler(async(req,res) => {
     const Email = req.user.Email
     const Password = req.user.Password
 
+
+    if([Email, Password].some((field) => field?.trim() === "")) {
+        throw new ApiError(400, "All fields are required");
+    }
+
     const StdLogin = await student.findOne({
         Email
     })

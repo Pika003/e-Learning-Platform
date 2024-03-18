@@ -32,14 +32,15 @@ const studentSchema = new mongoose.Schema({
     },
 
     Isverified: {
-        type: String,
-        enum: ['approved', 'rejected', 'pending'],
-        default: 'pending',
+        type:Boolean,
+        default:false,
     },
 
     Isapproved:{
-        type:Boolean,
-        default:false,
+        type: String,
+        enum: ['approved', 'rejected', 'pending'],
+        default: 'pending',
+        
     },
     
     Refreshtoken:{

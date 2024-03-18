@@ -90,7 +90,6 @@ const addCourseTeacher = asyncHandler(async(req,res)=>{
 
     const{coursename,description} = req.body
 
-    //will add one more condition if same teacher already have a course on the subject (LATER)
     if ([coursename,description].some((field) => field?.trim() === "")) {
       throw new ApiError(400, "All fields are required");
     }
@@ -140,7 +139,8 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
   if(!courseID){
     throw new ApiError(400, "select a course")
   }
-
+ //condition if student already enrolled in that course [ADD LATER]
+ 
   const selectedCourse = await course.findByIdAndUpdate(courseID, 
     {
       $push: {
@@ -173,7 +173,7 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
 })
 
 
-export {getCourse, getcourseTeacher, addCourseTeacher, addCourseStudent}
+export {getCourse, getcourseTeacher, addCourseTeacher, addCourseStudent} 
 
 
 

@@ -27,6 +27,9 @@ app.use("/api/teacher", teacherRouter)
 import courseRouter from "./routes/course.routes.js"
 app.use("/api/course", courseRouter)
 
+import adminRouter from "./routes/admin.routes.js"
+app.use("/api/admin", adminRouter)
+
 
 
 export {app}
