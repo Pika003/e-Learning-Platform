@@ -76,11 +76,13 @@ const forApproval = asyncHandler(async(req,res)=>{
     // check if email verified or not
 
     const studentsforApproval = await student.find({
-        Isapproved: "pending"
+        Isapproved: "pending",
+        Isverified: true
     })
 
     const teachersforApproval = await Teacher.find({
-        Isapproved: "pending"
+        Isapproved: "pending",
+        Isverified: true
     })
 
     if(!studentsforApproval && !teachersforApproval){
@@ -123,15 +125,16 @@ const approveStudent = asyncHandler(async(req,res)=>{
         throw new ApiError(400, "Please choose 'approve' or 'reject'");
     }
 
-    const theStudent = await student.updateOne({_id: studentID}, {$set: {Isapproved:toApprove}})
+    const theStudent = await student.findOneAndUpdate({_id: studentID}, {$set: {Isapproved:toApprove}},  { new: true })
     
+    console.log(theStudent);
     if(!theStudent){
         throw new ApiError(400,"faild to approve or reject || student not found")
     }
 
     return res
     .status(200)
-    .json(new ApiResponse(200, {}, `task done successfully`))
+    .json(new ApiResponse(200, theStudent, `task done successfully`))
 
 })
 
@@ -162,7 +165,7 @@ const approveTeacher = asyncHandler(async(req,res)=>{
         throw new ApiError(400, "Please choose 'approve' or 'reject'");
     }
 
-    const theTeacher = await Teacher.updateOne({_id: teacherID}, {$set: {Isapproved:toApprove}})
+    const theTeacher = await Teacher.findOneAndUpdate({_id: teacherID}, {$set: {Isapproved:toApprove}},  { new: true })
     
     if(!theTeacher){
         throw new ApiError(400,"faild to approve or reject || student not found")
@@ -170,7 +173,7 @@ const approveTeacher = asyncHandler(async(req,res)=>{
 
     return res
     .status(200)
-    .json(new ApiResponse(200, {}, `task done successfully`))
+    .json(new ApiResponse(200, theTeacher, `task done successfully`))
 
 })
 
