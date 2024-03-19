@@ -75,11 +75,11 @@ const forApproval = asyncHandler(async(req,res)=>{
 
     // check if email verified or not
 
-    const studentsforApproval = await student.findOne({
+    const studentsforApproval = await student.find({
         Isapproved: "pending"
     })
 
-    const teachersforApproval = await Teacher.findOne({
+    const teachersforApproval = await Teacher.find({
         Isapproved: "pending"
     })
 
