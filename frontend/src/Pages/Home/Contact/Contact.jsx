@@ -1,9 +1,12 @@
 import React from 'react'
 import "../Landing/Landing.css";
 import Mail from "../../Images/Meet-the-team.svg";
+import Header from '../Header/Header';
 
 function Contact() {
   return (
+    <>
+    <Header/>
     <div className="contact">
         <h4>Contact Us</h4>
         <hr className="underLine"/>
@@ -29,6 +32,7 @@ function Contact() {
           </form>
         </div>
       </div>
+    </>
   )
 }
 

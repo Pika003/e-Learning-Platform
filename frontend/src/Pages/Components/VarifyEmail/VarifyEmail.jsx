@@ -1,9 +1,12 @@
 import React from 'react'
 import Email from '../../Images/email.svg'
 import { NavLink } from "react-router-dom"
+import Header from '../../Home/Header/Header'
 
 function VarifyEmail() {
   return (
+    <>
+    <Header/>
     <div className='flex justify-center'>
         <div className='bg-blue-gray-900 w-96 h-96  rounded-md flex flex-col gap-5 justify-center items-center mt-10'>
             <img src={Email} width={150} alt="email" />
@@ -14,6 +17,7 @@ function VarifyEmail() {
             </NavLink>
         </div>
     </div>
+    </>
   )
 }
 

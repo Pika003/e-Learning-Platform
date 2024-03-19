@@ -6,10 +6,12 @@ import Plant from "../../Images/Plant.svg";
 import Plant2 from "../../Images/Plant2.svg"
 import Contact from "../Contact/Contact.jsx";
 import Footer from "../../Footer/Footer.jsx";
+import Header from "../Header/Header.jsx";
 
 function Landing() {
   return (
     <>
+    <Header/>
     {/* Top Section */}
       <div className="top">
         <div className="left">

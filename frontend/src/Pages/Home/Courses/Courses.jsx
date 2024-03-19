@@ -1,10 +1,12 @@
 import React from 'react'
 import '../Landing/Landing.css'
 import Footer from '../../Footer/Footer'
+import Header from '../Header/Header'
 
 function Courses() {
   return (
     <>
+    <Header/>
     <div className="courses">
       <p>Find Your Subject</p>
       <hr className="underLine"/>

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Input from './InputComponent/Input';
 import InputUpload from './Inputupload/InputUpload'; 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const TeacherDocument = () => {
   const [data, setData] = useState([]);
   const { Data } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getData = async () => {
@@ -87,7 +88,7 @@ const TeacherDocument = () => {
       } else {
         
         console.log('Form submitted successfully!');
-    
+        navigate('/pending')
       }
     } catch (e) {
       console.error('Error:', e);
@@ -96,13 +97,16 @@ const TeacherDocument = () => {
 
   return (
     <>
-      <div className='flex items-center gap-[25rem] px-32 py-2'>
+      <div className='flex items-center gap-[24rem] px-32 py-2 bg-[#0D286F]'>
         <div className='flex items-center gap-3'>
           <img src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/53619c42501fb7619406ed947b38c5fa4f07597c"
             className="w-14" alt="" />
           <h1 className='text-3xl text-[#4E84C1] font-bold'>Title</h1>
         </div>
         <h2 className='text-white text-xl'>Document Verification (Teacher) </h2>
+        <div className='bg-[#042439] px-3 py-2 rounded-md text-white'
+        onClick={()=> navigate('/')}
+        >logout</div>
       </div>
       <hr />
       <form onSubmit={handleSubmit}>
@@ -246,7 +250,7 @@ const TeacherDocument = () => {
 </div>
 
         </div>
-        <div className=' bg-[#0D286F] p-3 m-6 rounded-md w-[5.7rem] ml-[85%] cursor-pointer' >
+        <div className=' bg-[#0D286F] p-3 m-6 rounded-md w-[7rem] ml-[85%] cursor-pointer' >
           <button className=' text-white text-sm' type='Submit' >Submit ▶️</button>
         </div>
       </form>

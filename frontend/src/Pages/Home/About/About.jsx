@@ -3,10 +3,12 @@ import Plant from "../../Images/Plant.svg";
 import Plant2 from "../../Images/Plant2.svg";
 import '../Landing/Landing.css'
 import Footer from "../../Footer/Footer.jsx"
+import Header from '../Header/Header.jsx';
 
 function About({backgroundC}) {
   return (
     <>
+    <Header/>
     <div className="about" style={{backgroundColor: backgroundC}}>
         <h4>About Us</h4>
         <hr className="underLine"/>

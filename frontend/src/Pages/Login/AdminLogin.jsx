@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import Admin from './Images/Admin.svg'
 import {  useNavigate } from "react-router-dom";
+import Header from '../Home/Header/Header';
 
 export default function AdminLogin() {
   // State to hold user input and errors
@@ -77,6 +78,8 @@ export default function AdminLogin() {
   };
 
   return (
+    <>
+    <Header/>
     <section className="main">
       {/* image */}
       <div className="img-3">
@@ -131,5 +134,6 @@ export default function AdminLogin() {
         </div>
       </div>
     </section>
+    </>
   );
 }

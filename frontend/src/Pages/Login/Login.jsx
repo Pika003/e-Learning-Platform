@@ -3,6 +3,7 @@ import HR from "../Login/Images/HR.svg";
 import "./Login.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import Radiobtn from "../Components/RadioBtn/Radiobtn";
+import Header from "../Home/Header/Header";
 
 export default function Login() {
   // State to hold user input and errors
@@ -94,6 +95,8 @@ export default function Login() {
   };
 
   return (
+    <>
+    <Header/>
     <section className="main">
       <div className="container">
         {/* <div className="logo">
@@ -166,6 +169,7 @@ export default function Login() {
         <img src={HR} width={600} alt="" />
       </div>
     </section>
+    </>
   );
  
 }

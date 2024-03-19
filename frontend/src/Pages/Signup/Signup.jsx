@@ -3,6 +3,7 @@ import "./Styles.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import Images from "../Images/Grammar-correction.svg";
 import Radiobtn from "../Components/RadioBtn/Radiobtn";
+import Header from "../Home/Header/Header";
 
 const Signup = () => {
   // State to hold user input and errors
@@ -87,6 +88,8 @@ const Signup = () => {
   };
 
   return (
+    <>
+    <Header/>
     <div className="section">
       <article className="article">
         {/* <div className="logo-1">
@@ -167,6 +170,7 @@ const Signup = () => {
         <img src={Images} alt="" className="imgs" />
       </div>
     </div>
+    </>
   );
 };
 

@@ -118,7 +118,7 @@ const approveStudent = asyncHandler(async(req,res)=>{
         throw new ApiError(400, "student id is required")
     }
 
-    const toApprove = req.body.toApprove
+    const toApprove = req.body.Isapproved
     
 
     if (!toApprove || (toApprove != "approved" && toApprove != "rejected")) {
@@ -159,7 +159,7 @@ const approveTeacher = asyncHandler(async(req,res)=>{
         throw new ApiError(400, "student id is required")
     }
 
-    const toApprove = req.body.toApprove
+    const toApprove = req.body.Isapproved
 
     if (!toApprove || (toApprove !== "approved" && toApprove !== "rejected")) {
         throw new ApiError(400, "Please choose 'approve' or 'reject'");
