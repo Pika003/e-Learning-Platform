@@ -50,7 +50,7 @@ Develop a comprehensive online learning platform with three user types (Student,
   - React (Vite) for dynamic and responsive UI.
 
 #### *Backend:*
-  - Node.js and Express for server-side development.
+  - Node.js, Express and Mongoose for server-side development.
 
 #### *Database:*
   - MongoDB for storing user profiles, course details, and application data.
