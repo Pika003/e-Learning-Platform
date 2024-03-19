@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 
 const StudentDocument = () => {
   const [data,setdata]=useState([]);
+  const [error,setError]=useState("");
   const { Data } =useParams()
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const StudentDocument = () => {
         const user = await response.json();
         setdata(user.data);
       } catch (error) {
-        console.error(error);
+        setError(error.message)
       }
     };
 

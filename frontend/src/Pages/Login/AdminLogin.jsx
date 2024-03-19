@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Login.css";
 import Admin from './Images/Admin.svg'
-import { NavLink, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 export default function AdminLogin() {
   // State to hold user input and errors
@@ -34,8 +34,8 @@ export default function AdminLogin() {
 
     // Prepare data object to send to the backend
     const data = {
-      User: User,
-      Password: Password,
+      username: User,
+      password: Password,
     };
 
     try {
@@ -50,13 +50,13 @@ export default function AdminLogin() {
 
       const responesData = await response.json()
       console.log(responesData);
-      const userid = responesData.data.user._id
+      const userid = responesData.data.admin._id
  
       // Handle response
       if (response.ok) {
-        // Authentication successful, you can redirect or do something else
-        console.log("Login successful");     
-        navigate(`/adminDashbord/${userid}`)
+          console.log(response); 
+        
+       navigate(`/admin/${userid}`)
       } else if (response.status === 401) {
         // Incorrect password
         setErrors({ password: responesData.message || "Incorrect password" });

@@ -16,6 +16,7 @@ import TeacherDocument from './Pages/Components/DocumentVerification/TeacherDocu
 import VarifyEmail from './Pages/Components/VarifyEmail/VarifyEmail'
 import Rejected from './Pages/Response/Rejected'
 import Pending from './Pages/Response/Pending'
+import Admin from './Pages/Components/Admin/Admin'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,9 +30,10 @@ const router = createBrowserRouter(
       <Route path='/contact' element={<Contact/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/varifyEmail' element={<VarifyEmail/>}/>
-      <Route path='/adminLogin' element={<AdminLogin/>}/>
+      <Route path='/adminLogin/' element={<AdminLogin/>}/>
       <Route path='/rejected' element={<Rejected/>}/>
       <Route path='/pending' element={<Pending/>}/>
+      <Route path='/admin/:data' element={<Admin/>}/>
     </Route>
  )
 )
@@ -41,3 +43,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <RouterProvider router={router} />
   </React.StrictMode>,
 )
+
