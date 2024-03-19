@@ -6,6 +6,10 @@ Online Learning Platform using MERN Stack
 ## Objective:
 
 Develop a comprehensive online learning platform with three user types (Student, Teacher, Admin), featuring course creation, approval process, and live video conferencing.
+
+## *BACKEND for the PROJECT
+   - Backend is developed by [Parag](https://github.com/paragkadyan).
+
 ## Features
 
 #### 1. *User Authentication:*
@@ -60,3 +64,4 @@ Develop a comprehensive online learning platform with three user types (Student,
 
 #### *Payment Integration:*
   - Stripe or PayPal or razorpay for secure and seamless payments
+
