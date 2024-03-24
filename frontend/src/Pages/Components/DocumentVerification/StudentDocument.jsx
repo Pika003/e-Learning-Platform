@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Input from './InputComponent/Input';
 import InputUpload from './Inputupload/InputUpload';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const StudentDocument = () => {
   const [data,setdata]=useState([]);
   const [error,setError]=useState("");
-  const { Data } =useParams()
+  const { Data } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getData = async () => {
@@ -82,7 +83,7 @@ const StudentDocument = () => {
       } else {
         
         console.log('Form submitted successfully!');
-    
+        navigate('/pending')
       }
     } catch (e) {
       console.error('Error:', e);

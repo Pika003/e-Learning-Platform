@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaCircleInfo } from "react-icons/fa6";
 
 const Admin = () => {
   const { data } = useParams();
+  const navigator = useNavigate();
+
   const [StudentData, setStudentData] = useState([]);
   const [TeacherData, setTeacherData] = useState([]);
-  const [adminID, setAdminID] = useState();
+  const [adminID, setAdminID] = useState(null);
+  const [error, setErrors] = useState("");
 
   const Approval = async(ID, type, approve)=>{
     try {
@@ -38,6 +41,10 @@ const Admin = () => {
     }
   }
 
+  const docDetails = async (type, ID) =>{
+    navigator(`/VarifyDoc/${type}/${adminID}/${ID}`);
+  }
+
 
   useEffect(() => {
     const getData = async () => {
@@ -53,7 +60,7 @@ const Admin = () => {
           throw new Error("Failed to fetch data");
         } else {
           const result = await response.json();
-           console.log(result)
+          //  console.log(result)
           setStudentData(result.data.studentsforApproval);
           setTeacherData(result.data.teachersforApproval);
           setAdminID(result.data.admin._id);
@@ -76,7 +83,6 @@ const Admin = () => {
             alt="logo"
             className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-18"
           />
-          <div></div>
           <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl  text-blue-700 font-bold font-mono ml-2">
             Title
           </h1>
@@ -86,7 +92,7 @@ const Admin = () => {
             <IoIosNotificationsOutline className="h-8 w-8 text-white" />
             <span className="absolute top-0 right-2 h-2 w-2 bg-red-500 rounded-full"></span>
           </div>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
+          <button onClick={() => navigator('/')} className="bg-blue-500 text-white px-4 py-2 rounded-md">
             Logout
           </button>
         </div>
@@ -105,7 +111,7 @@ const Admin = () => {
             StudentData.length > 0 ? StudentData.map((student) => {
                   return (
                     <div key={student._id} className="flex justify-around mt-8 p-8 bg-blue-gray-600 rounded-md">
-                      <div className="mr-3"><FaCircleInfo size={"35"}/></div>
+                      <div className="mr-3" onClick={()=>docDetails("student", student._id)}><FaCircleInfo size={"35"}/></div>
                       <h1 className="text-[24px] text-1xl text-white mr-3">
                         {student.Firstname +" "+ student.Lastname}
                       </h1>
@@ -130,7 +136,7 @@ const Admin = () => {
             TeacherData.length > 0 ? TeacherData.map((teacher) => {
                   return (
                     <div key={teacher._id} className="flex justify-around my-8 p-8 bg-blue-gray-600 rounded-md">
-                      <div className="mr-3"><FaCircleInfo size={"35"}/></div>
+                      <div className="mr-3" onClick={()=>docDetails("teacher", teacher._id)}><FaCircleInfo size={"35"}/></div>
                       <h1 className="text-[24px] text-1xl text-white mr-3">
                         {teacher.Firstname +" "+ teacher.Lastname}
                       </h1>

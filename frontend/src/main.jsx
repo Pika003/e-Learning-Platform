@@ -17,6 +17,7 @@ import VarifyEmail from './Pages/Components/VarifyEmail/VarifyEmail'
 import Rejected from './Pages/Response/Rejected'
 import Pending from './Pages/Response/Pending'
 import Admin from './Pages/Components/Admin/Admin'
+import VarifyDoc from './Pages/Components/Admin/VarifyDoc'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
       <Route path='/rejected' element={<Rejected/>}/>
       <Route path='/pending' element={<Pending/>}/>
       <Route path='/admin/:data' element={<Admin/>}/>
+      <Route path='/VarifyDoc/:type/:adminID/:ID' element={<VarifyDoc/>}/>
     </Route>
  )
 )
