@@ -18,6 +18,8 @@ import Rejected from './Pages/Response/Rejected'
 import Pending from './Pages/Response/Pending'
 import Admin from './Pages/Components/Admin/Admin'
 import VarifyDoc from './Pages/Components/Admin/VarifyDoc'
+import StudentDashboard from './Pages/Dashboard/StudentDashboard/StudentDashboard'
+import TeacherDashboard from './Pages/Dashboard/TeacherDashboard/TeacherDashboard'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,6 +38,8 @@ const router = createBrowserRouter(
       <Route path='/pending' element={<Pending/>}/>
       <Route path='/admin/:data' element={<Admin/>}/>
       <Route path='/VarifyDoc/:type/:adminID/:ID' element={<VarifyDoc/>}/>
+      <Route path='/Student/Dashboard' element={<StudentDashboard/>}/>
+      <Route path='/Teacher/Dashboard' element={<TeacherDashboard/>}/>
     </Route>
  )
 )
