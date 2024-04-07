@@ -20,6 +20,10 @@ import Admin from './Pages/Components/Admin/Admin'
 import VarifyDoc from './Pages/Components/Admin/VarifyDoc'
 import StudentDashboard from './Pages/Dashboard/StudentDashboard/StudentDashboard'
 import TeacherDashboard from './Pages/Dashboard/TeacherDashboard/TeacherDashboard'
+import StudentLayout from './Pages/Dashboard/StudentDashboard/StudentLayout'
+import SearchTeacher from './Pages/Dashboard/StudentDashboard/SearchTeacher'
+import StudentClasses from './Pages/Dashboard/StudentDashboard/StudentClasses'
+import StudentCourses from './Pages/Dashboard/StudentDashboard/StudentCourses'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,7 +42,11 @@ const router = createBrowserRouter(
       <Route path='/pending' element={<Pending/>}/>
       <Route path='/admin/:data' element={<Admin/>}/>
       <Route path='/VarifyDoc/:type/:adminID/:ID' element={<VarifyDoc/>}/>
-      <Route path='/Student/Dashboard' element={<StudentDashboard/>}/>
+      <Route path='/Student/Dashboard' element={<StudentLayout/>}>
+        <Route path='/Student/Dashboard/Search' element={<SearchTeacher/>}/>
+        <Route path='/Student/Dashboard/Classes' element={<StudentClasses/>}/>
+        <Route path='/Student/Dashboard/Courses' element={<StudentCourses/>}/>
+      </Route>
       <Route path='/Teacher/Dashboard' element={<TeacherDashboard/>}/>
     </Route>
  )

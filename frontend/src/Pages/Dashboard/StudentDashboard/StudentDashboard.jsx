@@ -1,6 +1,6 @@
 import React from 'react'
 import teachingImg from '../../Images/Teaching.svg'
-import Search from '../../Components/Searchbtn/Search'
+import { NavLink } from 'react-router-dom'
 
 function StudentDashboard() {
   return (
@@ -17,24 +17,6 @@ function StudentDashboard() {
         </div>
       </nav>
 
-      {/* sidebar */}
-      <div className='bg-[#071645] w-52 h-full absolute'>
-        <div className='flex flex-col gap-5 text-xl items-center text-white mt-8 mb-10'>
-          <img src="https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png" alt="profile_img" width={50} />
-          <p>Satyajit Maity</p>
-        </div>
-
-        <div className='bg-white p-3 text-center font-semibold text-[#4E84C1]'>
-          <p>Teacher</p>
-        </div>
-        <div className='p-3 text-center font-semibold text-[#4E84C1]'>
-          <p>Classes</p>
-        </div>
-        <div className=' p-3 text-center font-semibold text-[#4E84C1]'>
-          <p>Courses</p>
-        </div>
-      </div>
-
       <div className='bg-[#008280] flex justify-between items-center'>
         <div className=' text-white font-semibold text-5xl ml-72'>
           <h1 className='mb-5'>Welcome to</h1>
@@ -44,8 +26,28 @@ function StudentDashboard() {
           <img src={teachingImg} alt="teaching" width={300}/>
         </div>
       </div>
-      <div className='ml-56'>
-        <Search/>
+
+      {/* sidebar */}
+      <div className='bg-[#071645] w-52 h-[88.5vh] absolute top-20'>
+        <div className='flex flex-col gap-5 text-xl items-center text-white mt-8 mb-10'>
+          <img src="https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png" alt="profile_img" width={50} />
+          <p>Satyajit Maity</p>
+        </div>
+
+        <div className='flex flex-col gap-1'>
+          <NavLink to='/Student/Dashboard/Search' className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
+          Teacher
+          </NavLink>
+
+          <NavLink to='/Student/Dashboard/Classes' className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
+          Classes
+          </NavLink>
+
+          <NavLink to='/Student/Dashboard/Courses' className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
+          Courses
+          </NavLink>
+        </div>
+
       </div>
     </>
   )
