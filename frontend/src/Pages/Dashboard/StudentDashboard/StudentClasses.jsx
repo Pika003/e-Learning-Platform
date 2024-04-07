@@ -1,6 +1,6 @@
 import React from 'react'
-import Camera from './Images/Camera.png'
-import Clock from './Images/Clock.png'
+import Camera from '../Images/Camera.png'
+import Clock from '../Images/Clock.png'
 
 function StudentClasses() {
   return (

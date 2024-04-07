@@ -18,12 +18,14 @@ import Rejected from './Pages/Response/Rejected'
 import Pending from './Pages/Response/Pending'
 import Admin from './Pages/Components/Admin/Admin'
 import VarifyDoc from './Pages/Components/Admin/VarifyDoc'
-import StudentDashboard from './Pages/Dashboard/StudentDashboard/StudentDashboard'
-import TeacherDashboard from './Pages/Dashboard/TeacherDashboard/TeacherDashboard'
+import TeacherLayout from './Pages/Dashboard/TeacherDashboard/TeacherLayout'
 import StudentLayout from './Pages/Dashboard/StudentDashboard/StudentLayout'
 import SearchTeacher from './Pages/Dashboard/StudentDashboard/SearchTeacher'
 import StudentClasses from './Pages/Dashboard/StudentDashboard/StudentClasses'
 import StudentCourses from './Pages/Dashboard/StudentDashboard/StudentCourses'
+import DashboardTeacher from './Pages/Dashboard/TeacherDashboard/DashboardTeacher'
+import TeacherClasses from './Pages/Dashboard/TeacherDashboard/TeacherClasses'
+import TeacherCourses from './Pages/Dashboard/TeacherDashboard/TeacherCourses'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,7 +49,11 @@ const router = createBrowserRouter(
         <Route path='/Student/Dashboard/Classes' element={<StudentClasses/>}/>
         <Route path='/Student/Dashboard/Courses' element={<StudentCourses/>}/>
       </Route>
-      <Route path='/Teacher/Dashboard' element={<TeacherDashboard/>}/>
+      <Route path='/Teacher/Dashboard' element={<TeacherLayout/>}>
+        <Route path='/Teacher/Dashboard/Home' element={<DashboardTeacher/>}/>
+        <Route path='/Teacher/Dashboard/Classes' element={<TeacherClasses/>}/>
+        <Route path='/Teacher/Dashboard/Courses' element={<TeacherCourses/>}/>
+      </Route>
     </Route>
  )
 )
