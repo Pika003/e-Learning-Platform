@@ -65,7 +65,15 @@ export default function Login() {
         
         
         if(responesData.data.user.Isapproved === "pending"){
-          navigate('/pending')
+          if(responesData.data.user.Teacherdetails || responesData.data.user.Studentdetails){
+            navigate('/pending')
+          }else{
+            if(userType === 'student'){
+              navigate(`/StudentDocument/${userid}`)
+            }else if(userType === 'teacher'){
+              navigate(`/TeacherDocument/${userid}`)
+            }
+          }
         }else if(responesData.data.user.Isapproved === "approved"){
           if(userType === 'student'){
             navigate(`/Student/Dashboard/${userid}`)
@@ -73,15 +81,12 @@ export default function Login() {
             navigate(`/Teacher/Dashboard/${userid}`)
           }
         }else if(responesData.data.user.Isapproved === "rejected"){
-          navigate('/rejected')
-        }else{
-          if(userType === 'student'){
-            navigate(`/StudentDocument/${userid}`)
-          }else if(userType === 'teacher'){
-            navigate(`/TeacherDocument/${userid}`)
+          if(userType === 'teacher'){
+            navigate(`/rejected/${userType}/${userid}`)
+          }else{
+            navigate(`/rejected/${userType}/${userid}`)
           }
         }
-      
 
       } else if (response.status === 401) {
         // Incorrect password

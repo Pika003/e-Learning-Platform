@@ -11,6 +11,7 @@ const authSTD = asyncHandler(async(req,_,next) =>{
     if(!accToken) {
         throw new ApiError(401, "unauthorized req")
     }
+    console.log(accToken);
 
     const decodedAccToken = jwt.verify(accToken,
         process.env.ACCESS_TOKEN_SECRET)

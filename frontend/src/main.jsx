@@ -40,7 +40,7 @@ const router = createBrowserRouter(
       <Route path='/about' element={<About/>}/>
       <Route path='/varifyEmail' element={<VarifyEmail/>}/>
       <Route path='/adminLogin/' element={<AdminLogin/>}/>
-      <Route path='/rejected' element={<Rejected/>}/>
+      <Route path='/rejected/:user/:ID' element={<Rejected/>}/>
       <Route path='/pending' element={<Pending/>}/>
       <Route path='/admin/:data' element={<Admin/>}/>
       <Route path='/VarifyDoc/:type/:adminID/:ID' element={<VarifyDoc/>}/>

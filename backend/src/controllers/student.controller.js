@@ -280,6 +280,13 @@ const addStudentDetails = asyncHandler(async(req, res)=>{
 
     const loggedstd = await student.findByIdAndUpdate(id, { Studentdetails: studentdetails._id }).select("-Password -Refreshtoken")
 
+    const theStudent = await student.findOneAndUpdate({_id: id}, {$set: {Isapproved:"pending"}},  { new: true })
+    
+    
+    if(!theStudent){
+        throw new ApiError(400,"faild to approve or reject || student not found")
+    }
+
     return res
     .status(200)
     .json(new ApiResponse(200, loggedstd, "documents uploaded successfully"))

@@ -18,7 +18,7 @@ router.route("/login").post(
     authSchema, login
 )
 
-router.route("/logout").post(
+router.route("/logout").get(
     authTeacher, logout
 )
 
