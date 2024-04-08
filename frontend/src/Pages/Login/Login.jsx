@@ -64,11 +64,23 @@ export default function Login() {
         console.log("Login successful");
         
         
-       if(userType === 'student'){
-           navigate(`/StudentDocument/${userid}`)
-       }else if(userType === 'teacher'){
-           navigate(`/TeacherDocument/${userid}`)
-       }
+        if(responesData.data.user.Isapproved === "pending"){
+          navigate('/pending')
+        }else if(responesData.data.user.Isapproved === "approved"){
+          if(userType === 'student'){
+            navigate(`/Student/Dashboard/${userid}`)
+          }else if(userType === 'teacher'){
+            navigate(`/Teacher/Dashboard/${userid}`)
+          }
+        }else if(responesData.data.user.Isapproved === "rejected"){
+          navigate('/rejected')
+        }else{
+          if(userType === 'student'){
+            navigate(`/StudentDocument/${userid}`)
+          }else if(userType === 'teacher'){
+            navigate(`/TeacherDocument/${userid}`)
+          }
+        }
       
 
       } else if (response.status === 401) {

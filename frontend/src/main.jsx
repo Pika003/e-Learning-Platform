@@ -44,15 +44,15 @@ const router = createBrowserRouter(
       <Route path='/pending' element={<Pending/>}/>
       <Route path='/admin/:data' element={<Admin/>}/>
       <Route path='/VarifyDoc/:type/:adminID/:ID' element={<VarifyDoc/>}/>
-      <Route path='/Student/Dashboard' element={<StudentLayout/>}>
-        <Route path='/Student/Dashboard/Search' element={<SearchTeacher/>}/>
-        <Route path='/Student/Dashboard/Classes' element={<StudentClasses/>}/>
-        <Route path='/Student/Dashboard/Courses' element={<StudentCourses/>}/>
+      <Route path='/Student/Dashboard/:ID' element={<StudentLayout/>}>
+        <Route path='/Student/Dashboard/:ID/Search' element={<SearchTeacher/>}/>
+        <Route path='/Student/Dashboard/:ID/Classes' element={<StudentClasses/>}/>
+        <Route path='/Student/Dashboard/:ID/Courses' element={<StudentCourses/>}/>
       </Route>
-      <Route path='/Teacher/Dashboard' element={<TeacherLayout/>}>
-        <Route path='/Teacher/Dashboard/Home' element={<DashboardTeacher/>}/>
-        <Route path='/Teacher/Dashboard/Classes' element={<TeacherClasses/>}/>
-        <Route path='/Teacher/Dashboard/Courses' element={<TeacherCourses/>}/>
+      <Route path='/Teacher/Dashboard/:ID' element={<TeacherLayout/>}>
+        <Route path='/Teacher/Dashboard/:ID/Home' element={<DashboardTeacher/>}/>
+        <Route path='/Teacher/Dashboard/:ID/Classes' element={<TeacherClasses/>}/>
+        <Route path='/Teacher/Dashboard/:ID/Courses' element={<TeacherCourses/>}/>
       </Route>
     </Route>
  )

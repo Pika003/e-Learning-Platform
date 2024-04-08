@@ -1,8 +1,10 @@
 import React from 'react'
 import teachingImg from '../../Images/Teaching.svg'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
+
 
 function StudentDashboard() {
+  const { ID } = useParams();
   return (
     <>
     {/* navbar */}
@@ -35,15 +37,15 @@ function StudentDashboard() {
         </div>
 
         <div className='flex flex-col gap-1'>
-          <NavLink to='/Student/Dashboard/Search' className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
+          <NavLink to = {`/Student/Dashboard/${ID}/Search`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
           Teacher
           </NavLink>
 
-          <NavLink to='/Student/Dashboard/Classes' className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
+          <NavLink to = {`/Student/Dashboard/${ID}/Classes`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
           Classes
           </NavLink>
 
-          <NavLink to='/Student/Dashboard/Courses' className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
+          <NavLink to = {`/Student/Dashboard/${ID}/Courses`} className={({isActive}) => isActive ? "bg-white p-3 px-[4.61rem] text-center font-semibold text-[#4E84C1]" : "p-3 text-center font-semibold text-[#4E84C1]" }> 
           Courses
           </NavLink>
         </div>
