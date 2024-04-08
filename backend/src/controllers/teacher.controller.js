@@ -75,6 +75,7 @@ const signup = asyncHandler(async (req, res) => {
         Firstname,
         Lastname,
         Password,
+        Teacherdetails:null,
     });
 
     const createdTeacher = await Teacher.findById(newTeacher._id).select("-Password");
@@ -267,9 +268,7 @@ const addTeacherDetails = asyncHandler(async(req,res)=>{
         PG:PG.url,
     })
 
-    const loggedTeacher = await Teacher.findByIdAndUpdate(id, {Teacherdetails: teacherdetails._id}).select("-Password -Refreshtoken")
-
-    const theTeacher = await Teacher.findOneAndUpdate({_id: id}, {$set: {Isapproved:"pending"}},  { new: true })
+    const theTeacher = await Teacher.findOneAndUpdate({_id: id}, {$set: {Isapproved:"pending", Teacherdetails: teacherdetails._id}},  { new: true }).select("-Password -Refreshtoken")
     
     if(!theTeacher){
         throw new ApiError(400,"faild to approve or reject || student not found")

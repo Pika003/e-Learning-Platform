@@ -97,6 +97,8 @@ const signup = asyncHandler(async (req, res) =>{
         Firstname,
         Lastname,
         Password,
+        Studentdetails:null,
+
     })
 
     const createdStudent = await student.findById(newStudent._id).select(
@@ -278,9 +280,9 @@ const addStudentDetails = asyncHandler(async(req, res)=>{
     })
 
 
-    const loggedstd = await student.findByIdAndUpdate(id, { Studentdetails: studentdetails._id }).select("-Password -Refreshtoken")
+    //const loggedstd = await student.findByIdAndUpdate(id, {})
 
-    const theStudent = await student.findOneAndUpdate({_id: id}, {$set: {Isapproved:"pending"}},  { new: true })
+    const theStudent = await student.findOneAndUpdate({_id: id}, {$set: {Isapproved:"pending", Studentdetails: studentdetails._id}},  { new: true }).select("-Password -Refreshtoken")
     
     
     if(!theStudent){
@@ -289,7 +291,7 @@ const addStudentDetails = asyncHandler(async(req, res)=>{
 
     return res
     .status(200)
-    .json(new ApiResponse(200, loggedstd, "documents uploaded successfully"))
+    .json(new ApiResponse(200, theStudent, "documents uploaded successfully"))
 
 })
 
