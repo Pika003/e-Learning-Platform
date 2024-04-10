@@ -16,7 +16,7 @@ function Landing() {
       <div className="top">
         <div className="left">
           <h1>
-            Online Teaching <br /> Marketplace And <br /> E-Learning Platform
+          Empowering Minds, Inspiring Futures: <br />Your Gateway to Online Learning with <span className="text-blue-500 font-semibold">Shiksharthee</span>
           </h1>
           <Search />
         </div>

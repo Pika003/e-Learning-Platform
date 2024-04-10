@@ -1,10 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import teachingImg from '../../Images/Teaching.svg'
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useParams, useNavigate } from 'react-router-dom'
 
 
 function StudentDashboard() {
   const { ID } = useParams();
+  const navigator = useNavigate();
+  const [data, setdata] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetch(`/api/Student/StudentDocument/${ID}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const user = await response.json();
+        setdata(user.data);
+      } catch (error) {
+        setError(error.message)
+      }
+    };
+    getData();
+   },[]);
+
   return (
     <>
     {/* navbar */}
@@ -15,7 +40,7 @@ function StudentDashboard() {
           <h1 className='text-3xl text-[#4E84C1] font-bold'>Title</h1>
         </div>
         <div className='bg-[#0D199D] text-white py-2 px-5 rounded-full'>
-          <p>logout</p>
+          <p onClick={() => navigator('/')}>logout</p>
         </div>
       </nav>
 
@@ -33,7 +58,7 @@ function StudentDashboard() {
       <div className='bg-[#071645] w-52 h-[88.5vh] absolute top-20'>
         <div className='flex flex-col gap-5 text-xl items-center text-white mt-8 mb-10'>
           <img src="https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png" alt="profile_img" width={50} />
-          <p>Satyajit Maity</p>
+          <p>{data.Firstname} {data.Lastname}</p>
         </div>
 
         <div className='flex flex-col gap-1'>

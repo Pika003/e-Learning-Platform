@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Input from './InputComponent/Input';
 import InputUpload from './Inputupload/InputUpload';
 import { useNavigate, useParams } from 'react-router-dom';
+import {RotatingLines} from 'react-loader-spinner';
 
 const StudentDocument = () => {
   const [data,setdata]=useState([]);
   const [error,setError]=useState("");
   const { Data } = useParams();
   const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -62,6 +64,7 @@ const StudentDocument = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true);
 
     const formDataObj = new FormData();
 
@@ -83,6 +86,7 @@ const StudentDocument = () => {
       } else {
         
         console.log('Form submitted successfully!');
+        setLoader(false);
         navigate('/pending')
       }
     } catch (e) {
@@ -93,6 +97,19 @@ const StudentDocument = () => {
 
   return (
     <>
+      { loader && 
+        <RotatingLines
+        visible={true}
+        height="96"
+        width="96"
+        color="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        ariaLabel="rotating-lines-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        />
+      }
       <div className='flex items-center gap-[25rem] px-32 py-2'>
         <div className='flex items-center gap-3'>
           <img src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/53619c42501fb7619406ed947b38c5fa4f07597c"
