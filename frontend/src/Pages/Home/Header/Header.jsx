@@ -6,10 +6,12 @@ function Header() {
   return (
     <>
     <header className="flex items-center justify-evenly bg-[#042439] w-full fixed z-10 gap-[20rem]">
+      <NavLink to='/'>
       <div className="logo">
         <img src={Logo} alt="logo" />
-        <h1><NavLink to='/' className='text-2xl text-[#4E84C1] font-bold'>Shiksharthee</NavLink></h1>
+        <h1 className='text-2xl text-[#4E84C1] font-bold'>Shiksharthee</h1>
       </div>
+      </NavLink>
       <div className="link-nav">
         <ul>
           <li><NavLink to='/' className={({isActive}) => isActive ? "active" : "deactive" }> Home </NavLink></li>

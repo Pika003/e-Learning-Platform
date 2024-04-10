@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Input from './InputComponent/Input';
 import InputUpload from './Inputupload/InputUpload'; 
 import { useNavigate, useParams } from 'react-router-dom';
+import {RotatingLines} from 'react-loader-spinner';
 
 const TeacherDocument = () => {
   const [data, setData] = useState([]);
   const { Data } = useParams();
   const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -67,6 +69,7 @@ const TeacherDocument = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true);
 
     const formDataObj = new FormData();
 
@@ -83,8 +86,9 @@ const TeacherDocument = () => {
       const responseData = await response.json();
       console.log('response', responseData);
 
+      setLoader(false);
       if (!response.ok) {
-        console.log(responseData.message); 
+        alert(responseData.message); 
       } else {
         
         console.log('Form submitted successfully!');
@@ -97,6 +101,21 @@ const TeacherDocument = () => {
 
   return (
     <>
+      { loader && 
+        <div className='absolute top-[40%] left-[45%] translate-x-[50%] translate-y-[50%]'>
+          <RotatingLines
+          visible={true}
+          height="100"
+          width="100"
+          color="#0D286F"
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          /> <span className='text-white text-xl ml-1'>Loading ...</span>
+        </div>
+      }
       <div className='flex items-center gap-[24rem] px-32 py-2 bg-[#0D286F]'>
         <div className='flex items-center gap-3'>
           <img src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/53619c42501fb7619406ed947b38c5fa4f07597c"

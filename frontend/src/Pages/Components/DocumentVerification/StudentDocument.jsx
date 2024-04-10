@@ -81,12 +81,12 @@ const StudentDocument = () => {
       const responseData = await response.json();
       console.log('response', responseData);
 
+      setLoader(false);
       if (!response.ok) {
-        console.log(responseData.message); 
+        alert(responseData.message); 
       } else {
         
         console.log('Form submitted successfully!');
-        setLoader(false);
         navigate('/pending')
       }
     } catch (e) {
@@ -98,17 +98,19 @@ const StudentDocument = () => {
   return (
     <>
       { loader && 
-        <RotatingLines
-        visible={true}
-        height="96"
-        width="96"
-        color="grey"
-        strokeWidth="5"
-        animationDuration="0.75"
-        ariaLabel="rotating-lines-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
-        />
+        <div className='absolute top-[40%] left-[45%] translate-x-[50%] translate-y-[50%]'>
+          <RotatingLines
+          visible={true}
+          height="100"
+          width="100"
+          color="#0D286F"
+          strokeWidth="5"
+          animationDuration="0.75"
+          ariaLabel="rotating-lines-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          /> <span className='text-white text-xl ml-1'>Loading ...</span>
+        </div>
       }
       <div className='flex items-center gap-[25rem] px-32 py-2'>
         <div className='flex items-center gap-3'>

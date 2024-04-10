@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { useNavigate, useParams } from "react-router-dom";
-import { FaCircleInfo } from "react-icons/fa6";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import logo from '../../Images/logo.svg'
 
 const Admin = () => {
@@ -78,6 +77,7 @@ const Admin = () => {
     <div className="h-[100vh]">
       {/* Navbar */}
       <nav className="h-16 sm:h-20 md:h-24 lg:h-24  w-full bg-[#042439] flex justify-between items-center px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <NavLink to='/'>
         <div className="flex items-center gap-4">
           <img
             src={logo}
@@ -88,10 +88,11 @@ const Admin = () => {
             Shiksharthee
           </h1>
         </div>
+        </NavLink>
         <div className="flex items-center">
           <div className="relative mr-4">
             <IoIosNotificationsOutline className="h-8 w-8 text-white" />
-            <span className="absolute top-0 right-2 h-2 w-2 bg-red-500 rounded-full"></span>
+            <span className="absolute top-1 right-1 h-3 w-3 bg-red-500 rounded-full"></span>
           </div>
           <button onClick={() => navigator('/')} className="bg-blue-500 text-white px-4 py-2 rounded-md">
             Logout
@@ -111,19 +112,11 @@ const Admin = () => {
           {
             StudentData.length > 0 ? StudentData.map((student) => {
                   return (
-                    <div key={student._id} className="flex justify-around mt-8 p-8 bg-blue-gray-600 rounded-md">
-                      <div className="mr-3" onClick={()=>docDetails("student", student._id)}><FaCircleInfo size={"35"}/></div>
+                    <div key={student._id} onClick={()=>docDetails("student", student._id)} className="flex justify-around items-center mt-8 p-8 bg-blue-gray-600 rounded-md cursor-pointer">
                       <h1 className="text-[24px] text-1xl text-white mr-3">
                         {student.Firstname +" "+ student.Lastname}
                       </h1>
-                      <div className="flex items-center">
-                        <div className="px-5 py-1  bg-blue-600 mr-3 text-lg font-bold text-white ring-1 ring-inset ring-white rounded-lg hover:scale-95 hover:bg-blue-900" onClick={()=>Approval(student._id, "student", "approved")}>
-                          Approved !
-                        </div>
-                        <div className="px-5 py-1  bg-red-600 text-lg font-bold text-white ring-1   ring-inset ring-white rounded-lg hover:scale-95 hover:bg-red-900" onClick={()=>Approval(student._id, "student", "rejected")}>
-                          Rejected !
-                        </div>
-                      </div>
+                      <p>Status: <span>{student.Isapproved}</span></p>
                     </div>
                   );
                 })
@@ -136,19 +129,11 @@ const Admin = () => {
           {
             TeacherData.length > 0 ? TeacherData.map((teacher) => {
                   return (
-                    <div key={teacher._id} className="flex justify-around my-8 p-8 bg-blue-gray-600 rounded-md">
-                      <div className="mr-3" onClick={()=>docDetails("teacher", teacher._id)}><FaCircleInfo size={"35"}/></div>
+                    <div key={teacher._id} onClick={()=>docDetails("teacher", teacher._id)} className="flex justify-around items-center my-8 p-8 bg-blue-gray-600 rounded-md">
                       <h1 className="text-[24px] text-1xl text-white mr-3">
                         {teacher.Firstname +" "+ teacher.Lastname}
                       </h1>
-                      <div className="flex items-center">
-                        <div className="px-5 py-1  bg-blue-600 mr-3 text-lg font-bold text-white ring-1 ring-inset ring-white rounded-lg hover:scale-95 hover:bg-blue-900" onClick={()=>Approval(teacher._id, "teacher", "approved")}>
-                          Approved !
-                        </div>
-                        <div className="px-5 py-1  bg-red-600 text-lg font-bold text-white ring-1   ring-inset ring-white rounded-lg hover:scale-95 hover:bg-red-900" onClick={()=>Approval(teacher._id, "teacher", "rejected")}>
-                          Rejected !
-                        </div>
-                      </div>
+                      <p>Status: <span>{teacher.Isapproved}</span></p>
                     </div>
                   );
                 })

@@ -35,11 +35,13 @@ function StudentDashboard() {
     <>
     {/* navbar */}
       <nav className='bg-[#04253A] px-10 py-3 flex justify-between items-center'>
+        <NavLink to="/">
         <div className='flex items-center gap-3'>
           <img src={logo}
             className="w-14" alt="" />
           <h1 className='text-2xl text-[#4E84C1] font-bold'>Shiksharthee</h1>
         </div>
+        </NavLink>
         <div className='bg-[#0D199D] text-white py-2 px-5 rounded-full'>
           <p onClick={() => navigator('/')}>logout</p>
         </div>
