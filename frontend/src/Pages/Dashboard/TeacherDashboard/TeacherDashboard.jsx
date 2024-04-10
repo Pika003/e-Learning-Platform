@@ -1,6 +1,7 @@
 import React , { useEffect, useState } from 'react'
 import teachingImg from '../../Images/Teaching.svg'
 import { NavLink, useParams, useNavigate } from 'react-router-dom'
+import logo from '../../Images/logo.svg'
 
 function TeacherDashboard() {
   const { ID } = useParams();
@@ -34,9 +35,9 @@ function TeacherDashboard() {
     {/* navbar */}
       <nav className='bg-[#04253A] px-10 py-3 flex justify-between items-center'>
         <div className='flex items-center gap-3'>
-          <img src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/53619c42501fb7619406ed947b38c5fa4f07597c"
+          <img src={logo}
             className="w-14" alt="" />
-          <h1 className='text-3xl text-[#4E84C1] font-bold'>Title</h1>
+          <h1 className='text-2xl text-[#4E84C1] font-bold'>Shiksharthee</h1>
         </div>
         <div className='bg-[#0D199D] text-white py-2 px-5 rounded-full'>
           <p onClick={() => navigator('/')} >logout</p>
@@ -45,8 +46,8 @@ function TeacherDashboard() {
 
       <div className='bg-[#008280] flex justify-between items-center'>
         <div className=' text-white font-semibold text-5xl ml-72'>
-          <h1 className='mb-5'>Welcome to</h1>
-          <h1 className='ml-10'>E Learning Platform</h1>
+          <h1 className='mb-5'>Welcome to <span className='text-[#071645]'>Shiksharthee</span></h1>
+          <h3 className='ml-16 text-[#071645]'>{data.Firstname} {data.Lastname}</h3>
         </div>
         <div className='m-5 mr-20'>
           <img src={teachingImg} alt="teaching" width={300}/>

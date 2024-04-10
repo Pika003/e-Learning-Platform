@@ -59,14 +59,14 @@ function VarifyDoc() {
 
             {type === "student" && data && data.theStudent && (
                 <>
-                    <div className='flex gap-10 text-white justify-center mt-5 text-[1.3rem]'>
-                        <p>Full Name : <span className='text-[#042439]'>{data.theStudent.Firstname} {data.theStudent.Lastname}</span></p>
-                        <p>Phone No : <span className='text-[#042439]'>{data.studentDocs.Phone}</span></p>
-                        <p>Highest Education : <span className='text-[#042439]'>{data.studentDocs.Highesteducation}</span></p>
-                        <p>Address : <span className='text-[#042439]'>{data.studentDocs.Address}</span></p>
+                    <div className='flex gap-10 text-gray-200 justify-center mt-5 text-[1.3rem]'>
+                        <p>Full Name : {data.theStudent.Firstname} {data.theStudent.Lastname}</p>
+                        <p>Phone No : {data.studentDocs.Phone}</p>
+                        <p>Highest Education : {data.studentDocs.Highesteducation}</p>
+                        <p>Address : {data.studentDocs.Address}</p>
                     </div>
 
-                    <div className='flex mt-10 justify-center gap-20 flex-wrap text-[#042439] font-bold'>
+                    <div className='flex mt-10 justify-center gap-20 flex-wrap text-gray-200  font-bold'>
                         <div className='m-5 flex flex-col gap-3'>
                             <img src={data.studentDocs.Secondary} alt="Secondary" width={500}/>
                             <p>10th Marksheet  <span className='text-[#8DE855]'>: {data.studentDocs.SecondaryMarks}%</span></p>
@@ -95,14 +95,14 @@ function VarifyDoc() {
 
             {type === "teacher" && data && data.theTeacher &&  (
                 <>
-                    <div className='flex gap-10 text-white justify-center mt-5 text-[1.3rem]'>
-                        <p>Full Name : <span className='text-[#042439]'>{data.theTeacher.Firstname} {data.theTeacher.Lastname}</span></p>
-                        <p>Phone No : <span className='text-[#042439]'>{data.teacherDocs.Phone}</span></p>
-                        <p>Experience : <span className='text-[#042439]'>{data.teacherDocs.Experience} years</span></p>
-                        <p>Address : <span className='text-[#042439]'>{data.teacherDocs.Address}</span></p>
+                    <div className='flex gap-10 text-gray-200 justify-center mt-5 text-[1.3rem]'>
+                        <p>Full Name : {data.theTeacher.Firstname} {data.theTeacher.Lastname}</p>
+                        <p>Phone No : {data.teacherDocs.Phone}</p>
+                        <p>Experience : {data.teacherDocs.Experience} years</p>
+                        <p>Address : {data.teacherDocs.Address}</p>
                     </div>
 
-                    <div className='flex mt-10 justify-center gap-20 flex-wrap text-[#042439] font-bold'>
+                    <div className='flex mt-10 justify-center gap-20 flex-wrap text-gray-200 font-bold'>
                         <div className='m-5 flex flex-col gap-3'>
                             <img src={data.teacherDocs.Secondary} alt="Secondary" width={500}/>
                             <p>10th Marksheet  <span className='text-[#8DE855]'>: {data.teacherDocs.SecondaryMarks}%</span></p>

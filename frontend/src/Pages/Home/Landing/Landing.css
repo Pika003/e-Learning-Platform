@@ -116,6 +116,8 @@ button:hover{
     display: flex;
     gap: 2.5rem;
     margin: 4rem;
+    align-items: center;
+    justify-content: center;
 }
 
 .subject{

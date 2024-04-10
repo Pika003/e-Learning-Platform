@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaCircleInfo } from "react-icons/fa6";
+import logo from '../../Images/logo.svg'
 
 const Admin = () => {
   const { data } = useParams();
@@ -77,14 +78,14 @@ const Admin = () => {
     <div className="h-[100vh]">
       {/* Navbar */}
       <nav className="h-16 sm:h-20 md:h-24 lg:h-24  w-full bg-[#042439] flex justify-between items-center px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
           <img
-            src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/53619c42501fb7619406ed947b38c5fa4f07597c"
+            src={logo}
             alt="logo"
-            className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-18"
+            className="w-14 sm:h-12 md:h-14 lg:h-16 xl:h-18"
           />
-          <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl  text-blue-700 font-bold font-mono ml-2">
-            Title
+          <h1 className="text-2xl text-[#4E84C1] font-bold">
+            Shiksharthee
           </h1>
         </div>
         <div className="flex items-center">

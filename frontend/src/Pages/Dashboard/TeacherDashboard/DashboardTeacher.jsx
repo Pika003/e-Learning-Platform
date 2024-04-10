@@ -30,9 +30,9 @@ function DashboardTeacher() {
   return (
     <>
         <div className='m-5 ml-60 text-white flex flex-col gap-7'>
-            <div className='text-[1.1rem] w-96 flex gap-44 items-center border-b-2 pb-5 mb-5'>
-                <p>Amount: <span className=' text-green-500'>$00</span></p>
-                <button>Withdrawl</button>
+            <div className='text-[1.1rem] w-[30rem] flex gap-44 items-center border-b-2 pb-5 mb-5'>
+                <p>Amount: <span className=' text-green-500'>Rs. 5000</span></p>
+                <div className='bg-[#1671D8] p-3 rounded-md'>Remuneration</div>
             </div>
                 <p>Name: {data.Firstname} {data.Lastname}</p>
                 <p>Email: {data.Email}</p>
