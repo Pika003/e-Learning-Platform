@@ -34,6 +34,24 @@ const adminSignUp = asyncHandler(async(req,res)=>{
 
 })
 
+const generateAccessAndRefreshTokens = async (admindID) =>{ 
+    try {
+        
+        const Admin = await admin.findById(admindID)
+        
+        const Accesstoken = Admin.generateAccessToken()
+        const Refreshtoken = Admin.generateRefreshToken()
+
+        Admin.Refreshtoken = Refreshtoken
+        await Admin.save({validateBeforeSave:false})
+
+        return{Accesstoken, Refreshtoken}
+
+    } catch (error) {
+        throw new ApiError(500, "Something went wrong while generating referesh and access token")
+    }
+}
+
 const adminLogin = asyncHandler(async(req,res)=>{
 
     const {username, password} = req.body
@@ -54,9 +72,22 @@ const adminLogin = asyncHandler(async(req,res)=>{
         throw new ApiError(400, "Password is incorrect")
     }
 
+    const temp_admin = loggedAdmin._id
+
+    const {Accesstoken, Refreshtoken} =  await generateAccessAndRefreshTokens(temp_admin)
+
+    const loggedadmin = await admin.findById(temp_admin).select("-password -Refreshtoken")
+
+    const options = {
+        httpOnly:true,
+        secure:true,
+    }
+
     return res 
     .status(200)
-    .json(new ApiResponse(200,{admin:loggedAdmin}, "logged in successfully"))
+    .cookie("Accesstoken", Accesstoken, options)
+    .cookie("Refreshtoken", Refreshtoken, options)
+    .json(new ApiResponse(200,{admin:loggedadmin}, "logged in successfully"))
 })
 
 const forApproval = asyncHandler(async(req,res)=>{

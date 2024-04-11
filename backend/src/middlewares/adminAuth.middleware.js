@@ -1,9 +1,9 @@
 import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js";
-import {student} from "../models/student.model.js";
+import { admin } from "../models/admin.model.js";
 import jwt from "jsonwebtoken";
 
-const authSTD = asyncHandler(async(req,_,next) =>{
+const authAdmin = asyncHandler(async(req,_,next) =>{
 
     const accToken = req.cookies?.Accesstoken
 
@@ -11,19 +11,20 @@ const authSTD = asyncHandler(async(req,_,next) =>{
         throw new ApiError(401, "unauthorized req")
     }
 
+
     const decodedAccToken = jwt.verify(accToken,
         process.env.ACCESS_TOKEN_SECRET)
 
-    const Student = await student.findById(decodedAccToken?._id).select("-Password -Refreshtoken")
+    const Admin = await admin.findById(decodedAccToken?._id).select("-password -Refreshtoken")
 
-    if(!Student){
+    if(!Admin){
         throw new ApiError(401, "invalid access token")
     }
 
-    req.Student = Student
+    req.Admin = Admin
     next()
 
     
 })
 
-export { authSTD }
+export { authAdmin }
