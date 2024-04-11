@@ -48,4 +48,5 @@ router.route("/verification/:id").post(authTeacher,
      addTeacherDetails)
 
 router.route("/TeacherDocument/:id").get(authTeacher, getTeacher)
+
 export default router;

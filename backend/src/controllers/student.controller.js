@@ -222,7 +222,7 @@ const getStudent = asyncHandler(async(req,res)=>{
     }
     return res
     .status(200)
-    .json(new ApiResponse(200, user, "done"))
+    .json(new ApiResponse(200, user, "Student is logged in"))
 })
 const addStudentDetails = asyncHandler(async(req, res)=>{
 

@@ -127,7 +127,6 @@ const approveStudent = asyncHandler(async(req,res)=>{
 
     const theStudent = await student.findOneAndUpdate({_id: studentID}, {$set: {Isapproved:toApprove}},  { new: true })
     
-    console.log(theStudent);
     if(!theStudent){
         throw new ApiError(400,"faild to approve or reject || student not found")
     }

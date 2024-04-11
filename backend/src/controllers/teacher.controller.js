@@ -192,7 +192,7 @@ const getTeacher = asyncHandler(async(req,res) =>{
 
     return res
     .status(200)
-    .json(new ApiResponse(200, user, "done"))
+    .json(new ApiResponse(200, user, "Teacher is logged in"))
 })
 
 const addTeacherDetails = asyncHandler(async(req,res)=>{
@@ -243,7 +243,6 @@ const addTeacherDetails = asyncHandler(async(req,res)=>{
 
 
     const Aadhaar = await uploadOnCloudinary(AadhaarLocalPath)
-    console.log(Aadhaar)
     const Secondary = await uploadOnCloudinary(SecondaryLocalPath)
     const Higher = await uploadOnCloudinary(HigherLocalPath)
     const UG = await uploadOnCloudinary(UGLocalPath)
