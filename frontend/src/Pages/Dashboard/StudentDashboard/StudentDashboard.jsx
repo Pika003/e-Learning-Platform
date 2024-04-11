@@ -8,6 +8,20 @@ function StudentDashboard() {
   const { ID } = useParams();
   const navigator = useNavigate();
   const [data, setdata] = useState([]);
+
+  const Handlelogout = async() =>{
+    const response = await fetch(`/api/student/logout`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    const data = await response.json();
+    if(data.statusCode == 200){
+      navigator('/');
+    }
+  }
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -43,7 +57,7 @@ function StudentDashboard() {
         </div>
         </NavLink>
         <div className='bg-[#0D199D] text-white py-2 px-5 rounded-full'>
-          <p onClick={() => navigator('/')}>logout</p>
+          <p onClick={Handlelogout}>logout</p>
         </div>
       </nav>
 

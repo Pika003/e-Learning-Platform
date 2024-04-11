@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import Input from './InputComponent/Input';
-import InputUpload from './Inputupload/InputUpload'; 
-import { useNavigate, useParams } from 'react-router-dom';
-import {RotatingLines} from 'react-loader-spinner';
+import React, { useState, useEffect } from "react";
+import Input from "./InputComponent/Input";
+import InputUpload from "./Inputupload/InputUpload";
+import { useNavigate, useParams } from "react-router-dom";
+import { RotatingLines } from "react-loader-spinner";
+import logo from "../../Images/logo.svg";
 
 const TeacherDocument = () => {
   const [data, setData] = useState([]);
+  const [error, setError] = useState("");
   const { Data } = useParams();
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
@@ -14,38 +16,38 @@ const TeacherDocument = () => {
     const getData = async () => {
       try {
         const response = await fetch(`/api/teacher/TeacherDocument/${Data}`, {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          throw new Error("Failed to fetch data");
         }
 
         const user = await response.json();
         setData(user.data);
       } catch (error) {
-        console.error(error);
+        setError(error.message);
       }
     };
 
     getData();
-  }, []); 
+  }, []);
 
   const [formData, setFormData] = useState({
-    Phone: data.Phone || '',
-    Address: data.Address || '',
-    Experience: data.Experience || '',
-    SecondarySchool: data.SecondarySchool || '',
-    SecondaryMarks: data.SecondaryMarks || '',
-    HigherSchool: data.HigherSchool || '',
-    HigherMarks: data.HigherMarks || '',
-    UGcollege: data.UGcollege || '',
-    UGmarks: data.UGmarks || '', 
-    PGcollege: data.PGcollege || '',
-    PGmarks: data.PGmarks || '', 
+    Phone: data.Phone || "",
+    Address: data.Address || "",
+    Experience: data.Experience || "",
+    SecondarySchool: data.SecondarySchool || "",
+    SecondaryMarks: data.SecondaryMarks || "",
+    HigherSchool: data.HigherSchool || "",
+    HigherMarks: data.HigherMarks || "",
+    UGcollege: data.UGcollege || "",
+    UGmarks: data.UGmarks || "",
+    PGcollege: data.PGcollege || "",
+    PGmarks: data.PGmarks || "",
     Aadhaar: null,
     Secondary: null,
     Higher: null,
@@ -79,63 +81,59 @@ const TeacherDocument = () => {
 
     try {
       const response = await fetch(`/api/teacher/verification/${Data}`, {
-        method: 'POST',
+        method: "POST",
         body: formDataObj,
       });
 
       const responseData = await response.json();
-      console.log('response', responseData);
+      console.log("response", responseData);
 
       setLoader(false);
       if (!response.ok) {
-        alert(responseData.message); 
+        setError(responseData.message);
       } else {
-        
-        console.log('Form submitted successfully!');
-        navigate('/pending')
+        console.log("Form submitted successfully!");
+        navigate("/pending");
       }
     } catch (e) {
-      console.error('Error:', e);
+      console.error("Error:", e);
     }
   };
 
   return (
     <>
-      { loader && 
-        <div className='absolute top-[40%] left-[45%] translate-x-[50%] translate-y-[50%]'>
+      {loader && (
+        <div className="absolute top-[40%] left-[45%] translate-x-[50%] translate-y-[50%]">
           <RotatingLines
-          visible={true}
-          height="100"
-          width="100"
-          color="#0D286F"
-          strokeWidth="5"
-          animationDuration="0.75"
-          ariaLabel="rotating-lines-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          /> <span className='text-white text-xl ml-1'>Loading ...</span>
+            visible={true}
+            height="100"
+            width="100"
+            color="#0D286F"
+            strokeWidth="5"
+            animationDuration="0.75"
+            ariaLabel="rotating-lines-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />{" "}
+          <span className="text-white text-xl ml-1">Uploading ...</span>
         </div>
-      }
-      <div className='flex items-center gap-[24rem] px-32 py-2 bg-[#0D286F]'>
-        <div className='flex items-center gap-3'>
-          <img src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/53619c42501fb7619406ed947b38c5fa4f07597c"
-            className="w-14" alt="" />
-          <h1 className='text-3xl text-[#4E84C1] font-bold'>Title</h1>
+      )}
+      <div className="flex items-center gap-[20rem] px-32 py-2 bg-[#0D286F]">
+        <div className="flex items-center gap-3">
+          <img src={logo} className="w-14" alt="" />
+          <h1 className="text-2xl text-[#4E84C1] font-bold">Shiksharthee</h1>
         </div>
-        <h2 className='text-white text-xl'>Document Verification (Teacher) </h2>
-        <div className='bg-[#042439] px-3 py-2 rounded-md text-white'
-        onClick={()=> navigate('/')}
-        >logout</div>
+        <h2 className="text-white text-xl">Document Verification (Teacher) </h2>
       </div>
       <hr />
       <form onSubmit={handleSubmit}>
-        <p className='text-[#4E84C1] p-5 px-10'>Personal Information</p>
-        <div className='flex flex-wrap gap-20 px-36 mb-10'>
+        <p className="text-[#4E84C1] p-5 px-10">Personal Information</p>
+        <div className="flex flex-wrap gap-20 px-36 mb-10">
           <Input
             label={"First Name"}
             placeholder={"First Name"}
             value={data.Firstname}
-           readonly
+            readonly
           />
           <Input
             label={"Last Name"}
@@ -151,7 +149,7 @@ const TeacherDocument = () => {
           />
         </div>
 
-        <div className='flex flex-wrap gap-20 px-36'>
+        <div className="flex flex-wrap gap-20 px-36">
           <Input
             label={"Home Address"}
             placeholder={"Home Address"}
@@ -168,109 +166,117 @@ const TeacherDocument = () => {
             label={"Upload Aadhar Card"}
             placeholder={"Upload Aadhar Card"}
             value={formData.Aadhaar}
-            onChange={(e) => handleFileChange('Aadhaar', e)}
+            onChange={(e) => handleFileChange("Aadhaar", e)}
           />
         </div>
 
-        <p className='text-[#4E84C1] p-5 px-10 pt-10'>Educational Information</p>
-        <div className='border h-full mx-36 '>
-          <div className='flex flex-row gap-7 '>
-            <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm'>
-              <p className=' text-white text-sm'>Secondary School</p>
+        <p className="text-[#4E84C1] p-5 px-10 pt-10">
+          Educational Information
+        </p>
+        <div className="border h-full mx-36 ">
+          <div className="flex flex-row gap-7 ">
+            <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm">
+              <p className=" text-white text-sm">Secondary School</p>
             </div>
             <Input
               placeholder={"10th School Name"}
               value={formData.SecondarySchool}
-              onChange={(e) => handleInputChange("SecondarySchool", e.target.value)}
+              onChange={(e) =>
+                handleInputChange("SecondarySchool", e.target.value)
+              }
             />
             <Input
               placeholder={"Total Marks (%)"}
               value={formData.SecondaryMarks}
-              onChange={(e) => handleInputChange("SecondaryMarks", e.target.value)}
+              onChange={(e) =>
+                handleInputChange("SecondaryMarks", e.target.value)
+              }
             />
-            <div className=' mt-[-1.5rem]'>
+            <div className=" mt-[-1.5rem]">
               <InputUpload
                 placeholder={"Upload 10th Result"}
                 value={formData.Secondary}
-                onChange={(e) => handleFileChange('Secondary', e)}
+                onChange={(e) => handleFileChange("Secondary", e)}
               />
             </div>
           </div>
-        
-         
 
-<div className='flex flex-row gap-7'>
-  <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm'>
-    <p className=' text-white text-sm'>Higher Secondary</p>
-  </div>
-  <Input
-    placeholder={"12th School Name"}
-    value={formData.HigherSchool}
-    onChange={(e) => handleInputChange("HigherSchool", e.target.value)}
-  />
-  <Input
-    placeholder={"Total Marks (%)"}
-    value={formData.HigherMarks}
-    onChange={(e) => handleInputChange("HigherMarks", e.target.value)}
-  />
-  <div className=' mt-[-1.5rem]'>
-    <InputUpload
-      placeholder={"Upload 12th Result"}
-      value={formData.Higher}
-      onChange={(e) => handleFileChange('Higher', e)}
-    />
-  </div>
-</div>
-<hr />
-<div className='flex flex-row gap-7'>
-  <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm'>
-    <p className=' text-white text-sm'>Under Graduation</p>
-  </div>
-  <Input
-    placeholder={"U.G. College/University Name"}
-    value={formData.UGcollege}
-    onChange={(e) => handleInputChange("UGcollege", e.target.value)}
-  />
-  <Input
-    placeholder={"UGmarks/SGP out of 10"}
-    value={formData.UGmarks}
-    onChange={(e) => handleInputChange("UGmarks", e.target.value)}
-  />
-  <div className=' mt-[-1.5rem]'>
-    <InputUpload
-      placeholder={"Upload U.G. Result"}
-      value={formData.UG}
-      onChange={(e) => handleFileChange('UG', e)}
-    />
-  </div>
-</div>
-<hr />
-<div className='flex flex-row gap-7'>
-  <div className=' bg-[#0D286F] p-[1rem] m-3 rounded-sm px-5'>
-    <p className=' text-white text-sm'>Post Graduation</p>
-  </div>
-  <Input
-    placeholder={"P.G. College/University Name"}
-    value={formData.PGcollege}
-    onChange={(e) => handleInputChange("PGcollege", e.target.value)}
-  />
-  <Input
-    placeholder={"CGP/SGP out of 10"}
-    value={formData.PGmarks}
-    onChange={(e) => handleInputChange("PGmarks", e.target.value)}
-  />
-  <div className=' mt-[-1.5rem]'>
-    <InputUpload
-      placeholder={"Upload P.G. Result"}
-      value={formData.PG}
-      onChange={(e) => handleFileChange('PG', e)}
-    />
-  </div>
-</div>
-
+          <div className="flex flex-row gap-7">
+            <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm">
+              <p className=" text-white text-sm">Higher Secondary</p>
+            </div>
+            <Input
+              placeholder={"12th School Name"}
+              value={formData.HigherSchool}
+              onChange={(e) =>
+                handleInputChange("HigherSchool", e.target.value)
+              }
+            />
+            <Input
+              placeholder={"Total Marks (%)"}
+              value={formData.HigherMarks}
+              onChange={(e) => handleInputChange("HigherMarks", e.target.value)}
+            />
+            <div className=" mt-[-1.5rem]">
+              <InputUpload
+                placeholder={"Upload 12th Result"}
+                value={formData.Higher}
+                onChange={(e) => handleFileChange("Higher", e)}
+              />
+            </div>
+          </div>
+          <hr />
+          <div className="flex flex-row gap-7">
+            <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm">
+              <p className=" text-white text-sm">Under Graduation</p>
+            </div>
+            <Input
+              placeholder={"U.G. College/University Name"}
+              value={formData.UGcollege}
+              onChange={(e) => handleInputChange("UGcollege", e.target.value)}
+            />
+            <Input
+              placeholder={"UGmarks/SGP out of 10"}
+              value={formData.UGmarks}
+              onChange={(e) => handleInputChange("UGmarks", e.target.value)}
+            />
+            <div className=" mt-[-1.5rem]">
+              <InputUpload
+                placeholder={"Upload U.G. Result"}
+                value={formData.UG}
+                onChange={(e) => handleFileChange("UG", e)}
+              />
+            </div>
+          </div>
+          <hr />
+          <div className="flex flex-row gap-7">
+            <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm px-5">
+              <p className=" text-white text-sm">Post Graduation</p>
+            </div>
+            <Input
+              placeholder={"P.G. College/University Name"}
+              value={formData.PGcollege}
+              onChange={(e) => handleInputChange("PGcollege", e.target.value)}
+            />
+            <Input
+              placeholder={"CGP/SGP out of 10"}
+              value={formData.PGmarks}
+              onChange={(e) => handleInputChange("PGmarks", e.target.value)}
+            />
+            <div className=" mt-[-1.5rem]">
+              <InputUpload
+                placeholder={"Upload P.G. Result"}
+                value={formData.PG}
+                onChange={(e) => handleFileChange("PG", e)}
+              />
+            </div>
+          </div>
         </div>
-        <div className=' bg-[#0D286F] p-3 m-6 rounded-md w-[7rem] ml-[85%] cursor-pointer' >
-          <button className=' text-white text-sm' type='Submit' >Submit ▶️</button>
+        {error && <p className=" text-red-900 text-xl m-5 text-center">!! {error}</p>}
+        <div className=" bg-[#0D286F] p-3 m-6 rounded-md w-[7rem] ml-[85%] cursor-pointer">
+          <button className=" text-white text-sm" type="Submit">
+            Submit ▶️
+          </button>
         </div>
       </form>
     </>
@@ -278,4 +284,3 @@ const TeacherDocument = () => {
 };
 
 export default TeacherDocument;
-

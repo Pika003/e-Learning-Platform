@@ -18,7 +18,7 @@ router.route("/login").post(
     authSchema, login
 )
 
-router.route("/logout").get(authSTD, logout)
+router.route("/logout").post(authSTD, logout)
 
 router.route("/Verification/:id").post(authSTD,
     upload.fields([

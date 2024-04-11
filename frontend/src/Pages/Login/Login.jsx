@@ -11,6 +11,7 @@ export default function Login() {
   const [Password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [userType, setUserType] = useState('');
+  const [err, setErr] = useState('');
 
 
   const navigate=useNavigate()
@@ -55,7 +56,9 @@ export default function Login() {
       });
 
       const responesData = await response.json()
-      console.log(responesData);
+      if(responesData.message != 'Logged in'){
+        setErr(responesData.message);
+      }
       const userid = responesData.data.user._id
  
       // Handle response
@@ -174,9 +177,12 @@ export default function Login() {
                 Log In
               </button>
             </div>
-            {errors.general && (
-              <div className="error-message">{errors.general}</div>
+            {err != '' && (
+              <p className="text-red-400 text-sm">{err}</p>
             )}
+            {/* {errors.general && (
+              <div className="error-message">{errors.general}</div>
+            )} */}
           </form>
         </div>
       </div>
