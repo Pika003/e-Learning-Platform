@@ -38,9 +38,12 @@ const studentSchema = new mongoose.Schema({
 
     Isapproved:{
         type: String,
-        enum: ['approved', 'rejected', 'pending'],
+        enum: ['approved', 'rejected', 'pending', 'reupload'],
         default: 'pending',
-        
+    },
+
+    Remarks:{
+        type:String
     },
     
     Refreshtoken:{
@@ -51,12 +54,7 @@ const studentSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"studentdocs"
     },
-
-    courses: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'course'
-    }]
-
+    
 },
 {
     timestamps:true,

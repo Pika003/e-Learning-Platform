@@ -90,6 +90,31 @@ const adminLogin = asyncHandler(async(req,res)=>{
     .json(new ApiResponse(200,{admin:loggedadmin}, "logged in successfully"))
 })
 
+const adminLogout = asyncHandler(async(req,res)=>{
+
+    await admin.findByIdAndUpdate(
+        req.Admin._id,
+        {
+            $set:{
+                Refreshtoken:undefined,
+            }
+        },
+        {
+            new:true
+        }
+    )
+    const options ={
+        httpOnly:true,
+        secure:true,
+    }
+
+    return res
+    .status(200)
+    .clearCookie("Accesstoken", options)
+    .clearCookie("Refreshtoken",  options)
+    .json(new ApiResponse(200, {}, "admin logged out"))
+})
+
 const forApproval = asyncHandler(async(req,res)=>{
 
     const adminID = req.params.adminID
@@ -150,13 +175,15 @@ const approveStudent = asyncHandler(async(req,res)=>{
     }
 
     const toApprove = req.body.Isapproved
+
+    const remarks = req.body.remarks || null
     
 
-    if (!toApprove || (toApprove != "approved" && toApprove != "rejected")) {
-        throw new ApiError(400, "Please choose 'approve' or 'reject'");
+    if (!toApprove || (toApprove != "approved" && toApprove != "rejected" && toApprove !== "reupload")) {
+        throw new ApiError(400, "Please choose 'approve' or 'reject' or 'reupload'");
     }
 
-    const theStudent = await student.findOneAndUpdate({_id: studentID}, {$set: {Isapproved:toApprove}},  { new: true })
+    const theStudent = await student.findOneAndUpdate({_id: studentID}, {$set: {Isapproved:toApprove, Remarks: remarks}},  { new: true })
     
     if(!theStudent){
         throw new ApiError(400,"faild to approve or reject || student not found")
@@ -191,11 +218,13 @@ const approveTeacher = asyncHandler(async(req,res)=>{
 
     const toApprove = req.body.Isapproved
 
-    if (!toApprove || (toApprove !== "approved" && toApprove !== "rejected")) {
-        throw new ApiError(400, "Please choose 'approve' or 'reject'");
+    const remarks = req.body.remarks || null
+
+    if (!toApprove || (toApprove !== "approved" && toApprove !== "rejected" && toApprove !== "reupload")) {
+        throw new ApiError(400, "Please choose 'approve' or 'reject' or 'reupload'");
     }
 
-    const theTeacher = await Teacher.findOneAndUpdate({_id: teacherID}, {$set: {Isapproved:toApprove}},  { new: true })
+    const theTeacher = await Teacher.findOneAndUpdate({_id: teacherID}, {$set: {Isapproved:toApprove, Remarks: remarks}},  { new: true })
     
     if(!theTeacher){
         throw new ApiError(400,"faild to approve or reject || student not found")
@@ -295,4 +324,4 @@ const checkTeacherDocuments = asyncHandler(async(req,res)=>{
 
 })
 
-export {adminSignUp, adminLogin, forApproval, approveStudent, approveTeacher, checkStudentDocuments, checkTeacherDocuments}
+export {adminSignUp, adminLogin, forApproval, approveStudent, approveTeacher, checkStudentDocuments, checkTeacherDocuments, adminLogout}

@@ -3,7 +3,7 @@ import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js"; 
 import {ApiResponse} from "../utils/ApiResponse.js";
 import mongoose from "mongoose";
-import { student } from "../models/student.model.js";
+
 
 
 const getCourse = asyncHandler(async(req,res)=>{
@@ -153,27 +153,60 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
   if(!selectedCourse){
     throw new ApiError(400, "failed to add student in course schema")
   }
-     
-  const selectedStudent = await student.findByIdAndUpdate(loggedStudent._id,
-    {
-      $push: {
-        courses:courseID
-      }
-    },{
-      new:true
-    })
-  
-  if(!selectedStudent){
-    throw new ApiError(400, "failed to add course in student schema")
+
+  return res
+  .status(200)
+  .json( new ApiResponse(200, {selectedCourse, loggedStudent}, "successfully opted in course"))
+})
+
+const enrolledcourseSTD = asyncHandler(async(req,res)=>{
+  const stdID = req.params.id
+
+  if(!stdID){
+    throw new ApiError(400, "authorization failed")
+  }
+
+  if(stdID != req.Student._id){
+    throw new ApiError(400, "params and logged student id doesnt match")
+  }
+
+  const Student = await course.find({ enrolledStudent: stdID }).select( "-enrolledStudent -liveClasses -enrolledteacher")
+
+  if (!Student) {
+      throw new ApiError(404, "Student not found");
   }
 
   return res
   .status(200)
-  .json( new ApiResponse(200, {selectedCourse, selectedStudent}, "successfully opted in course"))
+  .json( new ApiResponse(200,Student, "student and enrolled course"))
+
 })
 
 
-export {getCourse, getcourseTeacher, addCourseTeacher, addCourseStudent} 
+const enrolledcourseTeacer = asyncHandler(async(req,res)=>{
+  const teacherID = req.params.id
+
+  if(!teacherID){
+    throw new ApiError(400, "authorization failed")
+  }
+
+  if(teacherID != req.teacher._id){
+    throw new ApiError(400, "params and logged teacher id doesnt match")
+  }
+
+  const teacher = await course.find({ enrolledteacher: teacherID }).select( "-enrolledStudent -liveClasses -enrolledteacher")
+
+  if (!teacher) {
+      throw new ApiError(404, "teacher not found");
+  }
+
+  return res
+  .status(200)
+  .json( new ApiResponse(200,teacher, "teacher and enrolled course"))
+})
+
+
+export {getCourse, getcourseTeacher, addCourseTeacher, addCourseStudent, enrolledcourseSTD, enrolledcourseTeacer} 
 
 
 

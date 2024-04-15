@@ -7,6 +7,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 
 
+
 const verifyEmail = async (Email, Firstname, createdStudent_id) => {
     try {
         const emailsender = nodemailer.createTransport({
@@ -295,6 +296,8 @@ const addStudentDetails = asyncHandler(async(req, res)=>{
 
 })
 
+
+
 export{
-    signup, mailVerified, login, logout, addStudentDetails, getStudent
+    signup, mailVerified, login, logout, addStudentDetails, getStudent, 
 }
