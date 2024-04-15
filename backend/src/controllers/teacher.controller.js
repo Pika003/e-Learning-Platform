@@ -275,7 +275,7 @@ const addTeacherDetails = asyncHandler(async(req,res)=>{
 
     return res
     .status(200)
-    .json(new ApiResponse(200, loggedTeacher, "documents uploaded successfully"))
+    .json(new ApiResponse(200, {teacher:theTeacher}, "documents uploaded successfully"))
 
 })
 
