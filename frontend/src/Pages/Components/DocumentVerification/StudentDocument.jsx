@@ -172,10 +172,10 @@ const StudentDocument = () => {
         <div className="border h-full mx-36 ">
           <div className="flex flex-row gap-7 ">
             <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm">
-              <p className=" text-white text-sm">Secondary School</p>
+              <p className=" text-white text-sm">Secondary</p>
             </div>
             <Input
-              placeholder={"10th School Name"}
+              placeholder={"10th Board Name"}
               value={formData.SecondarySchool}
               onChange={(e) =>
                 handleInputChange("SecondarySchool", e.target.value)
@@ -202,7 +202,7 @@ const StudentDocument = () => {
               <p className=" text-white text-sm">Higher Secondary</p>
             </div>
             <Input
-              placeholder={"12th School Name"}
+              placeholder={"12th Board Name"}
               value={formData.HigherSchool}
               onChange={(e) =>
                 handleInputChange("HigherSchool", e.target.value)
@@ -222,7 +222,7 @@ const StudentDocument = () => {
             </div>
           </div>
         </div>
-        {error && <p className="text-red-900 text-xl m-5 text-center">!! {error}</p>}
+        {error && <p className="text-white text-xl m-5 text-center">!! {error}</p>}
         <div className=" bg-[#0D286F] p-3 m-3 rounded-md absolute right-32 bottom-5 cursor-pointer">
           <button className=" text-white text-sm" type="Submit">
             Submit ▶️

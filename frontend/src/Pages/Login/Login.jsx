@@ -65,6 +65,7 @@ export default function Login() {
       if (response.ok) {
         // Authentication successful, you can redirect or do something else
         console.log("Login successful");
+        console.log(responesData.data.user.Isapproved);
         
         
         if(responesData.data.user.Isapproved === "pending"){
@@ -79,11 +80,11 @@ export default function Login() {
           }
         }else if(responesData.data.user.Isapproved === "approved"){
           if(userType === 'student'){
-            navigate(`/Student/Dashboard/${userid}`)
+            navigate(`/Student/Dashboard/${userid}/Search`)
           }else if(userType === 'teacher'){
-            navigate(`/Teacher/Dashboard/${userid}`)
+            navigate(`/Teacher/Dashboard/${userid}/Home`)
           }
-        }else if(responesData.data.user.Isapproved === "rejected"){
+        }else if(responesData.data.user.Isapproved === "reupload"){
           if(userType === 'teacher'){
             navigate(`/rejected/${userType}/${userid}`)
           }else{

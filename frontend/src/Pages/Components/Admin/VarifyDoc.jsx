@@ -5,6 +5,11 @@ function VarifyDoc() {
     const { type, adminID, ID } = useParams();
     const [data, setData] = useState(null);
     const navigator = useNavigate();
+    const [value, setValue] = useState("");
+
+    const handleMessage = (event) => {
+        setValue(event.target.value);
+    };
 
     const Approval = async(id, type, approve)=>{
         try {
@@ -79,13 +84,18 @@ function VarifyDoc() {
                             <img src={data.studentDocs.Aadhaar} alt="Secondary" width={500}/>
                             <p>Aadhar Card </p>
                         </div>
-                        <div className='flex items-end mb-10'>
-                            <div className="flex items-center">
-                                <div className="px-5 py-1  bg-blue-600 mr-3 text-lg font-bold text-white ring-1 ring-inset ring-white rounded-lg hover:scale-95 hover:bg-blue-900" onClick={()=>Approval(data.theStudent._id, "student", "approved")}>
-                                Approved !
+                        <div className='flex items-end mb-10 flex-col gap-10'>
+                            <textarea value={value} onChange={handleMessage} className='w-96 h-60 mt-6 text-black p-5' placeholder='Write reason for rejecting application ...'/>
+                            <div className="flex items-center gap-3">
+                                <div className="px-5 py-1  bg-green-600 text-lg font-bold text-white ring-1 ring-inset ring-white rounded-lg hover:scale-95 hover:bg-green-900" onClick={()=>Approval(data.theStudent._id, "student", "approved")}>
+                                Approve !
                                 </div>
                                 <div className="px-5 py-1  bg-red-600 text-lg font-bold text-white ring-1   ring-inset ring-white rounded-lg hover:scale-95 hover:bg-red-900" onClick={()=>Approval(data.theStudent._id, "student", "rejected")}>
-                                Rejected !
+                                Reject !
+                                </div>
+
+                                <div className="px-5 py-1  bg-blue-600 text-lg font-bold text-white ring-1   ring-inset ring-white rounded-lg hover:scale-95 hover:bg-blue-900" onClick={()=>Approval(data.theStudent._id, "student", "reupload")}>
+                                Reupload !
                                 </div>
                             </div>
                         </div>
@@ -123,13 +133,19 @@ function VarifyDoc() {
                             <img src={data.teacherDocs.Aadhaar} alt="Secondary" width={500}/>
                             <p>Aadhar Card </p>
                         </div>
-                        <div className='flex items-end mb-10'>
-                            <div className="flex items-center">
-                                <div className="px-5 py-1  bg-blue-600 mr-3 text-lg font-bold text-white ring-1 ring-inset ring-white rounded-lg hover:scale-95 hover:bg-blue-900" onClick={()=>Approval(data.theTeacher._id, "teacher", "approved")}>
-                                Approved !
+                        <div className='flex items-end mb-10 flex-col gap-10'>
+                            <textarea value={value} onChange={handleMessage} className='w-96 h-60 mt-6 text-black p-5' placeholder='Write reason for rejecting application ...'/>
+
+                            <div className="flex items-center gap-3">
+                                <div className="px-5 py-1  bg-green-600 text-lg font-bold text-white ring-1 ring-inset ring-white rounded-lg hover:scale-95 hover:bg-green-900" onClick={()=>Approval(data.theTeacher._id, "teacher", "approved")}>
+                                Approve !
                                 </div>
                                 <div className="px-5 py-1  bg-red-600 text-lg font-bold text-white ring-1   ring-inset ring-white rounded-lg hover:scale-95 hover:bg-red-900" onClick={()=>Approval(data.theTeacher._id, "teacher", "rejected")}>
-                                Rejected !
+                                Reject !
+                                </div>
+
+                                <div className="px-5 py-1  bg-blue-600 text-lg font-bold text-white ring-1   ring-inset ring-white rounded-lg hover:scale-95 hover:bg-blue-900" onClick={()=>Approval(data.theTeacher._id, "teacher", "reupload")}>
+                                Reupload !
                                 </div>
                             </div>
                         </div>

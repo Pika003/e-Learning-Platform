@@ -31,6 +31,8 @@ function TeacherDashboard() {
             'Content-Type': 'application/json',
           },
         });
+        let k = await response.json();
+        console.log(k);
 
         if (!response.ok) {
           throw new Error('Failed to fetch data');
@@ -38,6 +40,8 @@ function TeacherDashboard() {
 
         const user = await response.json();
         setdata(user.data);
+        
+        
       } catch (error) {
         setError(error.message)
       }

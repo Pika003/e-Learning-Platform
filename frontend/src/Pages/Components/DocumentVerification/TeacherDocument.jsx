@@ -12,6 +12,9 @@ const TeacherDocument = () => {
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
 
+  const [showGraduation, setShowGraduation] = useState(false);
+  const [showPostGraduation, setShowPostGraduation] = useState(false);
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -100,6 +103,14 @@ const TeacherDocument = () => {
     }
   };
 
+  const handleAddMore = (type) => {
+    if (type === "graduation") {
+      setShowGraduation(true);
+    } else if (type === "postGraduation") {
+      setShowPostGraduation(true);
+    }
+  };
+
   return (
     <>
       {loader && (
@@ -173,13 +184,13 @@ const TeacherDocument = () => {
         <p className="text-[#4E84C1] p-5 px-10 pt-10">
           Educational Information
         </p>
-        <div className="border h-full mx-36 ">
+        <div className="border h-full mx-36 relative">
           <div className="flex flex-row gap-7 ">
             <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm">
-              <p className=" text-white text-sm">Secondary School</p>
+              <p className=" text-white text-sm">Secondary</p>
             </div>
             <Input
-              placeholder={"10th School Name"}
+              placeholder={"10th Board Name"}
               value={formData.SecondarySchool}
               onChange={(e) =>
                 handleInputChange("SecondarySchool", e.target.value)
@@ -200,13 +211,14 @@ const TeacherDocument = () => {
               />
             </div>
           </div>
+          <hr />
 
-          <div className="flex flex-row gap-7">
+          <div className="flex flex-row gap-7 items-center">
             <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm">
               <p className=" text-white text-sm">Higher Secondary</p>
             </div>
             <Input
-              placeholder={"12th School Name"}
+              placeholder={"12th Board Name"}
               value={formData.HigherSchool}
               onChange={(e) =>
                 handleInputChange("HigherSchool", e.target.value)
@@ -226,55 +238,80 @@ const TeacherDocument = () => {
             </div>
           </div>
           <hr />
-          <div className="flex flex-row gap-7">
-            <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm">
-              <p className=" text-white text-sm">Under Graduation</p>
-            </div>
-            <Input
-              placeholder={"U.G. College/University Name"}
-              value={formData.UGcollege}
-              onChange={(e) => handleInputChange("UGcollege", e.target.value)}
-            />
-            <Input
-              placeholder={"UGmarks/SGP out of 10"}
-              value={formData.UGmarks}
-              onChange={(e) => handleInputChange("UGmarks", e.target.value)}
-            />
-            <div className=" mt-[-1.5rem]">
-              <InputUpload
-                placeholder={"Upload U.G. Result"}
-                value={formData.UG}
-                onChange={(e) => handleFileChange("UG", e)}
+
+          {showGraduation && (
+            <div className="flex flex-row gap-7">
+              <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm">
+                <p className=" text-white text-sm">Graduation</p>
+              </div>
+              <Input
+                placeholder={"Graduation University Name"}
+                value={formData.UGcollege}
+                onChange={(e) => handleInputChange("UGcollege", e.target.value)}
               />
+              <Input
+                placeholder={"UGmarks/SGP out of 10"}
+                value={formData.UGmarks}
+                onChange={(e) => handleInputChange("UGmarks", e.target.value)}
+              />
+              <div className=" mt-[-1.5rem]">
+                <InputUpload
+                  placeholder={"Upload Graduation Result"}
+                  value={formData.UG}
+                  onChange={(e) => handleFileChange("UG", e)}
+                />
+              </div>
             </div>
-          </div>
+          )}
+
           <hr />
-          <div className="flex flex-row gap-7">
-            <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm px-5">
-              <p className=" text-white text-sm">Post Graduation</p>
-            </div>
-            <Input
-              placeholder={"P.G. College/University Name"}
-              value={formData.PGcollege}
-              onChange={(e) => handleInputChange("PGcollege", e.target.value)}
-            />
-            <Input
-              placeholder={"CGP/SGP out of 10"}
-              value={formData.PGmarks}
-              onChange={(e) => handleInputChange("PGmarks", e.target.value)}
-            />
-            <div className=" mt-[-1.5rem]">
-              <InputUpload
-                placeholder={"Upload P.G. Result"}
-                value={formData.PG}
-                onChange={(e) => handleFileChange("PG", e)}
+
+          {showPostGraduation && (
+            <div className="flex flex-row gap-7">
+              <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm px-5">
+                <p className=" text-white text-sm">Post Graduation</p>
+              </div>
+              <Input
+                placeholder={"P.G. University Name"}
+                value={formData.PGcollege}
+                onChange={(e) => handleInputChange("PGcollege", e.target.value)}
               />
+              <Input
+                placeholder={"CGPA out of 10"}
+                value={formData.PGmarks}
+                onChange={(e) => handleInputChange("PGmarks", e.target.value)}
+              />
+              <div className=" mt-[-1.5rem]">
+                <InputUpload
+                  placeholder={"Upload P.G. Result"}
+                  value={formData.PG}
+                  onChange={(e) => handleFileChange("PG", e)}
+                />
+              </div>
             </div>
-          </div>
+          )}
+
+          {!showGraduation && (
+            <div
+              className=" absolute left-2 mt-2 bg-[#0D286F] text-white p-2 rounded-md cursor-pointer"
+              onClick={() => handleAddMore("graduation")}
+            >
+              ➕ ADD graduation
+            </div>
+          )}
+
+          {!showPostGraduation && showGraduation && (
+            <div
+              className=" absolute left-2 mt-2 bg-[#0D286F] text-white p-2 rounded-md cursor-pointer"
+              onClick={() => handleAddMore("postGraduation")}
+            >
+              ➕ ADD PostGraduation
+            </div>
+          )}
         </div>
-        {error && <p className=" text-red-900 text-xl m-5 text-center">!! {error}</p>}
+        {error && <p className=" text-white text-xl m-5 text-center">!! {error}</p>}
         <div className=" bg-[#0D286F] p-3 m-6 rounded-md w-[7rem] ml-[85%] cursor-pointer">
-          <button className=" text-white text-sm" type="Submit">
+          <button className=" text-white text-sm" type="submit">
             Submit ▶️
           </button>
         </div>

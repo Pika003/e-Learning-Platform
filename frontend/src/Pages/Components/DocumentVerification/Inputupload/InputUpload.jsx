@@ -20,7 +20,7 @@ const InputUpload = ({ label, placeholder,value,onChange}) => {
           <span className='mr-28'>
             {value ? value.name : placeholder}
           </span>
-          <span className=' bg-[#0D286F] text-white p-[0.4rem] rounded-sm absolute right-2'>Browse Files</span>
+          <span className=' bg-[#0D286F] text-white p-[0.4rem] rounded-sm absolute right-2'>Choose File</span>
         </div>
       </div>
     </div>
