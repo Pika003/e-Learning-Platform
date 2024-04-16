@@ -60,7 +60,7 @@ const Admin = () => {
           throw new Error("Failed to fetch data");
         } else {
           const result = await response.json();
-          //  console.log(result)
+           console.log(result)
           setStudentData(result.data.studentsforApproval);
           setTeacherData(result.data.teachersforApproval);
           setAdminID(result.data.admin._id);

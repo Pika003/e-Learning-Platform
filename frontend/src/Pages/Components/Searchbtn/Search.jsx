@@ -11,6 +11,7 @@ function Search() {
     let response = await Data.json();
     if(response.statusCode == 200){
       setCourse(response.data)
+      // console.log(response.data.length)
     }
     setData('')
   }
@@ -24,11 +25,15 @@ function Search() {
       </div>
       { course && (
         course.map((Data)=>(
-          <div className=' bg-blue-600 p-5 gap-7 flex items-center rounded-sm' key={data._id}>
+          <div key={Data._id} className=' bg-blue-600 p-5 gap-7 flex items-center rounded-sm'>
             <div className='text-white bg-blue-900 p-2 rounded-md'>
               {Data.coursename}  
             </div>
-            <div>{Data.description.slice(0,30)} ...</div>
+            <div>{Data.enrolledteacher[0].Firstname}  {Data.enrolledteacher[0].Lastname}</div>
+            <div>Desc : {Data.description.slice(0,50)} ...</div>
+
+
+
             <div>{Data.enrolledStudent && Data.enrolledStudent.length}</div>
           </div>
         ))

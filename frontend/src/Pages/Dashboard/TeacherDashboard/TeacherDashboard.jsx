@@ -43,7 +43,7 @@ function TeacherDashboard() {
         
         
       } catch (error) {
-        setError(error.message)
+        // setError(error.message)
       }
     };
     getData();

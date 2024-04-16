@@ -15,6 +15,14 @@ const TeacherDocument = () => {
   const [showGraduation, setShowGraduation] = useState(false);
   const [showPostGraduation, setShowPostGraduation] = useState(false);
 
+  const handleRemoveGraduation = () => {
+    setShowGraduation(false);
+  };
+
+  const handleRemovePostGraduation = () => {
+    setShowPostGraduation(false);
+  };
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -261,6 +269,9 @@ const TeacherDocument = () => {
                   onChange={(e) => handleFileChange("UG", e)}
                 />
               </div>
+              <div className="m-2 absolute left-60 bottom-[-3.5rem] bg-[#0D286F] text-white p-2 rounded-md cursor-pointer" onClick={handleRemoveGraduation}>
+                ➖ Remove graduation
+              </div>
             </div>
           )}
 
@@ -287,6 +298,10 @@ const TeacherDocument = () => {
                   value={formData.PG}
                   onChange={(e) => handleFileChange("PG", e)}
                 />
+              </div>
+
+              <div className="m-2 absolute left-2 bottom-[-3.5rem] bg-[#0D286F] text-white p-2 rounded-md cursor-pointer" onClick={handleRemovePostGraduation}>
+                ➖ Remove PostGraduation
               </div>
             </div>
           )}
