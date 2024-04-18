@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Camera from '../Images/Camera.png'
 import Clock from '../Images/Clock.png'
+import AddClass from './AddClass'
 
 function TeacherClasses() {
+    const [showPopup, setShowPopup] = useState(false);
+    
     return (
-        <div className='ml-60 mt-20 text-white flex justify-between mr-60'>
+        <div className='ml-60 mt-20 text-white flex justify-between mr-80'>
             <h1 className='absolute bottom-72 left-60 text-[#1671D8] text-2xl mt-4 font-semibold'>My Schedule</h1>
     
             <div>
@@ -48,8 +51,15 @@ function TeacherClasses() {
                     <img src={Camera} alt="Camera" width={70}/>
                 </div>
             </div>
+
+            <div onClick={()=> setShowPopup(true)} className='absolute right-10 bg-blue-900 p-2 rounded-sm cursor-pointer'>
+                + ADD CLASS
+            </div>
+            {showPopup && (
+                <AddClass onClose={()=> setShowPopup(false)} />
+            )}
         </div>
-      )
+    )
 }
 
 export default TeacherClasses

@@ -4,6 +4,9 @@ import { useParams } from 'react-router-dom'
 function DashboardTeacher() {
   const { ID } = useParams();
   const [data, setdata] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [error, setError] = useState([]);
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -27,6 +30,29 @@ function DashboardTeacher() {
     getData();
    },[]);
 
+  useEffect(() => {
+    const getCourses = async () => {
+      try {
+        const response = await fetch(`/api/course/Teacher/${ID}/enrolled`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const res = await response.json();
+        setCourses(res.data);
+      } catch (error) {
+        setError(error.message)
+      }
+    };
+    getCourses();
+   },[]);
+
   return (
     <>
         <div className='m-5 ml-60 text-white flex flex-col gap-7'>
@@ -38,8 +64,12 @@ function DashboardTeacher() {
                 <p>Email: {data.Email}</p>
             <div className='flex gap-3 items-center'>
                 <p>Courses:</p>
-                <p className=' bg-[#1671D8] py-1 px-2 rounded-xl'>Math</p>
-                <p className=' bg-[#1671D8] py-1 px-2 rounded-xl'>Physics</p>
+                {courses && (
+                  courses.map((course) => <p key={course._id} className=' bg-[#1671D8] py-1 px-2 rounded-xl'>{course.coursename}</p>)
+                )}
+
+                {/* <p className=' bg-[#1671D8] py-1 px-2 rounded-xl'>Math</p>
+                <p className=' bg-[#1671D8] py-1 px-2 rounded-xl'>Physics</p> */}
             </div>
         </div>
     </>

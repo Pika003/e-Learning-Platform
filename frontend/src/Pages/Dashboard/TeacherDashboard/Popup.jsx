@@ -24,7 +24,7 @@ function Popup({onClose, subject}) {
     const responesData = await response.json();
 
     console.log(responesData);
-    alert('course added Successfully');
+    alert(responesData.message);
 
   }
 

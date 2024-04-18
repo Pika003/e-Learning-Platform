@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Landing.css";
 import Classroom from "../../Images/Classroom.svg";
 import Search from "../../Components/Searchbtn/Search";
@@ -7,8 +7,23 @@ import Plant2 from "../../Images/Plant2.svg"
 import Contact from "../Contact/Contact.jsx";
 import Footer from "../../Footer/Footer.jsx";
 import Header from "../Header/Header.jsx";
+import { NavLink } from "react-router-dom";
 
 function Landing() {
+  const [LClass, setLClass] = useState(false);
+  const [EMentor, setEMentor] = useState(false);
+
+  const AA = ()=>{
+    setEMentor(true);
+    setLClass(false);
+  }
+
+  const BB = ()=>{
+    setEMentor(false);
+    setLClass(true);
+  }
+
+
   return (
     <>
     <Header/>
@@ -30,7 +45,7 @@ function Landing() {
         <p>Why You Choose Us</p>
         {/* <hr className="underLine"/> */}
         <div className="fets2">
-          <div className="fet">
+          <div className="fet cursor-pointer" onClick={AA}>
             <img
               src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/622a85ea75414daadf6055613c074c5280b95444"
               alt=""
@@ -43,7 +58,7 @@ function Landing() {
             </p>
           </div>
 
-          <div className="fet">
+          <div className="fet cursor-pointer" onClick={BB}>
             <img
               src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/1478ee1b2a35123ded761b65c3ed2ceaece0d20f"
               alt=""
@@ -55,19 +70,28 @@ function Landing() {
             </p>
           </div>
 
-          <div className="fet">
-            <img
-              src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/c412120e39b2095486c76978d4cd0bea88fd883b"
-              alt=""
-            />
-            <h4>24/7 Live Support</h4>
-            <p>
-              We offer our students 24/7 live support. Whether it's a question
-              or a challenge at midnight, our dedicated team is here to provide
-              guidance, assistance.
-            </p>
-          </div>
+          <NavLink to='/contact'>
+            <div className="fet cursor-pointer">
+              <img
+                src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/c412120e39b2095486c76978d4cd0bea88fd883b"
+                alt=""
+              />
+              <h4>24/7 Live Support</h4>
+              <p>
+                We offer our students 24/7 live support. Whether it's a question
+                or a challenge at midnight, our dedicated team is here to provide
+                guidance, assistance.
+              </p>
+            </div>
+          </NavLink>
         </div>
+        {LClass && (
+          <div className="flex items-center justify-center">hiiiiiiiig Live Class</div>
+        )}
+
+        {EMentor && (
+          <div className="flex items-center justify-center">E Mentor Liass</div>
+        )}
       </div>
 
       {/* Courses */}

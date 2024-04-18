@@ -31,8 +31,6 @@ function TeacherDashboard() {
             'Content-Type': 'application/json',
           },
         });
-        let k = await response.json();
-        console.log(k);
 
         if (!response.ok) {
           throw new Error('Failed to fetch data');
@@ -40,6 +38,7 @@ function TeacherDashboard() {
 
         const user = await response.json();
         setdata(user.data);
+        // console.log(user)
         
         
       } catch (error) {
@@ -66,8 +65,8 @@ function TeacherDashboard() {
       </nav>
 
       <div className='bg-[#008280] flex justify-between items-center'>
-        <div className=' text-white font-semibold text-5xl ml-72'>
-          <h1 className='mb-5'>Welcome to <span className='text-[#071645]'>Shiksharthee</span></h1>
+        <div className=' text-[#071645] font-semibold text-5xl ml-72'>
+          <h1 className='mb-5'>Welcome to <span className='text-white'>Shiksharthee</span></h1>
           <h3 className='ml-16 text-[#071645]'>{data.Firstname} {data.Lastname}</h3>
         </div>
         <div className='m-5 mr-20'>
