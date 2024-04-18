@@ -23,42 +23,10 @@ const getcourseTeacher = asyncHandler(async(req,res)=>{
     if(!coursename){
         throw new ApiError(400, "Choose a course")
     }
-    
-    const Courses = await course.findOne({
-        coursename
-    })
-    
-    if(!Courses){
-        throw new ApiError(400, "No course found")
-    }
 
-    const courseTeachers = await course.aggregate([
-        {
-          $match: {
-            coursename 
-          }
-        },
-        {
-            $lookup: {
-              from: "teachers",
-              localField: "enrolledteacher",
-              foreignField: "_id",
-              as: "enrolledteacher" 
-            }
-        },
-        {
-            $project: {
-              _id: 1,
-              coursename: 1,
-              description:1,
-              enrolledteacher: {
-                _id: 1,
-                Firstname: 1,
-                Lastname: 1
-              }
-            }
-        }
-    ])
+    const courseTeachers = await course.find({ coursename }).populate('enrolledteacher');
+
+
 
     if (!courseTeachers || courseTeachers.length === 0) {
         throw new ApiError(400, "No teachers found for the specified course");
@@ -205,8 +173,78 @@ const enrolledcourseTeacer = asyncHandler(async(req,res)=>{
   .json( new ApiResponse(200,teacher, "teacher and enrolled course"))
 })
 
+const addClass = asyncHandler(async(req,res) => {
+  const {title, timing, link, status } = req.body
 
-export {getCourse, getcourseTeacher, addCourseTeacher, addCourseStudent, enrolledcourseSTD, enrolledcourseTeacer} 
+  const loggedTeacher = req.teacher
+
+  if ([title, timing, link, status].some((field) => field?.trim() === "")) {
+  throw new ApiError(400, "All fields are required");
+  }
+
+  const parsedDate = new Date(timing);
+
+  const {courseId, teacherId } = req.params
+
+  const enrolledTeacher = await course.findOne({
+  _id: courseId,
+  enrolledteacher: teacherId
+  })
+
+  if(!enrolledTeacher){
+  throw new ApiError(400, "not authorized")
+  }
+
+  const enrolledCourse = await course.findOneAndUpdate(
+  { _id: courseId }, 
+  { $push: { liveClasses: {title, timing, link, status } } },
+  { new: true }  
+  );
+
+  if(!enrolledCourse){
+  throw new ApiError(400, "error occured while adding the class")
+  }
+
+  return res
+  .status(200)
+  .json(new ApiResponse(200, {enrolledCourse, loggedTeacher}, "class added successfully"))
+})
+
+
+const stdEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
+  const Student = req.Student
+
+  const classes = await course.find({ enrolledStudent: Student._id }).select("-enrolledStudent ")
+    .populate({
+        path: 'enrolledteacher',
+        select: '-Password -Refreshtoken -Teacherdetails -Email -Isverified -Isapproved'
+  });
+
+  if(!classes){
+    throw new ApiError(400, "couldn't fetch the classes")
+  }
+
+  return res
+  .status(200)
+  .json(new ApiResponse(200, {Student, classes}, "fetched classes successfully"))
+})
+
+const teacherEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
+  const teacher = req.teacher
+
+  const classes = await course.find({ enrolledteacher: teacher._id }).select("-enrolledStudent ")
+
+  if(!classes){
+   throw new ApiError(400, "couldn't fetch the classes")
+  }
+
+  return res
+  .status(200)
+  .json(new ApiResponse(200, {teacher, classes}, "fetched classes successfully"))
+})
+
+
+export {getCourse, getcourseTeacher, addCourseTeacher, addCourseStudent, enrolledcourseSTD, enrolledcourseTeacer, addClass, stdEnrolledCoursesClasses, teacherEnrolledCoursesClasses} 
 
 
 

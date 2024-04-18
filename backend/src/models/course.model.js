@@ -25,7 +25,7 @@ liveClasses: [{
 
 enrolledteacher:{
     type:mongoose.Schema.Types.ObjectId,
-    ref: "Teacher",
+    ref: "teacher",
     require:true
 },
 
