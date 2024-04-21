@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 import "./Landing.css";
 import Classroom from "../../Images/Classroom.svg";
-import Search from "../../Components/Searchbtn/Search";
 import Plant from "../../Images/Plant.svg";
 import Plant2 from "../../Images/Plant2.svg"
 import Contact from "../Contact/Contact.jsx";
 import Footer from "../../Footer/Footer.jsx";
 import Header from "../Header/Header.jsx";
-import { NavLink } from "react-router-dom";
+import { NavLink , useNavigate} from "react-router-dom";
 
 function Landing() {
   const [LClass, setLClass] = useState(false);
   const [EMentor, setEMentor] = useState(false);
+  const [subject, setSubject] = useState('');
+
+  const navigate = useNavigate()
+
+  const handleSearch = ()=>{
+    // console.log('working')
+    navigate(`/Search/${subject}`)
+  }
 
   const AA = ()=>{
     setEMentor(true);
@@ -33,7 +40,14 @@ function Landing() {
           <h1>
           Empowering Minds, Inspiring Futures: <br />Your Gateway to Online Learning with <span className="text-blue-500 font-semibold">Shiksharthee</span>
           </h1>
-          <Search />
+          {/*  Search  */}
+
+          <div className="search mb-10">
+            <img src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/6c476f454537d7f27cae2b4d0f31e2b59b3020f5" width={30} alt="" />
+            <input type="text" placeholder='Ex: Zoology ...' value={subject} onChange={(e)=>setSubject(e.target.value)}/>
+            <button className='w-32' onClick={handleSearch}>Find Teacher</button>
+          </div>
+
         </div>
         <div className="right">
           <img src={Classroom} width={500} alt="" />

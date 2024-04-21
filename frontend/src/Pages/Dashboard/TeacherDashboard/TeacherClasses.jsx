@@ -1,50 +1,73 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Camera from '../Images/Camera.png'
 import Clock from '../Images/Clock.png'
 import AddClass from './AddClass'
+import { useParams } from 'react-router-dom'
 
 function TeacherClasses() {
     const [showPopup, setShowPopup] = useState(false);
+    const { ID } = useParams();
+    const [data, setdata] = useState([]);
+    const [latestClass, setLatestClass] = useState([]);
+    const [Error, setError] = useState('');
+
+    useEffect(() => {
+        const getData = async () => {
+          try {
+            const response = await fetch(`/api/course/classes/teacher/${ID}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+    
+            if (!response.ok) {
+              throw new Error('Failed to fetch data');
+            }
+    
+            const user = await response.json();
+            setdata(user.data.classes);
+            console.log(user.data.classes);
+
+            // data.map((res)=>{
+            //     res.liveClasses.map((Lclass)=>{
+            //         console.log(Lclass)
+            //     })
+            // })
+
+          } catch (error) {
+            setError(error.message)
+          }
+        };
+        getData();
+       },[showPopup]);
     
     return (
         <div className='ml-60 mt-20 text-white flex justify-between mr-80'>
-            <h1 className='absolute bottom-72 left-60 text-[#1671D8] text-2xl mt-4 font-semibold'>My Schedule</h1>
+            <h1 className='absolute bottom-72 left-60 text-[#1671D8] text-2xl mt-4 mb-4 font-semibold'>Weekly Schedule</h1>
     
-            <div>
-                <div className='flex items-center mb-5'>
-                    <img src="https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png" alt="profile_img" width={30} />
-                    <div className='ml-5 mr-10'>
-                        <p className=' text-lg'>Sandwip Sir <span className='text-blue-500 text-sm'>  MATH</span> </p>
-                        <p className='text-[#018280] text-sm'>23 Jan Tue</p>
+            <div className='h-[17rem] w-[30rem] overflow-auto '>
+                {data.map((res) => res.liveClasses.length != 0 && 
+                    <div key={res._id} className='flex items-center mb-5'>
+                        <img src="https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png" alt="profile_img" width={30} />
+                        <div className='ml-5 mr-10'>
+                            <p className=' text-lg'>{res.coursename.toUpperCase()}<span className='text-black text-sm ml-3'>{res.liveClasses[0].timing.slice(0,10)}  {res.liveClasses[0].timing.slice(12,16)}</span></p>
+                            
+                            <span className='text-blue-500 text-sm ml-3'>{res.liveClasses[0].title.slice(0,35)} ...</span>
+                        </div>
+                        <p className='text-sm bg-[#4E84C1] p-2 rounded-lg'>{res.liveClasses[0].status}</p>
                     </div>
-                    <p className='text-sm bg-[#DE4242] p-2 rounded-lg'>completed</p>
-                </div>
-                <div className='flex items-center mb-5'>
-                    <img src="https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png" alt="profile_img" width={30} />
-                    <div className='ml-5 mr-10'>
-                        <p className=' text-lg'>Rahul Kr Sir <span className='text-blue-500 text-sm'>  Physics</span> </p>
-                        <p className='text-[#018280] text-sm'>27 Jan Wed</p>
-                    </div>
-                    <p className='text-sm bg-[#56BD31] p-2 rounded-lg'>ongoing</p>
-                </div>
-                <div className='flex items-center mb-5'>
-                    <img src="https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png" alt="profile_img" width={30} />
-                    <div className='ml-5 mr-10'>
-                        <p className=' text-lg'>Vupend Sir <span className='text-blue-500 text-sm'>  Biology</span> </p>
-                        <p className='text-[#018280] text-sm'>29 Jan Sun</p>
-                    </div>
-                    <p className='text-sm bg-[#464CE5] p-2 rounded-lg'>upcoming</p>
-                </div>
+                )}
             </div>
             
-            <div className='bg-white p-5 rounded-lg text-black'>
+            <div className='bg-white p-5 h-52 cursor-pointer rounded-lg text-black'>
                 <div className='flex gap-8 items-center mb-5 mt-2'>
                     <img src={Clock} alt="clock" width={50} />
                     <span className='text-[#4E84C1] text-3xl font-semibold'>02 : 15 : 10</span>
                 </div>
                 <div className='flex gap-12 items-center'>
                     <div className='ml-3'>
-                        <p>Your next lesson with</p>
+                        <p>Your next Class</p>
                         <p className='text-[#018280] text-3xl font-semibold'>Mr. Hamed</p>
                         <p className=' text-light-blue-700'>Biology</p>
                     </div>

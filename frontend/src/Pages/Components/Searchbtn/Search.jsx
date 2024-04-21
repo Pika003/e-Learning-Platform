@@ -25,15 +25,15 @@ function Search() {
       </div>
       { course && (
         course.map((Data)=>(
-          <div key={Data._id} className='relative bg-blue-600 p-4 gap-6 flex items-center rounded-sm'>
+          <div key={Data._id} className='relative bg-blue-600 p-4 gap-6 mb-3 flex items-center rounded-sm max-w-5xl'>
             <div className='text-white bg-blue-900 p-2 rounded-md'>
               {Data.coursename}  
             </div>
-            <div className='text-gray-900'>{Data.enrolledteacher[0].Firstname}  {Data.enrolledteacher[0].Lastname}</div>
-            <div className='text-gray-800'><span className=' text-gray-900'>Desc :</span> {Data.description.slice(0,35)} ...</div>
+            <div className='text-gray-300'>{Data.enrolledteacher.Firstname}  {Data.enrolledteacher.Lastname}</div>
+            <div className='text-gray-900'><span className=' text-black'>Desc :</span> {Data.description}</div>
 
-            <div>{Data.enrolledStudent && Data.enrolledStudent.length}</div>
-            <div className='bg-green-800 py-2 px-3 absolute right-4 cursor-pointer'>Enroll Now</div>
+            <div>{Data.enrolledStudent.length}/20</div>
+            <div className='text-white bg-blue-900 py-2 px-3 absolute right-4 cursor-pointer'>Enroll Now</div>
           </div>
         ))
       )}

@@ -26,6 +26,7 @@ import StudentCourses from './Pages/Dashboard/StudentDashboard/StudentCourses'
 import DashboardTeacher from './Pages/Dashboard/TeacherDashboard/DashboardTeacher'
 import TeacherClasses from './Pages/Dashboard/TeacherDashboard/TeacherClasses'
 import TeacherCourses from './Pages/Dashboard/TeacherDashboard/TeacherCourses'
+import SearchData from './Pages/Home/Search/Search'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,6 +34,7 @@ const router = createBrowserRouter(
       <Route path='/' element={<Landing/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/Signup' element={<Signup/>}/>
+      <Route path='/Search/:subject' element={<SearchData/>}/>
       <Route path='/StudentDocument/:Data' element={<StudentDocument/>}/>
       <Route path='/TeacherDocument/:Data' element={<TeacherDocument/>}/>
       <Route path='/courses' element={<Courses/> }/>
