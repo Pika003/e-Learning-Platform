@@ -214,11 +214,35 @@ const addClass = asyncHandler(async(req,res) => {
 const stdEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
   const Student = req.Student
 
-  const classes = await course.find({ enrolledStudent: Student._id }).select("-enrolledStudent ")
-    .populate({
-        path: 'enrolledteacher',
-        select: '-Password -Refreshtoken -Teacherdetails -Email -Isverified -Isapproved'
-  });
+  const classes = await course.aggregate([
+    {
+      $match: {
+        enrolledStudent: Student._id
+      }
+    },
+    {
+      $unwind: "$liveClasses"
+    },
+    {
+      $sort: {
+        "liveClasses.timing": 1
+      }
+    },
+    {
+      $group: {
+        _id: "classes",
+        liveClasses: { 
+          $push: {
+            coursename: "$coursename",
+            title: "$liveClasses.title",
+            timing: "$liveClasses.timing",
+            link: "$liveClasses.link",
+            status: "$liveClasses.status"
+          }
+        }
+      }
+    }
+  ]);
 
   if(!classes){
     throw new ApiError(400, "couldn't fetch the classes")
@@ -232,7 +256,35 @@ const stdEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
 const teacherEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
   const teacher = req.teacher
 
-  const classes = await course.find({ enrolledteacher: teacher._id }).select("-enrolledStudent ")
+  const classes = await course.aggregate([
+    {
+      $match: {
+        enrolledteacher: teacher._id
+      }
+    },
+    {
+      $unwind: "$liveClasses"
+    },
+    {
+      $sort: {
+        "liveClasses.timing": 1
+      }
+    },
+    {
+      $group: {
+        _id: "classes",
+        liveClasses: { 
+          $push: {
+            coursename: "$coursename",
+            title: "$liveClasses.title",
+            timing: "$liveClasses.timing",
+            link: "$liveClasses.link",
+            status: "$liveClasses.status"
+          }
+        }
+      }
+    }
+  ]);
 
   if(!classes){
    throw new ApiError(400, "couldn't fetch the classes")
