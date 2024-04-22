@@ -29,6 +29,7 @@ function Search() {
     })
 
     const DATA = await data.json();
+    // console.log(DATA);
     
 
     const Key = await fetch("/api/payment/razorkey", {
@@ -39,6 +40,26 @@ function Search() {
     })
     const response = await Key.json();
 
+    const sendData = async(response)=>{
+      console.log(response);
+      const Info = {
+        razorpay_payment_id : response.razorpay_payment_id,
+        razorpay_order_id : DATA.id,
+        razorpay_signature : DATA.receipt,
+      }
+     
+      const data = await fetch(`/api/payment/confirmation/course/${id}`,{
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(Info)
+      })
+
+      const res = await data.json();
+      console.log(res);
+    }
+
     const options = {
         "key": `${response.data.key}`,
         "amount": "500000",
@@ -47,7 +68,9 @@ function Search() {
         "description": "Enroll in a course",
         "image": "https://example.com/your_logo",
         "order_id": DATA.id,
-        "callback_url": `/api/payment/confirmation/course/${id}`,
+        "handler": function asy(response){
+          sendData(response);
+        },
         "prefill": {
         "name": "Gaurav Kumar",
         "email": "gaurav.kumar@example.com",
