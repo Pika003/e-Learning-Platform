@@ -9,7 +9,7 @@ router.route("/course/:courseID/:coursename").post(authSTD, coursePayment)
 
 router.route("/razorkey").get(authSTD, getkey)
 
-router.route("/course/:courseID/confirmation").post(authSTD, coursePaymentConfirmation)
+router.route("/course/confirmation/:coureID").post(authSTD, coursePaymentConfirmation)
 
 
 export default router;
