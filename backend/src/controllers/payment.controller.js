@@ -37,7 +37,8 @@ const coursePaymentConfirmation = asyncHandler(async(req,res)=>{
     req.body;
   
   const studentID = req.Student._id
-  const courseID = req.params
+  const courseID = req.params.courseID
+  console.log(courseID)
 
   const body = razorpay_order_id + "|" + razorpay_payment_id;
 
