@@ -1,93 +1,86 @@
-import React, { useEffect, useState } from 'react'
-import './Search.css'
+import React, { useEffect, useState } from 'react';
+import './Search.css';
 import { useParams } from 'react-router-dom';
 
 function Search() {
-  // const {ID} = useParams();
   const [data, setData] = useState('');
   const [course, setCourse] = useState([]);
 
-  let SearchTeacher = async(sub)=>{
-    let subject = sub.toLowerCase();
-    let Data = await fetch(`/api/course/${subject}`)
-    let response = await Data.json();
-    if(response.statusCode == 200){
-      setCourse(response.data)
-      // console.log(response.data.length)
+  const SearchTeacher = async (sub) => {
+    const subject = sub.toLowerCase();
+    const Data = await fetch(`/api/course/${subject}`);
+    const response = await Data.json();
+    if (response.statusCode === 200) {
+      setCourse(response.data);
     }
-    setData('')
-  }
+    setData('');
+  };
 
-  const handaleEnroll = async(courseName, id)=>{
-
-    const data = await fetch(`/api/payment/course/${id}/${courseName}`,{
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({fees : 500000})
-    })
+  const handleEnroll = async (courseName, id) => {
+    const data = await fetch(`/api/payment/course/${id}/${courseName}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ fees: 500000 }),
+    });
 
     const DATA = await data.json();
-    // console.log(DATA);
-    
+    console.log(DATA.data.id)
 
-    const Key = await fetch("/api/payment/razorkey", {
-        method: 'GET',
-        headers: {
-          "Content-Type": "application/json",
-        }
-    })
+    const Key = await fetch('/api/payment/razorkey', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     const response = await Key.json();
 
-    const sendData = async(response)=>{
-      console.log(response);
-      const Info = {
-        razorpay_payment_id : response.razorpay_payment_id,
-        razorpay_order_id : DATA.id,
-        razorpay_signature : DATA.receipt,
-      }
-     
-      const data = await fetch(`/api/payment/confirmation/course/${id}`,{
+    const options = {
+      key: response.data.key,
+      amount: '500000',
+      currency: 'INR',
+      name: 'Shiksharthee',
+      description: 'Enroll in a course',
+      image: 'https://example.com/your_logo',
+      order_id: DATA.data.id, // Include the order_id from the response
+      handler: async (response) => {
+        const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
+
+        // Send the payment details to the server for verification
+        const verificationData = {
+          razorpay_payment_id,
+          razorpay_order_id,
+          razorpay_signature,
+        };
+
+        const verificationResponse = await fetch(`/api/payment/confirmation/course/${id}`, {
           method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(Info)
-      })
+          body: JSON.stringify(verificationData),
+        });
 
-      const res = await data.json();
-      console.log(res);
-    }
-
-    const options = {
-        "key": `${response.data.key}`,
-        "amount": "500000",
-        "currency": "INR",
-        "name": "Shiksharthee",
-        "description": "Enroll in a course",
-        "image": "https://example.com/your_logo",
-        "order_id": DATA.id,
-        "handler": function asy(response){
-          sendData(response);
-        },
-        "prefill": {
-        "name": "Gaurav Kumar",
-        "email": "gaurav.kumar@example.com",
-        "contact": "9000090000"
-        },
-        "notes": {
-        "address": "Razorpay Corporate Office"
-        },
-        "theme": {
-        "color": "#3399cc"
-        }
+        const res = await verificationResponse.json();
+        console.log(res);
+      },
+      prefill: {
+        name: 'Gaurav Kumar',
+        email: 'gaurav.kumar@example.com',
+        contact: '9000090000',
+      },
+      notes: {
+        address: 'Razorpay Corporate Office',
+      },
+      theme: {
+        color: '#3399cc',
+      },
     };
 
-    var rzp1 = new window.Razorpay(options);
+    const rzp1 = new window.Razorpay(options);
     rzp1.open();
-
-  }
+  };
 
   // let handaleEnroll = async(courseName, id)=>{
     // handlePayment();
@@ -128,7 +121,7 @@ function Search() {
               <div className='text-gray-900'><span className=' text-black'>Desc :</span> {Data.description}</div>
 
               <div>{Data.enrolledStudent.length}/20</div>
-              <div onClick={()=>handaleEnroll(Data.coursename, Data._id)} className='text-white bg-blue-900 py-2 px-3 absolute right-4 cursor-pointer'>Enroll Now</div>
+              <div onClick={()=>handleEnroll(Data.coursename, Data._id)} className='text-white bg-blue-900 py-2 px-3 absolute right-4 cursor-pointer'>Enroll Now</div>
             </div>
           ))
         )}
