@@ -34,6 +34,9 @@ const getkey = asyncHandler(async(req,res)=>{
 const coursePaymentConfirmation = asyncHandler(async(req,res)=>{
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     req.body;
+  
+  const studentID = req.Student._id
+  const courseID = req.params
 
   const body = razorpay_order_id + "|" + razorpay_payment_id;
 
