@@ -11,7 +11,7 @@ function StudentCourses() {
   useEffect(() => {
       const getData = async () => {
         try {
-          const response = await fetch(`/api/course/classes/student/${ID}`, {
+          const response = await fetch(`/api/course/student/${ID}/enrolled`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -23,8 +23,8 @@ function StudentCourses() {
           }
   
           const user = await response.json();
-          setdata(user.data.classes);
-          // console.log(user.data.classes);
+          setdata(user.data);
+
         } catch (error) {
           setError(error.message)
         }
@@ -43,8 +43,6 @@ function StudentCourses() {
     "math" : "https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/61930117e428a1f0f7268f888a84145f93aa0664",
     "computer" : "https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/a64c93efe984ab29f1dfb9e8d8accd9ba449f272",
   }
-
-  // console.log(Image.java);
 
   return (
     <>

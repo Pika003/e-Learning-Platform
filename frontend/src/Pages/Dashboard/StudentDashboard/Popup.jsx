@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Popup({onClose, subject}) {
-    console.log(subject);
+    // console.log(subject);
 
   return (
     <div className='fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center'>
@@ -16,10 +16,10 @@ function Popup({onClose, subject}) {
           <hr />
 
           <div className='text-white text-center my-5 text-xl'>
-            <p className='text-gray-900'>Teacher :<span className='text-gray-200'> {subject.enrolledteacher.Firstname} {subject.enrolledteacher.Lastname}</span> </p>
+            {/* <p className='text-gray-900'>Teacher :<span className='text-gray-200'> {subject.enrolledteacher.Firstname} {subject.enrolledteacher.Lastname}</span> </p> */}
           </div>
 
-          {subject.liveClasses.length != 0 && (
+          {/* {subject.liveClasses.length != 0 && (
             <div>
                 <div className='text-white text-center my-5 text-xl'>
                     <p className='text-gray-900'>Upcoming Classs : <span className='text-gray-200'>{subject.liveClasses[0].timing.slice(0,10)}</span></p>
@@ -29,7 +29,7 @@ function Popup({onClose, subject}) {
                     <p className='text-gray-900'>Time : <span className='text-gray-200'>{subject.liveClasses[0].timing.slice(12,19)}</span></p>
                 </div>
             </div>
-          )}
+          )} */}
         </div>
     </div>
   )

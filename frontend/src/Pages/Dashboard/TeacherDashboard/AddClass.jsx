@@ -46,29 +46,35 @@ function AddClass({onClose}) {
             status: 'upcoming',
         }
 
-        try {
-            const response = await fetch(`/api/course/${CourseId}/teacher/${ID}/add-class`, {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+        if(note == '' || date == '' || link == '' || time == ''){
+            alert('All fields are required !');
+        }else{
 
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
+            try {
+                const response = await fetch(`/api/course/${CourseId}/teacher/${ID}/add-class`, {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+
+                const res = await response.json();
+                alert(res.message);
+
+                if(res.statusCode === 200){
+                    onClose()
+                }
+
+            } catch (error) {
+                setError(error.message)
             }
-
-            const res = await response.json();
-            alert(res.message);
-
-            if(res.statusCode === 200){
-                onClose()
-            }
-
-        } catch (error) {
-            setError(error.message)
         }
+        console.log(error);
     };
 
     /*const handaleSubmit = () =>{
@@ -120,7 +126,7 @@ function AddClass({onClose}) {
             <div className='flex items-center justify-center'>
                 <div onClick={addCourses} className='bg-[#E2B659] w-32 text-center py-2 rounded-sm text-brown-900 text-xl cursor-pointer'>Submit</div>
             </div>
-
+                
         </div>
     </div>
   )

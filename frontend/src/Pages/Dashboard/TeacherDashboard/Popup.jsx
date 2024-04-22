@@ -6,26 +6,30 @@ function Popup({onClose, subject}) {
   const { ID } = useParams();
 
   const addCourse = async()=>{
-    onClose();
+    if(desc == ''){
+      alert('Fill The Description');
+    }else{
+      onClose();
 
-    const data = {
-      coursename: subject.toLowerCase(),
-      description: desc
+      const data = {
+        coursename: subject.toLowerCase(),
+        description: desc
+      }
+
+      const response = await fetch(`/api/course/${subject}/create/${ID}`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const responesData = await response.json();
+
+      console.log(responesData);
+      alert(responesData.message);
+
     }
-
-    const response = await fetch(`/api/course/${subject}/create/${ID}`, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    const responesData = await response.json();
-
-    console.log(responesData);
-    alert(responesData.message);
-
   }
 
   return (
