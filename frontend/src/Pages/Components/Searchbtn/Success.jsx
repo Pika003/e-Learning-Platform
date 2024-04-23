@@ -8,7 +8,6 @@ function Success({onClose}) {
             <h1 className=' text-xl text-green-900 font-semibold'>Payment Successful</h1>
             <p className='text-center text-gray-900'>Payment successfully completed! Now you can join the classes. <br />Wishing a happy journey with Shiksharthee
             </p>
-            <p className='text-black'>Recipt id : ds85dcsd8ss43cdvds8dve8</p>
             <div onClick={onClose} className=' bg-blue-900 p-2 rounded-md cursor-pointer'>Back to Dashboard</div>
         </div>
     </div>

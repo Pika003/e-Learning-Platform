@@ -110,36 +110,79 @@ const Admin = () => {
         <div className="rounded-md">
           <h4 className="text-white bg-blue-gray-900 p-4 w-40">Student Request</h4>
           {
-            StudentData.length > 0 ? StudentData.map((student) => {
-                  return (
-                    <div key={student._id} onClick={()=>docDetails("student", student._id)} className="flex justify-around items-center mt-8 p-8 bg-blue-gray-600 rounded-md cursor-pointer">
-                      <h1 className="text-[24px] text-1xl text-white mr-3">
-                        {student.Firstname +" "+ student.Lastname}
-                      </h1>
-                      <p>Status: <span>{student.Isapproved}</span></p>
-                    </div>
-                  );
-                })
-            : null
+            StudentData.length > 0 ? StudentData.map((student) => (
+              student.Isapproved === "pending" && (
+                <div
+                  key={student._id}
+                  onClick={() => docDetails("student", student._id)}
+                  className="flex justify-around items-center mt-8 p-8 bg-blue-gray-600 rounded-md cursor-pointer"
+                >
+                  <h1 className="text-[24px] text-1xl text-white mr-3">
+                    {student.Firstname + " " + student.Lastname}
+                  </h1>
+                  <p>Status: <span>{student.Isapproved}</span></p>
+                </div>
+              )
+            )) : null
           }
         </div>
 
         <div className="rounded-md">
         <h4 className="text-white bg-blue-gray-900 p-4 w-40">Teacher Request</h4>
-          {
-            TeacherData.length > 0 ? TeacherData.map((teacher) => {
-                  return (
-                    <div key={teacher._id} onClick={()=>docDetails("teacher", teacher._id)} className="flex justify-around items-center my-8 p-8 bg-blue-gray-600 rounded-md">
-                      <h1 className="text-[24px] text-1xl text-white mr-3">
-                        {teacher.Firstname +" "+ teacher.Lastname}
-                      </h1>
-                      <p>Status: <span>{teacher.Isapproved}</span></p>
-                    </div>
-                  );
-                })
-            : null
+        {
+            TeacherData.length > 0 ? TeacherData.map((teacher) => (
+              teacher.Isapproved === "pending" && (
+                <div
+                  key={teacher._id}
+                  onClick={() => docDetails("teacher", teacher._id)}
+                  className="flex justify-around items-center mt-8 p-8 bg-blue-gray-600 rounded-md cursor-pointer"
+                >
+                  <h1 className="text-[24px] text-1xl text-white mr-3">
+                    {teacher.Firstname + " " + teacher.Lastname}
+                  </h1>
+                  <p>Status: <span>{teacher.Isapproved}</span></p>
+                </div>
+              )
+            )) : null
           }
         </div>
+        
+        <div className="rounded-md">
+        <h4 className="text-white bg-red-500 p-4 w-40">Rejected Request</h4>
+          {
+            TeacherData.length > 0 ? TeacherData.map((teacher) => (
+              teacher.Isapproved === "rejected" && (
+                <div
+                  key={teacher._id}
+                  onClick={() => docDetails("teacher", teacher._id)}
+                  className="flex justify-around items-center mt-8 p-8 bg-blue-gray-600 rounded-md cursor-pointer"
+                >
+                  <h1 className="text-[24px] text-1xl text-white mr-3">
+                    {teacher.Firstname + " " + teacher.Lastname}
+                  </h1>
+                  <p>Msg: <span>{teacher.Remarks}</span></p>
+                </div>
+              )
+            )) : null
+          }
+          {
+            StudentData.length > 0 ? StudentData.map((student) => (
+              student.Isapproved === "rejected" && (
+                <div
+                  key={student._id}
+                  onClick={() => docDetails("student", student._id)}
+                  className="flex justify-around items-center mt-8 p-8 bg-blue-gray-600 rounded-md cursor-pointer"
+                >
+                  <h1 className="text-[24px] text-1xl text-white mr-3">
+                    {student.Firstname + " " + student.Lastname}
+                  </h1>
+                  <p>Msg: <span>{student.Remarks}</span></p>
+                </div>
+              )
+            )) : null
+          }
+        </div>
+        
       </div>
 
     </div>

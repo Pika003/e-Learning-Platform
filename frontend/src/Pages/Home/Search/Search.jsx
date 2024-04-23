@@ -41,14 +41,12 @@ function search() {
                         {Data.coursename}  
                         </div>
                         <div className='text-gray-300'>{Data.enrolledteacher.Firstname}  {Data.enrolledteacher.Lastname}</div>
-                        <div className='text-gray-300'><span className=' text-gray-900'>Desc :</span> {Data.description}</div>
+                        <div className='text-gray-900'><span className=' text-gray-900'>Desc :</span> {Data.description}</div>
 
                         <div>{Data.enrolledStudent.length}/20</div>
                     
                         <div className='absolute right-4'>
-                            <NavLink to='/login'>
-                                <div className='text-white bg-blue-900 py-2 px-3 cursor-not-allowed'>Enroll Now</div>
-                            </NavLink>
+                            <div onClick={()=> alert('Pls login to enroll it')} className='text-white bg-blue-900 py-2 px-3 cursor-not-allowed'>Enroll Now</div>
                         </div>
                         
                     </div>

@@ -24,6 +24,7 @@ function StudentCourses() {
   
           const user = await response.json();
           setdata(user.data);
+          console.log(user);
 
         } catch (error) {
           setError(error.message)

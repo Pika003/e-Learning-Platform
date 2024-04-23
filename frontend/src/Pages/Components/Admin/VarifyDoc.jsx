@@ -14,7 +14,8 @@ function VarifyDoc() {
     const Approval = async(id, type, approve)=>{
         try {
           const data = {
-            Isapproved : approve
+            Isapproved : approve,
+            remarks : value,
           }
     
           const response = await fetch(`/api/admin/${adminID}/approve/${type}/${id}`, {

@@ -132,12 +132,10 @@ const forApproval = asyncHandler(async(req,res)=>{
     // check if email verified or not
 
     const studentsforApproval = await student.find({
-        Isapproved: "pending",
         Isverified: true
     })
 
     const teachersforApproval = await Teacher.find({
-        Isapproved: "pending",
         Isverified: true
     })
 
@@ -177,6 +175,7 @@ const approveStudent = asyncHandler(async(req,res)=>{
     const toApprove = req.body.Isapproved
 
     const remarks = req.body.remarks || null
+    console.log(remarks)
     
 
     if (!toApprove || (toApprove != "approved" && toApprove != "rejected" && toApprove !== "reupload")) {

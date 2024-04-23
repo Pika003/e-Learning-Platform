@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Search.css';
 import { useParams } from 'react-router-dom';
 import logo from '../../Images/logo.svg'
@@ -9,6 +9,11 @@ function Search() {
   const [course, setCourse] = useState([]);
   const [popup, setPopup] = useState(false);
   const {ID} = useParams();
+
+  const closePopup = ()=>{
+    setPopup(false);
+    window.location.reload();
+  }
 
   const SearchTeacher = async (sub) => {
     const subject = sub.toLowerCase();
@@ -30,7 +35,7 @@ function Search() {
     });
 
     const DATA = await data.json();
-    console.log(DATA.data.id)
+    // console.log(DATA.data.id)
 
     const Key = await fetch('/api/payment/razorkey', {
       method: 'GET',
@@ -89,7 +94,6 @@ function Search() {
       prefill: {
         name: 'Gaurav Kumar',
         email: 'gaurav.kumar@example.com',
-        contact: '9000090000',
       },
       notes: {
         address: 'Razorpay Corporate Office',
@@ -127,7 +131,7 @@ function Search() {
         )}
       </div>
       {popup && (
-        <Success onClose={()=> setPopup(false)}/>
+        <Success onClose={closePopup}/>
       )}
     </>
   )
