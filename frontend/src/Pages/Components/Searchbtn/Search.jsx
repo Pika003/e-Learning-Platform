@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Search.css';
 import { useParams } from 'react-router-dom';
+import logo from '../../Images/logo.svg'
+import Success from './Success';
 
 function Search() {
   const [data, setData] = useState('');
   const [course, setCourse] = useState([]);
+  const [popup, setPopup] = useState(false);
+  const {ID} = useParams();
 
   const SearchTeacher = async (sub) => {
     const subject = sub.toLowerCase();
@@ -42,7 +46,7 @@ function Search() {
       currency: 'INR',
       name: 'Shiksharthee',
       description: 'Enroll in a course',
-      image: 'https://example.com/your_logo',
+      image: logo,
       order_id: DATA.data.id, // Include the order_id from the response
       handler: async (response) => {
         const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
@@ -63,7 +67,24 @@ function Search() {
         });
 
         const res = await verificationResponse.json();
-        console.log(res);
+        console.log(res.statusCode);
+        if(res.statusCode === 200){
+          try {
+            let response = await fetch(`/api/course/${courseName}/${id}/add/student/${ID}`,{
+              method: 'POST',
+              headers: {
+                "Content-Type": "application/json",
+              },
+              // body: JSON.stringify({}),
+            })
+      
+            let res = await response.json();
+            // console.log(res);
+            setPopup(true)
+          } catch (error) {
+            console.log(error);
+          }
+        }
       },
       prefill: {
         name: 'Gaurav Kumar',
@@ -80,28 +101,7 @@ function Search() {
 
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
-  };
-
-  // let handaleEnroll = async(courseName, id)=>{
-    // handlePayment();
-    
-    // try {
-    //   let response = await fetch(`/api/course/${courseName}/${id}/add/student/${ID}`,{
-    //     method: 'POST',
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({}),
-    //   })
-
-    //   let res = await response.json();
-
-    //   console.log(res);
-      
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  // }
+  }
   
   return (
     <>
@@ -126,6 +126,9 @@ function Search() {
           ))
         )}
       </div>
+      {popup && (
+        <Success onClose={()=> setPopup(false)}/>
+      )}
     </>
   )
 }
