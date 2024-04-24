@@ -3,6 +3,7 @@ import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js"; 
 import {ApiResponse} from "../utils/ApiResponse.js";
 import mongoose from "mongoose";
+import { Teacher } from "../models/teacher.model.js";
 
 
 
@@ -122,9 +123,20 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
     throw new ApiError(400, "failed to add student in course schema")
   }
 
+  const teacherID = selectedCourse.enrolledteacher
+
+  const teacher = await Teacher.findByIdAndUpdate(teacherID,
+    {
+      $push: {
+        enrolledStudent:loggedStudent._id
+      }
+    }, {
+      new: true
+    })
+
   return res
   .status(200)
-  .json( new ApiResponse(200, {selectedCourse, loggedStudent}, "successfully opted in course"))
+  .json( new ApiResponse(200, {teacher, selectedCourse, loggedStudent}, "successfully opted in course"))
 })
 
 const enrolledcourseSTD = asyncHandler(async(req,res)=>{

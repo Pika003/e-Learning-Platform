@@ -55,6 +55,33 @@ const teacherSchema = new mongoose.Schema({
         ref:"Teacherdocs"
     },
 
+    Balance: {
+        type: Number,
+        default: 0,
+    },
+
+    WithdrawalHistory: [{
+        amount: {
+            type: Number,
+            required: true,
+        },
+        date: {
+            type: Date,
+            default: Date.now,
+        }
+    }],
+
+    enrolledStudent: [{
+        studentId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'student'
+        },
+        isNewEnrolled: {
+            type: Boolean,
+            default: true
+        }
+    }]
+
 },
 {
     timestamps:true,
