@@ -26,25 +26,24 @@ function Search() {
             'Content-Type': 'application/json',
           },
         });
-
+  
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
-
+  
         const user = await response.json();
         setCourseID(user.data);
-        // console.log(user.data);
-        courseID.map((res)=>{
-          // console.log(res._id)
-          setIdArray([...idArray, res._id]);
-        })
-
+        console.log(user.data);
+        setIdArray(prevIdArray => [...prevIdArray, ...user.data.map(res => res._id)]);
+        // Using a callback in setIdArray to ensure you're working with the most up-to-date state
+  
       } catch (error) {
         console.log(error.message)
       }
     };
     getData();
-  },[ID]);
+  }, []);
+  
 
   const SearchTeacher = async (sub) => {
     const subject = sub.toLowerCase();

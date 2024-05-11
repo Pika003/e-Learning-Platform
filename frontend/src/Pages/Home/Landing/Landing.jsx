@@ -6,6 +6,9 @@ import Plant2 from "../../Images/Plant2.svg"
 import Contact from "../Contact/Contact.jsx";
 import Footer from "../../Footer/Footer.jsx";
 import Header from "../Header/Header.jsx";
+import { CgProfile } from "react-icons/cg";
+import { IoSchoolSharp } from "react-icons/io5";
+import { FaSchool } from "react-icons/fa";
 import { NavLink , useNavigate} from "react-router-dom";
 
 function Landing() {
@@ -38,7 +41,7 @@ function Landing() {
       <div className="top">
         <div className="left">
           <h1>
-          Empowering Minds, Inspiring Futures: <br />Your Gateway to Online Learning with <span className="text-blue-500 font-semibold">Shiksharthee</span>
+          Empowering Minds, Inspiring Futures: <br />Your Gateway to Online Learning with <span className="font-semibold text-amber-400 font-serif text-5xl">Shiksharthee</span>
           </h1>
           {/*  Search  */}
 
@@ -55,11 +58,11 @@ function Landing() {
       </div>
 
       {/* Features */}
-      <div className="features">
+      <div className="features ">
         <p>Why You Choose Us</p>
         {/* <hr className="underLine"/> */}
         <div className="fets2">
-          <div className="fet cursor-pointer" onClick={AA}>
+          <div className="fet cursor-pointer mb-5" onClick={AA}>
             <img
               src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/622a85ea75414daadf6055613c074c5280b95444"
               alt=""
@@ -72,7 +75,7 @@ function Landing() {
             </p>
           </div>
 
-          <div className="fet cursor-pointer" onClick={BB}>
+          <div className="fet cursor-pointer mb-5" onClick={BB}>
             <img
               src="https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/1478ee1b2a35123ded761b65c3ed2ceaece0d20f"
               alt=""
@@ -100,11 +103,68 @@ function Landing() {
           </NavLink>
         </div>
         {LClass && (
-          <div className="flex items-center justify-center">hiiiiiiiig Live Class</div>
+          <div className="flex items-center justify-center">
+            <div className="flex gap-5 items-center my-5">
+              <img src="https://lh3.googleusercontent.com/kq1PrZ8Kh1Pomlbfq4JM1Gx4z-oVr3HG9TEKzwZfqPLP3TdVYrx0QrIbpR-NmMwgDzhNTgi3FzuzseMpjzkfNrdHK5AzWGZl_RtKB80S-GZmWOQciR9s=w1296-v1-e30" alt="" width={300}/>
+              <div className="text-white flex flex-col items-center">
+                <h1>High Quality Live Class</h1>
+                <p>We deliver high-quality live classes to our students,<br /> providing interactive learning experiences <br />led by experienced instructors.</p>
+              </div>
+            </div>
+          </div>
         )}
 
         {EMentor && (
-          <div className="flex items-center justify-center">E Mentor Liass</div>
+          <div className="flex items-center justify-center mt-7 gap-5">
+            <div className="bg-[#0E3A59] m-2 p-5 rounded-3xl overflow-hidden flex flex-col items-center justify-center">
+              <img className=" rounded-full" src="https://media.istockphoto.com/id/1310210662/photo/portrait-of-indian-woman-as-a-teacher-in-sari-standing-isolated-over-white-background-stock.jpg?s=612x612&w=0&k=20&c=EMI42nCFpak1c4JSFvwfN0Qllyxt19dlihYEXAdnCXY=" alt="" width={200}/>
+
+              <div className="flex items-center justify-start">
+                <CgProfile/>
+                <p>Prof. Dina Sharma</p>
+              </div>
+              <div className="flex items-center">
+                <FaSchool />
+                <p>Galaxy University</p>
+              </div>
+              <div className="flex items-center">
+                <IoSchoolSharp />
+                <p>Ph.D. in Astrophysics</p>
+              </div>
+            </div>
+            <div className="bg-[#0E3A59] m-2 p-5 rounded-3xl overflow-hidden flex flex-col items-center justify-center">
+              <img className=" rounded-full" src="https://media.istockphoto.com/id/1324558913/photo/confident-young-man-in-casual-green-shirt-looking-away-standing-with-crossed-arms-isolated-on.jpg?s=612x612&w=0&k=20&c=NOrKRrUuxvePKijL9sFBHlDwHESv7Van68-hoS-_4hQ=" alt="" width={200}/>
+
+              <div className="flex items-center justify-start">
+                <CgProfile/>
+                <p>Dr. Anand Mishra</p>
+              </div>
+              <div className="flex items-center">
+                <FaSchool />
+                <p>Maharishi University</p>
+              </div>
+              <div className="flex items-center">
+                <IoSchoolSharp />
+                <p>Ph.D. in Quantum Physics</p>
+              </div>
+            </div>
+            <div className="bg-[#0E3A59] m-2 p-5 rounded-3xl overflow-hidden flex flex-col items-center justify-center">
+              <img className=" rounded-full" src="https://media.istockphoto.com/id/1663458254/photo/portrait-of-beautiful-indian-woman-in-sari.jpg?s=612x612&w=0&k=20&c=raeTJOEyA4sFX_GwrgboXt9ZxtAZ8RkFuljPJnL9sCU=" alt="" width={200}/>
+
+              <div className="flex items-center justify-start">
+                <CgProfile/>
+                <p>Prof. Sunita Patel</p>
+              </div>
+              <div className="flex items-center">
+                <FaSchool />
+                <p>Ramanujan Institute</p>
+              </div>
+              <div className="flex items-center">
+                <IoSchoolSharp />
+                <p>D.Phil. in Number Theory</p>
+              </div>
+            </div>
+          </div>
         )}
       </div>
 
