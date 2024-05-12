@@ -27,6 +27,7 @@ import DashboardTeacher from './Pages/Dashboard/TeacherDashboard/DashboardTeache
 import TeacherClasses from './Pages/Dashboard/TeacherDashboard/TeacherClasses'
 import TeacherCourses from './Pages/Dashboard/TeacherDashboard/TeacherCourses'
 import SearchData from './Pages/Home/Search/Search'
+import ErrorPage from './Pages/ErrorPage/ErrorPage'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -56,6 +57,7 @@ const router = createBrowserRouter(
         <Route path='/Teacher/Dashboard/:ID/Classes' element={<TeacherClasses/>}/>
         <Route path='/Teacher/Dashboard/:ID/Courses' element={<TeacherCourses/>}/>
       </Route>
+      <Route path='*' element={<ErrorPage/>}/>
     </Route>
  )
 )
