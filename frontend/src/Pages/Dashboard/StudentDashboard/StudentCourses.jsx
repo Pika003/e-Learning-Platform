@@ -1,12 +1,14 @@
 import React,{ useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Popup from './Popup';
+import axios from 'axios';
 
 function StudentCourses() {
   const { ID } = useParams();
   const [data, setdata] = useState([]);
   const [popup, setPopup] = useState(false);
   const [subDetails, setsubDetails] = useState({});
+  const [subD, setsubD] = useState();
 
   useEffect(() => {
       const getData = async () => {
@@ -24,7 +26,7 @@ function StudentCourses() {
   
           const user = await response.json();
           setdata(user.data);
-          console.log(user);
+          // console.log(user);
 
         } catch (error) {
           setError(error.message)
@@ -33,9 +35,11 @@ function StudentCourses() {
       getData();
   },[]);
 
-  const openpopup = (sub)=>{
-    setPopup(true);
+  const openpopup = async(sub)=>{ 
     setsubDetails(sub);
+    await axios.get(`/api/course/${sub.coursename}`)
+      .then(res => {setPopup(true);
+      setsubD(res.data.data)})
   }
 
   const Image = {
@@ -56,7 +60,7 @@ function StudentCourses() {
         ))}
     </div>
     {popup && (
-      <Popup onClose={()=> setPopup(false)} subject={subDetails}/>
+      <Popup onClose={()=> setPopup(false)} subject={subDetails} allSubject={subD}/>
     )}
     </>
   )
