@@ -223,7 +223,7 @@ const StudentDocument = () => {
           </div>
         </div>
         {error && <p className="text-white text-xl m-5 text-center">!! {error}</p>}
-        <div className=" bg-[#0D286F] p-3 m-3 rounded-md absolute right-32 bottom-5 cursor-pointer">
+        <div className=" bg-[#0D286F] p-3 m-3 mt-1 rounded-md absolute right-32 bottom-5 cursor-pointer">
           <button className=" text-white text-sm" type="Submit">
             Submit ▶️
           </button>

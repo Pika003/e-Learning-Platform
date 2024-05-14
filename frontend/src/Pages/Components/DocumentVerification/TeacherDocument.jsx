@@ -12,17 +12,6 @@ const TeacherDocument = () => {
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
 
-  const [showGraduation, setShowGraduation] = useState(false);
-  const [showPostGraduation, setShowPostGraduation] = useState(false);
-
-  const handleRemoveGraduation = () => {
-    setShowGraduation(false);
-  };
-
-  const handleRemovePostGraduation = () => {
-    setShowPostGraduation(false);
-  };
-
   useEffect(() => {
     const getData = async () => {
       try {
@@ -108,14 +97,6 @@ const TeacherDocument = () => {
       }
     } catch (e) {
       console.error("Error:", e);
-    }
-  };
-
-  const handleAddMore = (type) => {
-    if (type === "graduation") {
-      setShowGraduation(true);
-    } else if (type === "postGraduation") {
-      setShowPostGraduation(true);
     }
   };
 
@@ -222,7 +203,7 @@ const TeacherDocument = () => {
           <hr />
 
           <div className="flex flex-row gap-7 items-center">
-            <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm">
+            <div className=" bg-[#0D286F] p-[1rem] m-1 rounded-sm">
               <p className=" text-white text-sm">Higher Secondary</p>
             </div>
             <Input
@@ -247,7 +228,6 @@ const TeacherDocument = () => {
           </div>
           <hr />
 
-          {showGraduation && (
             <div className="flex flex-row gap-7">
               <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm">
                 <p className=" text-white text-sm">Graduation</p>
@@ -264,22 +244,16 @@ const TeacherDocument = () => {
               />
               <div className=" mt-[-1.5rem]">
                 <InputUpload
-                  placeholder={"Upload Graduation Result"}
+                  placeholder={"Upload Graduation .."}
                   value={formData.UG}
                   onChange={(e) => handleFileChange("UG", e)}
                 />
               </div>
-              <div className="m-2 absolute left-60 bottom-[-3.5rem] bg-[#0D286F] text-white p-2 rounded-md cursor-pointer" onClick={handleRemoveGraduation}>
-                ➖ Remove graduation
-              </div>
             </div>
-          )}
-
+          
           <hr />
-
-          {showPostGraduation && (
             <div className="flex flex-row gap-7">
-              <div className=" bg-[#0D286F] p-[1rem] m-3 rounded-sm px-5">
+              <div className=" bg-[#0D286F] p-[1rem] m-1 rounded-sm px-4">
                 <p className=" text-white text-sm">Post Graduation</p>
               </div>
               <Input
@@ -299,31 +273,9 @@ const TeacherDocument = () => {
                   onChange={(e) => handleFileChange("PG", e)}
                 />
               </div>
-
-              <div className="m-2 absolute left-2 bottom-[-3.5rem] bg-[#0D286F] text-white p-2 rounded-md cursor-pointer" onClick={handleRemovePostGraduation}>
-                ➖ Remove PostGraduation
-              </div>
             </div>
-          )}
-
-          {!showGraduation && (
-            <div
-              className=" absolute left-2 mt-2 bg-[#0D286F] text-white p-2 rounded-md cursor-pointer"
-              onClick={() => handleAddMore("graduation")}
-            >
-              ➕ ADD graduation
-            </div>
-          )}
-
-          {!showPostGraduation && showGraduation && (
-            <div
-              className=" absolute left-2 mt-2 bg-[#0D286F] text-white p-2 rounded-md cursor-pointer"
-              onClick={() => handleAddMore("postGraduation")}
-            >
-              ➕ ADD PostGraduation
-            </div>
-          )}
         </div>
+
         {error && <p className=" text-white text-xl m-5 text-center">!! {error}</p>}
         <div className=" bg-[#0D286F] p-3 m-6 rounded-md w-[7rem] ml-[85%] cursor-pointer">
           <button className=" text-white text-sm" type="submit">
