@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Input from "./InputComponent/Input";
-import InputUpload from "./Inputupload/InputUpload";
+import Input from "./InputComponent/Input.jsx";
+import InputUpload from "./Inputupload/InputUpload.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
 import logo from "../../Images/logo.svg";
