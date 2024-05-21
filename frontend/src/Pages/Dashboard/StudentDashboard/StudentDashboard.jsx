@@ -17,8 +17,7 @@ function StudentDashboard() {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
-      },
-      credentials: 'include'
+      }
     });
     const data = await response.json();
     if(data.statusCode == 200){
@@ -33,8 +32,7 @@ function StudentDashboard() {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-          },
-          credentials: 'include'
+          }
         });
 
         if (!response.ok) {
