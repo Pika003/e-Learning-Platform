@@ -11,7 +11,7 @@ function StudentDashboard() {
   const [error, setError] = useState(null);
 
   const Handlelogout = async() =>{
-    const response = await fetch(`https://elearnbackend.onrender.com/api/student/logout`, {
+    const response = await fetch(`/api/student/logout`, {
       method: 'POST',
       credentials: "include",
       headers: {
@@ -27,7 +27,7 @@ function StudentDashboard() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(`https://elearnbackend.onrender.com/api/Student/StudentDocument/${ID}`, {
+        const response = await fetch(`/api/Student/StudentDocument/${ID}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

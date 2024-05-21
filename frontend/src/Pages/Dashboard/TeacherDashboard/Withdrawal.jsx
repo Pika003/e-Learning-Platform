@@ -10,7 +10,7 @@ function Withdrawal({onClose,TA}) {
       alert('Insufficient Amount')
     }else{
       try {
-        const response = await fetch(`https://elearnbackend.onrender.com/api/payment/teacher/${ID}/withdraw`, {
+        const response = await fetch(`/api/payment/teacher/${ID}/withdraw`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -10,7 +10,7 @@ function StudentClasses() {
     useEffect(() => {
         const getData = async () => {
           try {
-            const response = await fetch(`https://elearnbackend.onrender.com/api/course/classes/student/${ID}`, {
+            const response = await fetch(`/api/course/classes/student/${ID}`, {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',

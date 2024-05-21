@@ -14,7 +14,7 @@ function AddClass({onClose}) {
     useEffect(() => {
         const getCourses = async () => {
             try {
-                const response = await fetch(`https://elearnbackend.onrender.com/api/course/Teacher/${ID}/enrolled`, {
+                const response = await fetch(`/api/course/Teacher/${ID}/enrolled`, {
                     method: 'GET',
                     headers: {
                     'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ function AddClass({onClose}) {
         }else{
 
             try {
-                const response = await fetch(`https://elearnbackend.onrender.com/api/course/${CourseId}/teacher/${ID}/add-class`, {
+                const response = await fetch(`/api/course/${CourseId}/teacher/${ID}/add-class`, {
                     method: 'POST',
                     headers: {
                     'Content-Type': 'application/json',

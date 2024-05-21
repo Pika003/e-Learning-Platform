@@ -41,7 +41,7 @@ export default function AdminLogin() {
 
     try {
       // Send data to backend
-      const response = await fetch(`https://elearnbackend.onrender.com/api/admin/login`, {
+      const response = await fetch(`/api/admin/login`, {
         method: 'POST',
         credentials: "include",
         headers: {
