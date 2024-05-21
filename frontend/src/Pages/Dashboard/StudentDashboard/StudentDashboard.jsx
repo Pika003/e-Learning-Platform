@@ -10,7 +10,7 @@ function StudentDashboard() {
   const [data, setdata] = useState([]);
 
   const Handlelogout = async() =>{
-    const response = await fetch(`/api/student/logout`, {
+    const response = await fetch(`https://elearnbackend.onrender.com/api/student/logout`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +25,7 @@ function StudentDashboard() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(`/api/Student/StudentDocument/${ID}`, {
+        const response = await fetch(`https://elearnbackend.onrender.com/api/Student/StudentDocument/${ID}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

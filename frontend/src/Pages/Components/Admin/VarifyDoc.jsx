@@ -18,7 +18,7 @@ function VarifyDoc() {
             remarks : value,
           }
     
-          const response = await fetch(`/api/admin/${adminID}/approve/${type}/${id}`, {
+          const response = await fetch(`https://elearnbackend.onrender.com/api/admin/${adminID}/approve/${type}/${id}`, {
             method: 'POST',
             headers: {
               "Content-Type": "application/json",
@@ -36,7 +36,7 @@ function VarifyDoc() {
     useEffect(() => {
         const getData = async () => {
             try {
-                const docData = await fetch(`/api/admin/${adminID}/documents/${type}/${ID}`);
+                const docData = await fetch(`https://elearnbackend.onrender.com/api/admin/${adminID}/documents/${type}/${ID}`);
                 const response = await docData.json();
                 setData(response.data);
                 console.log(response.data);

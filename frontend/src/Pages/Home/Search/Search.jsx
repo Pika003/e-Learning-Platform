@@ -10,7 +10,7 @@ function search() {
     
     let SearchTeacher = async()=>{
         let Subject = data.toLowerCase();
-        let Data = await fetch(`/api/course/${Subject}`)
+        let Data = await fetch(`https://elearnbackend.onrender.com/api/course/${Subject}`)
         let response = await Data.json();
         if(response.statusCode == 200){
         setCourse(response.data)

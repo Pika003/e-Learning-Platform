@@ -20,7 +20,7 @@ function Search() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(`/api/course/student/${ID}/enrolled`, {
+        const response = await fetch(`https://elearnbackend.onrender.com/api/course/student/${ID}/enrolled`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ function Search() {
 
   const SearchTeacher = async (sub) => {
     const subject = sub.toLowerCase();
-    const Data = await fetch(`/api/course/${subject}`);
+    const Data = await fetch(`https://elearnbackend.onrender.com/api/course/${subject}`);
     const response = await Data.json();
     if (response.statusCode === 200) {
       setCourse(response.data);
@@ -56,7 +56,7 @@ function Search() {
   };
 
   const handleEnroll = async (courseName, id) => {
-    const data = await fetch(`/api/payment/course/${id}/${courseName}`, {
+    const data = await fetch(`https://elearnbackend.onrender.com/api/payment/course/${id}/${courseName}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +67,7 @@ function Search() {
     const DATA = await data.json();
     // console.log(DATA.data.id)
 
-    const Key = await fetch("/api/payment/razorkey", {
+    const Key = await fetch("https://elearnbackend.onrender.com/api/payment/razorkey", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -95,7 +95,7 @@ function Search() {
         };
 
         const verificationResponse = await fetch(
-          `/api/payment/confirmation/course/${id}`,
+          `https://elearnbackend.onrender.com/api/payment/confirmation/course/${id}`,
           {
             method: "POST",
             headers: {
@@ -110,7 +110,7 @@ function Search() {
         if (res.statusCode === 200) {
           try {
             let response = await fetch(
-              `/api/course/${courseName}/${id}/add/student/${ID}`,
+              `https://elearnbackend.onrender.com/api/course/${courseName}/${id}/add/student/${ID}`,
               {
                 method: "POST",
                 headers: {

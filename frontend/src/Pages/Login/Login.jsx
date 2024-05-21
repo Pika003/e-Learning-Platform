@@ -47,7 +47,7 @@ export default function Login() {
 
     try {
       // Send data to backend (you need to implement this part)
-      const response = await fetch(`/api/${userType}/login`, {
+      const response = await fetch(`https://elearnbackend.onrender.com/api/${userType}/login`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

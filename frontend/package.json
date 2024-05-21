@@ -1,7 +1,6 @@
 {
   "name": "fontent",
   "private": true,
-  "proxy": "https://elearnbackend.onrender.com",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

@@ -16,7 +16,7 @@ function Popup({onClose, subject}) {
         description: desc
       }
 
-      const response = await fetch(`/api/course/${subject}/create/${ID}`, {
+      const response = await fetch(`https://elearnbackend.onrender.com/api/course/${subject}/create/${ID}`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

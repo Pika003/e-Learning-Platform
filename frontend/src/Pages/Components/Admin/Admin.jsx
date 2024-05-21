@@ -18,7 +18,7 @@ const Admin = () => {
         Isapproved : approve
       }
 
-      const response = await fetch(`/api/admin/${adminID}/approve/${type}/${ID}`, {
+      const response = await fetch(`https://elearnbackend.onrender.com/api/admin/${adminID}/approve/${type}/${ID}`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -49,7 +49,7 @@ const Admin = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch(`/api/admin/${data}/approve`, {
+        const response = await fetch(`https://elearnbackend.onrender.com/api/admin/${data}/approve`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
