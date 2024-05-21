@@ -8,13 +8,17 @@ function StudentDashboard() {
   const { ID } = useParams();
   const navigator = useNavigate();
   const [data, setdata] = useState([]);
+  const [error, setError] = useState(null);
 
   const Handlelogout = async() =>{
     const response = await fetch(`https://elearnbackend.onrender.com/api/student/logout`, {
       method: 'POST',
+      credentials: "include",
       headers: {
+        "Accept": "application/json",
         "Content-Type": "application/json",
-      }
+      },
+      credentials: 'include'
     });
     const data = await response.json();
     if(data.statusCode == 200){
@@ -30,6 +34,7 @@ function StudentDashboard() {
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include'
         });
 
         if (!response.ok) {

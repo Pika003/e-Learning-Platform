@@ -11,7 +11,9 @@ function TeacherDashboard() {
   const Handlelogout = async() =>{
     const response = await fetch(`https://elearnbackend.onrender.com/api/teacher/logout`, {
       method: 'POST',
+      credentials: "include",
       headers: {
+        "Accept": "application/json",
         "Content-Type": "application/json",
       }
     });

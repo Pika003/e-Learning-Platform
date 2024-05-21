@@ -61,8 +61,10 @@ const Signup = () => {
       const response = await fetch(`https://elearnbackend.onrender.com/api/${userType}/signup`, {
         method: "POST",
         mode: "cors",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json"
         },
         body: JSON.stringify(data),
       });
