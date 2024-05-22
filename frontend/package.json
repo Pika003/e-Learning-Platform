@@ -1,8 +1,8 @@
 {
   "name": "fontent",
   "private": true,
-  "version": "0.0.0",
   "proxy": "https://elearnbackend.onrender.com",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
