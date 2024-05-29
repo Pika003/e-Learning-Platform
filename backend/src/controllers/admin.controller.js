@@ -4,6 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { admin } from "../models/admin.model.js";
 import { student, studentdocs } from "../models/student.model.js";
 import { Teacher, Teacherdocs } from "../models/teacher.model.js";
+import { contact } from "../models/contact.model.js";
 
 
 const adminSignUp = asyncHandler(async(req,res)=>{
@@ -323,4 +324,63 @@ const checkTeacherDocuments = asyncHandler(async(req,res)=>{
 
 })
 
-export {adminSignUp, adminLogin, forApproval, approveStudent, approveTeacher, checkStudentDocuments, checkTeacherDocuments, adminLogout}
+
+const sendmessage = asyncHandler(async(req,res)=>{
+    const {name, message, email} = req.body;
+
+    if([name, message, email].some((field)=> field?.trim() === "")){
+        throw new ApiError(400, "All fields are required")
+    }
+
+    const contactUs = await contact.create({
+        name,
+        email,
+        message
+    })
+
+    const createdContactUs = await contact.findById(contactUs._id)
+
+    if(!contactUs){
+        throw new ApiError(400, "failed to send message")
+    }
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, {contactUs: createdContactUs}, "message sent successfully"))
+})
+
+const allmessages = asyncHandler(async(req,res)=>{
+    
+    const messages = await contact.find({
+        status:false,
+    })
+    
+    if(!messages){
+        return res
+        .status(200)
+        .json(new ApiResponse(200, {}, "no new messages"))
+    }
+    
+    return res
+    .status(200)
+    .json(new ApiResponse(200, messages, "messages fetched"))
+})
+
+const readMessage = asyncHandler(async(req,res)=>{
+
+    const messageID = req.body.messageID;
+
+    console.log(messageID);
+
+    const isdone = await contact.findByIdAndUpdate({_id: messageID}, {$set:{status:true}}, {new:true})
+
+    if(!isdone){
+        throw new ApiError(400, "error occured while updating the status")
+    }
+
+    return res
+    .status(200)
+    .json( new ApiResponse(200, isdone, "status updated successfully"))
+})
+
+export {adminSignUp, adminLogin, forApproval, approveStudent, approveTeacher, checkStudentDocuments, checkTeacherDocuments, adminLogout, sendmessage, allmessages,readMessage}
