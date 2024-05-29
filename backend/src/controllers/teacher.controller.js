@@ -279,4 +279,18 @@ const addTeacherDetails = asyncHandler(async(req,res)=>{
 
 })
 
-export { signup, mailVerified, login, logout, addTeacherDetails, getTeacher };
+const teacherdocuments = asyncHandler(async(req, res)=>{
+    const teacherID = req.body.teacherID;
+
+    const teacherDocs = await Teacherdocs.findById(teacherID);
+
+    if(!teacherDocs){
+        throw new ApiError(400, 'no teacher found');
+    }
+
+    return res 
+    .status(200)
+    .json(new ApiResponse(200, teacherDocs, "teacher documents fetched"))
+})
+
+export { signup, mailVerified, login, logout, addTeacherDetails, getTeacher, teacherdocuments };
