@@ -4,6 +4,7 @@ import { Teacher, Teacherdocs } from "../models/teacher.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import nodemailer from "nodemailer";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { student } from "../models/student.model.js";
 
 const verifyEmail = async (Email, Firstname, createdTeacherId) => {
     try {
@@ -68,6 +69,10 @@ const signup = asyncHandler(async (req, res) => {
 
     if (existedTeacher) {
         throw new ApiError(400, "Teacher already exists");
+    }
+    const existedStudent = await student.findOne({ Email: req.body.Email });
+    if(existedStudent){
+        throw new ApiError(400, "Email Belong to Student")
     }
 
     const newTeacher = await Teacher.create({
