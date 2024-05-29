@@ -13,6 +13,7 @@ const Signup = () => {
   const [Password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [userType, setUserType] = useState('');
+  const [err, setErr] = useState('');
 
   const navigate = useNavigate()
 
@@ -40,6 +41,8 @@ const Signup = () => {
 
     if (!Password.trim()) {
       newErrors.password = 'Password is required';
+    }else if (Password.trim().length < 5) {
+      newErrors.password = 'Password length must be at least 6 characters';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -70,6 +73,8 @@ const Signup = () => {
 
       // Handle response
       const responseData = await response.json();
+
+      setErr(responseData.message);
 
       if (response.ok) {
         // Registration successful, you can redirect or do something else
@@ -164,6 +169,9 @@ const Signup = () => {
             </button>
             </div>
           </form>
+          {err && (
+              <div className="error-message">{err}</div>
+          )}
         </div>
       </article>
 

@@ -9,6 +9,7 @@ export default function AdminLogin() {
   const [User, setUser] = useState("");
   const [Password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [err, setErr] = useState('');
 
   const navigate = useNavigate()
 
@@ -51,7 +52,7 @@ export default function AdminLogin() {
       });
 
       const responesData = await response.json()
-      console.log(responesData);
+      setErr(responesData.message);
       const userid = responesData.data.admin._id
  
       // Handle response
@@ -100,7 +101,7 @@ export default function AdminLogin() {
             <div className="input-1">
               <input
                 type="text"
-                placeholder="Email Address"
+                placeholder="User name"
                 className="input-0"
                 value={User}
                 onChange={(e) => setUser(e.target.value)}
@@ -130,6 +131,9 @@ export default function AdminLogin() {
             </div>
             {errors.general && (
               <div className="error-message">{errors.general}</div>
+            )}
+            {err && (
+              <div className="error-message">{err}</div>
             )}
           </form>
         </div>

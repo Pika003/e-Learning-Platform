@@ -154,7 +154,7 @@ function Search() {
         />
         <input
           type="text"
-          placeholder="Ex: Zoology ..."
+          placeholder="Ex: Math ..."
           value={data}
           onChange={(e) => setData(e.target.value)}
         />
