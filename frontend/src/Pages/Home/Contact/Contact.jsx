@@ -8,6 +8,30 @@ function Contact() {
   const [email, setEmail] = useState('');
   const [msg, setMsg] = useState('');
 
+  const handlemsg = async(e)=>{
+    e.preventDefault();
+    if(name === '' || email === '' || msg === ''){
+      alert("All filds are required!")
+    }else if((!/\S+@\S+\.\S+/.test(email))){
+      alert("Enter a valid email!")
+    }else{
+      const data = await fetch('/api/admin/contact-us',{
+        method: 'POST',
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({name, email, message: msg}),
+      })
+
+      const response = await data.json();
+      alert(response.message);
+      setName('');
+      setEmail('');
+      setMsg('');
+    }
+  }
+
   return (
     <>
     <Header/>
@@ -38,7 +62,7 @@ function Contact() {
               value={msg}
               onChange={(e)=>setMsg(e.target.value)}
             />
-            <button className="w-[19rem] bg-light-blue-800">Send A Message</button>
+            <button onClick={handlemsg} className="w-[19rem] bg-light-blue-800">Send A Message</button>
           </form>
         </div>
       </div>

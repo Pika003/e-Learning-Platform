@@ -353,7 +353,7 @@ const allmessages = asyncHandler(async(req,res)=>{
     
     const messages = await contact.find({
         status:false,
-    })
+    }).sort({ _id: -1 });
     
     if(!messages){
         return res

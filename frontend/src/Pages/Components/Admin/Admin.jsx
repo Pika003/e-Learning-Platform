@@ -11,6 +11,29 @@ const Admin = () => {
   const [TeacherData, setTeacherData] = useState([]);
   const [adminID, setAdminID] = useState(null);
   const [error, setErrors] = useState("");
+  const [messages, setMessages] = useState(true);
+  const [allmsg, setAllMsg] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  useEffect(()=>{
+    const getAllMsg = async () => {
+      try {
+        const response = await fetch(`/api/admin/messages/all`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data = await response.json();
+        setAllMsg(data.data)
+
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    getAllMsg();
+  },[])
 
   const Approval = async(ID, type, approve)=>{
     try {
@@ -105,6 +128,25 @@ const Admin = () => {
         <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-2xl border-b-2 font-semibold text-white border-white">
           All New Request
         </h1>
+
+        {messages && (
+          <div onClick={()=> setOpen(prev => !prev)} className=" absolute right-10 top-[6.5rem] text-center cursor-pointer">
+            <h4 className="text-white bg-green-500 p-4 w-32">Messages</h4>
+          </div>
+        )}
+
+        {open && (
+          <div className="w-[30rem] absolute right-10 bg-gray-700 text-gray-100 p-5">
+            {allmsg.map((msg,index) => (
+              <div key={index} className=" mb-5">
+                <p>{msg.name} : <span className="text-blue-500">{msg.email}</span></p>
+                <p>msg : {msg.message}</p>
+              </div>
+            ))}
+
+          </div>
+        )}
+
       </div>
       <div className="flex items-start justify-center gap-20">
         <div className="rounded-md">
