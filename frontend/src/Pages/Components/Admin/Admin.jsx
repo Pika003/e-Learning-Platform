@@ -124,7 +124,7 @@ const Admin = () => {
       </nav>
 
       {/* Main Section */}
-      <div className="p-4 sm:p-8 md:p-12 lg:p-10 ">
+      <div className="p-4 sm:p-8 md:p-12 lg:p-10">
         <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-2xl border-b-2 font-semibold text-white border-white">
           All New Request
         </h1>
@@ -136,9 +136,9 @@ const Admin = () => {
         )}
 
         {open && (
-          <div className="w-[30rem] absolute right-10 bg-gray-700 text-gray-100 p-5">
+          <div className="mt-3 w-[30rem] absolute right-10 bg-gray-700 text-gray-100 p-5">
             {allmsg.map((msg,index) => (
-              <div key={index} className=" mb-5">
+              <div key={index} className="bg-gray-600 mb-5 rounded-sm p-2">
                 <p>{msg.name} : <span className="text-blue-500">{msg.email}</span></p>
                 <p>msg : {msg.message}</p>
               </div>
