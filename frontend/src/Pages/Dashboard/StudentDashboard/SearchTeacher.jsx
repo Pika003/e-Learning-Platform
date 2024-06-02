@@ -20,7 +20,7 @@ function SearchTeacher() {
                 <label>Course Name</label>
                 <input type="text" className='p-2'  placeholder='Course Name'/>
                 <label>What you like about this course?</label>
-                <input type="text" className='p-2'  placeholder='Duration'/>
+                <input type="text" className='p-2'  placeholder=''/>
               </div>
 
               <p className='font-bold'>Please rate each following statement : </p>

@@ -90,7 +90,7 @@ function Search() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ fees: 500000 }),
+      body: JSON.stringify({ fees: price[courseName]*100 }),
     });
 
     const DATA = await data.json();
@@ -106,7 +106,7 @@ function Search() {
 
     const options = {
       key: response.data.key,
-      amount: "500000",
+      amount: price[courseName]*100,
       currency: "INR",
       name: "Shiksharthee",
       description: "Enroll in a course",
@@ -240,7 +240,7 @@ function Search() {
                   {/* <p>Teacher Name : <span className='text-white'>{tname.fname} {tname.lname}</span> ⭐⭐⭐</p> */}
                   <p>Education : <span className='text-white'>Postgraduate from <b className='text-gray-200'>{Tdec.PGcollege}</b> with {Tdec.PGmarks} CGPA</span></p>
                   <p>Experience : <span className='text-white'>{Tdec.Experience} years</span></p>
-                  <p>Course Duration : <span className='text-white'>6 Months</span></p>
+                  {/* <p>Course Duration : <span className='text-white'>6 Months</span></p> */}
                   <p>Fees : <span className='text-white'>Rs. {price[tname.sub]}</span></p>
                   </div>
               </div>

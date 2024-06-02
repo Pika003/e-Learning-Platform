@@ -56,7 +56,7 @@ function Popup({onClose, subject, allSubject}) {
               <p>Teacher : <span className='text-white'>{details.Firstname} {details.Lastname}</span></p>
               {/* <p>Teacher : <span className='text-white'>{details.Firstname} {details.Lastname}</span> {'⭐'.repeat(starCount)}</p> */}
               <p>Email : <span className='text-white'>{details.Email}</span></p>
-              <p>Course Duration : <span className='text-white'>6 Months</span></p>
+              {/* <p>Course Duration : <span className='text-white'>6 Months</span></p> */}
               <p>Fees : <span className='text-white'>Rs. {price[subject.coursename]}</span></p>
             </div>
           )}
