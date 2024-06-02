@@ -46,6 +46,7 @@ function Withdrawal({onClose,TA}) {
             <div className=' absolute w-9 h-9 bg-white rounded-xl cursor-pointer flex items-center justify-center m-2' onClick={onClose}>✖️</div>
             <div className='flex flex-col items-center justify-center mt-10 font-semibold'>
                 <h1 className='text-2xl mb-10'>Remuneration</h1>
+                
                 <input type="text" placeholder='Amount' className="p-2 mb-3 rounded-md w-56 border-0 outline-0 text-gray-800" value={amount} onChange={(e)=>setAmount(e.target.value)}/>
                 <input type="text" placeholder='Ac Holder Name' className="p-2 mb-3 rounded-md w-56 border-0 outline-0 text-gray-800" value={accName} onChange={(e)=>setAccName(e.target.value)}/>
                 <input type="text" placeholder='Account Number' className="p-2 mb-3 rounded-md w-56 border-0 outline-0 text-gray-800" value={accNumber} onChange={(e)=>setAccNumber(e.target.value)}/>

@@ -11,11 +11,40 @@ function Search() {
   const [popup, setPopup] = useState(false);
   const [idArray, setIdArray] = useState([]);
   const { ID } = useParams();
+  const [openTM, setOpenTM] = useState(false);
+  const [Tdec, setTeacherDetails] = useState(null);
+  const [tname, setTname] = useState({});
+
+  const price = {
+    math: 700,
+    physics: 800,
+    computer: 1000,
+    chemistry: 600,
+    biology: 500,
+  };
 
   const closePopup = () => {
     setPopup(false);
     window.location.reload();
   };
+
+  const openTeacherDec = async(id,fname,lname,sub)=>{
+    setTname({fname,lname,sub});
+
+    const data = await fetch('/api/teacher/teacherdocuments',{
+        method: 'POST',
+        credentials: "include",
+        headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify({teacherID : id}),
+    })
+
+    const res = await data.json();
+    // console.log(res.data);
+    setTeacherDetails(res.data);
+    setOpenTM(true);
+  }
 
   useEffect(() => {
     const getData = async () => {
@@ -172,7 +201,7 @@ function Search() {
               <div className="text-white bg-blue-900 p-2 rounded-md">
                 {Data.coursename}
               </div>
-              <div className="text-gray-300">
+              <div onClick={()=>openTeacherDec(Data.enrolledteacher.Teacherdetails, Data.enrolledteacher.Firstname, Data.enrolledteacher.Lastname, Data.coursename)} className="text-gray-300 cursor-pointer">
                 {Data.enrolledteacher.Firstname} {Data.enrolledteacher.Lastname}
               </div>
               <div className="text-gray-900">
@@ -200,6 +229,23 @@ function Search() {
             </div>
           ))}
       </div>
+
+      {openTM && (
+          <div key='1' className='fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center'>
+              <div className='bg-[#008280] w-96 h-[21rem] rounded-md'>
+                  <div className=' absolute w-9 h-9 bg-white rounded-xl cursor-pointer flex items-center justify-center m-2' onClick={()=>setOpenTM(false)}>✖️</div>
+                  <div className='flex flex-col justify-center p-5 text-1xl gap-4'>
+                  <p className='text-center text-2xl bg-blue-900 rounded-sm py-1 text-white mb-5'>{tname.sub.toUpperCase()}</p>
+                  <p>Teacher Name : <span className='text-white'>{tname.fname} {tname.lname}</span></p>
+                  {/* <p>Teacher Name : <span className='text-white'>{tname.fname} {tname.lname}</span> ⭐⭐⭐</p> */}
+                  <p>Education : <span className='text-white'>Postgraduate from <b className='text-gray-200'>{Tdec.PGcollege}</b> with {Tdec.PGmarks} CGPA</span></p>
+                  <p>Experience : <span className='text-white'>{Tdec.Experience} years</span></p>
+                  <p>Course Duration : <span className='text-white'>6 Months</span></p>
+                  <p>Fees : <span className='text-white'>Rs. {price[tname.sub]}</span></p>
+                  </div>
+              </div>
+          </div>
+      )}
 
       {popup && <Success onClose={closePopup} />}
     </>
