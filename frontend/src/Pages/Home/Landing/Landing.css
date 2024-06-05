@@ -124,6 +124,7 @@ button:hover{
     width: 150px;
     height: 130px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .subject p{

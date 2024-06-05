@@ -54,9 +54,12 @@ function StudentCourses() {
     <>
     <div className='flex gap-10 pl-48 mx-48 mt-12 flex-wrap justify-center'>
         {data.map(sub => (
-          <div key={sub._id} className="subject cursor-pointer" onClick={()=>openpopup(sub)}>
-            <img src={Image[sub.coursename]} alt={sub.coursename}/>
-            <p>{sub.coursename}</p>
+          <div key={sub._id} className="text-white rounded-md bg-[#042439] cursor-pointer text-center p-3 max-w-[11rem]" onClick={()=>openpopup(sub)}>
+            <div className='flex justify-center items-center'>
+              <img src={Image[sub.coursename]} alt={sub.coursename} width={60}/>
+              <p>{sub.coursename.toUpperCase()}</p>
+            </div>
+            <p className='mt-5 text-gray-300 text-sm text-center px-2 '>{sub.description}</p>
           </div>
         ))}
     </div>
