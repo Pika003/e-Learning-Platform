@@ -139,8 +139,9 @@ const Admin = () => {
           <div className="mt-3 w-[30rem] absolute right-10 bg-gray-700 text-gray-100 p-5">
             {allmsg.map((msg,index) => (
               <div key={index} className="bg-gray-600 mb-5 rounded-sm p-2">
-                <p>{msg.name} : <span className="text-blue-500">{msg.email}</span></p>
-                <p>msg : {msg.message}</p>
+                <p className="text-black">Name : <span className="text-white">{msg.name}</span></p>
+                <p className=" text-light-blue-600"><span className="text-black">Email : </span>{msg.email}</p>
+                <p><span className="text-black">Message : </span>{msg.message}</p>
               </div>
             ))}
 
