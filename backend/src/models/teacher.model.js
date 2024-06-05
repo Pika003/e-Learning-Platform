@@ -31,6 +31,12 @@ const teacherSchema = new mongoose.Schema({
         required: true,
     },
 
+    forgetPasswordToken: String,
+
+
+    forgetPasswordExpiry: Date,
+
+
     Isverified: {
         type:Boolean,
         default:false,
@@ -59,7 +65,7 @@ const teacherSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
-
+   
     WithdrawalHistory: [{
         amount: {
             type: Number,
@@ -83,6 +89,8 @@ const teacherSchema = new mongoose.Schema({
     }]
 
 },
+
+    
 {
     timestamps:true,
 }
@@ -128,6 +136,19 @@ teacherSchema.methods.generateRefreshToken = function(){
     process.env.REFRESH_TOKEN_SECRET,{
         expiresIn:process.env.REFRESH_TOKEN_EXPIRY
     })
+}
+
+
+studentSchema.methods.generateResetToken =async function(){
+
+    const reset=crypto.randomBytes(20).toString('hex') ;
+
+    this.forgetPasswordToken=crypto.createHash('sha256').update(reset).digest('hex') ;
+
+    this.forgetPasswordExpiry=Date.now() + 15 * 60 * 1000 ; 
+
+    await this.save() ;
+
 }
 
 

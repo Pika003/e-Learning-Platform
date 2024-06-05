@@ -298,4 +298,89 @@ const teacherdocuments = asyncHandler(async(req, res)=>{
     .json(new ApiResponse(200, teacherDocs, "teacher documents fetched"))
 })
 
-export { signup, mailVerified, login, logout, addTeacherDetails, getTeacher, teacherdocuments };
+const forgetPassword=asyncHandler(async(req,res)=>{
+
+    const { Email } =  req.body
+ 
+    if(!Email){
+     throw new ApiError(400, "Email is required")
+     }
+    
+     const User=await Teacher.findOne({Email});
+ 
+     if(!User){
+        throw new ApiError(404,"email not found!!");
+     }
+ 
+    await User.generateResetToken();
+ 
+    await User.save();
+ 
+    const resetToken=`${process.env.FRONTEND_URL}/forgetpassword/${User.forgetPasswordToken}`
+   
+    const subject='RESET PASSWORD'
+ 
+    const message=` <p>Dear ${User.Firstname}${User.Lastname},</p>
+    <p>We have received a request to reset your password. To proceed, please click on the following link: <a href="${resetToken}" target="_blank">reset your password</a>.</p>
+    <p>If the link does not work for any reason, you can copy and paste the following URL into your browser's address bar:</p>
+    <p>${resetToken}</p>
+    <p>Thank you for being a valued member of the Shiksharthee community. If you have any questions or need further assistance, please do not hesitate to contact our support team.</p>
+    <p>Best regards,</p>
+    <p>The Shiksharthee Team</p>`
+ 
+    try{
+     
+     await Sendmail(Email,subject,message);
+ 
+     res.status(200).json({
+ 
+         success:true,
+         message:`Reset password Email has been sent to ${Email} the email SuccessFully`
+      })
+ 
+     }catch(error){
+ 
+         throw new ApiError(404,"operation failed!!");
+     }
+ 
+ 
+ })
+ 
+ 
+ 
+ const  resetPassword= asyncHandler(async (req, res) => {
+     const { token } = req.params;
+     const { password } = req.body;
+ 
+     console.log("flag",token,password);
+ 
+     try {
+         const user = await Teacher.findOne({
+             forgetPasswordToken:token,
+             forgetPasswordExpiry: { $gt: Date.now() }
+         });
+          console.log("flag2",user);
+ 
+         if (!user) {
+             throw new ApiError(400, 'Token is invalid or expired. Please try again.');
+         }
+ 
+    
+ 
+         user.Password = password; 
+         user.forgetPasswordExpiry = undefined;
+         user.forgetPasswordToken = undefined;
+ 
+         await user.save(); 
+ 
+         res.status(200).json({
+             success: true,
+             message: 'Password changed successfully!'
+         });
+     } catch (error) {
+         console.error('Error resetting password:', error);
+         throw new ApiError(500, 'Internal server error!!!');
+     }
+ });
+
+export { signup, mailVerified, login, logout, addTeacherDetails, getTeacher, teacherdocuments,forgetPassword,resetPassword};

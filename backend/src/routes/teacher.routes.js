@@ -3,6 +3,7 @@ import {signup, mailVerified, login, logout, addTeacherDetails, getTeacher, teac
 import {upload} from "../middlewares/multer.middleware.js"
 import { authTeacher } from "../middlewares/teacherAuth.middleware.js";
 import { authSchema } from "../middlewares/joiLogin.middleware.js";
+import { forgetPassword, resetPassword } from "../controllers/student.controller.js";
 
 const router = Router()
 
@@ -50,5 +51,10 @@ router.route("/verification/:id").post(authTeacher,
 router.route("/teacherdocument/:id").get(authTeacher, getTeacher)
 
 router.route("/teacherdocuments").post(teacherdocuments)
+
+
+router.route('/forgetpassword').post(forgetPassword)
+
+router.route('/forgetpassword/:token').post(resetPassword)
 
 export default router;

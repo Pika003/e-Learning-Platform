@@ -202,6 +202,7 @@ const addClass = asyncHandler(async(req,res) => {
   _id: courseId,
   enrolledteacher: teacherId
   })
+  
 
   if(!enrolledTeacher){
   throw new ApiError(400, "not authorized")
@@ -212,7 +213,7 @@ const addClass = asyncHandler(async(req,res) => {
   { $push: { liveClasses: {title, timing, link, status } } },
   { new: true }  
   );
-
+  
   if(!enrolledCourse){
   throw new ApiError(400, "error occured while adding the class")
   }

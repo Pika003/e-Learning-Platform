@@ -12,6 +12,10 @@ description: {
     required: true
 },
 
+time:{
+    type:Date
+},
+
 liveClasses: [{
     title: String,
     timing: Date, 

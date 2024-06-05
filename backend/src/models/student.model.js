@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import crypto from "crypto"
+
 
 const studentSchema = new mongoose.Schema({
 
@@ -54,8 +56,13 @@ const studentSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"studentdocs"
     },
+
+    forgetPasswordToken: String,
+
+    forgetPasswordExpiry: Date,
     
 },
+
 {
     timestamps:true,
 }
@@ -102,6 +109,21 @@ studentSchema.methods.generateRefreshToken = function(){
         expiresIn:process.env.REFRESH_TOKEN_EXPIRY
     })
 }
+
+studentSchema.methods.generateResetToken =async function(){
+
+    const reset=crypto.randomBytes(20).toString('hex') ;
+
+    this.forgetPasswordToken=crypto.createHash('sha256').update(reset).digest('hex') ;
+
+    this.forgetPasswordExpiry=Date.now() + 15 * 60 * 1000 ; 
+
+    await this.save() ;
+
+}
+
+
+
 
 
 
