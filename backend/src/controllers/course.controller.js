@@ -2,7 +2,6 @@ import {course} from "../models/course.model.js";
 import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js"; 
 import {ApiResponse} from "../utils/ApiResponse.js";
-import mongoose from "mongoose";
 import { Teacher } from "../models/teacher.model.js";
 
 
@@ -152,12 +151,6 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
     throw new ApiError(400, "Already enrolled in course with similar time.")
   }
 
-  
-
-  
-  
-  
- 
   const selectedCourse = await course.findByIdAndUpdate(courseID, 
     {
       $push: {
@@ -358,7 +351,63 @@ const teacherEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
 })
 
 
-export {getCourse, getcourseTeacher, addCourseTeacher, addCourseStudent, enrolledcourseSTD, enrolledcourseTeacher, addClass, stdEnrolledCoursesClasses, teacherEnrolledCoursesClasses} 
+const canStudentEnroll = asyncHandler(async(req,res)=>{
+ 
+  const loggedStudent = req.Student
+
+  const studentParams = req.params.id
+
+  if(!studentParams){
+    throw new ApiError(400, "no params found")
+  }
+
+  if(loggedStudent._id != studentParams){
+    throw new ApiError(400, "not authorized")
+  }
+
+  const courseID = req.params.courseID
+  
+  if(!courseID){
+    throw new ApiError(400, "select a course")
+  }
+
+  const alreadyEnrolled = await course.findOne({
+    _id: courseID,
+    enrolledStudent: loggedStudent._id
+  });
+  if(alreadyEnrolled){
+    throw new ApiError(400,"already enrolled in this course")
+  }
+
+  const thecourse = await course.findById(courseID)
+
+  const sbgte = thecourse.time - 60;
+  const sblte = thecourse.time +60;
+
+  const timeConflict = await course.aggregate( [
+    {
+      $match: {
+        enrolledStudent: loggedStudent._id
+      }
+    },
+    {
+      $match: {
+        time: {
+          $gt: sbgte,
+          $lt: sblte
+        }
+      }
+    }
+  ])
+  
+  if(timeConflict.length === 0){
+    throw new ApiError(400, "Already enrolled in course with similar time.")
+  }
+
+  return res.status(200).json(200, {}, "student can enroll")
+})
+
+export {getCourse, getcourseTeacher, addCourseTeacher, addCourseStudent, enrolledcourseSTD, enrolledcourseTeacher, addClass, stdEnrolledCoursesClasses, teacherEnrolledCoursesClasses, canStudentEnroll} 
 
 
 
