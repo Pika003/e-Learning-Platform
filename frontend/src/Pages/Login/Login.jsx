@@ -175,8 +175,8 @@ export default function Login() {
               </NavLink>
             </div>
 
-            <div className="text-yellow-400 text-semibold text-md" onClick={()=>navigate('/forgetpassword')} >
-              forgetpassword?
+            <div className="text-yellow-400 text-semibold pt-3" onClick={()=>navigate('/forgetpassword')} >
+              Forget Password?
             </div>
 
             {/* btns */}

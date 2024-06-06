@@ -26,7 +26,7 @@ function TeacherClasses() {
     
             const user = await response.json();
             setdata(user.data.classes[0].liveClasses);
-            // console.log(user.data.classes[0].liveClasses);
+            console.log(user.data);
 
           } catch (error) {
             setError(error.message)
@@ -45,7 +45,7 @@ function TeacherClasses() {
                     <div key={clas.timing} className='flex items-center mb-5'>
                         <img src="https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png" alt="profile_img" width={30} />
                         <div className='ml-5 mr-10'>
-                            <p className=' text-lg'>{clas.coursename}<span className='text-black text-sm ml-3'>{clas.timing.slice(0,10)}  {clas.timing.slice(12,16)}</span></p>
+                            <p className=' text-lg'>{clas.coursename}<span className='text-black text-sm ml-3'>{clas.timing.slice(0,10)}  {clas.time/60}:{clas.time%60 === 0 ? "00":clas.time%60}</span></p>
                             
                             <span className='text-blue-500 text-sm ml-3'>{clas.title.slice(0,35)} ...</span>
                         </div>
@@ -58,7 +58,7 @@ function TeacherClasses() {
                 <div className='bg-white p-5 h-52 cursor-pointer rounded-lg text-black'>
                     <div className='flex gap-3 items-center mb-5 mt-2'>
                         <img src={Clock} alt="clock" width={50} />
-                        <span className='text-[#4E84C1] text-2xl font-semibold'>{data[0]?.timing.slice(0,10)}</span> <span className='text-[#018280] text-2xl ml-2'>{data[0]?.timing.slice(12,16)}</span>
+                        <span className='text-[#4E84C1] text-2xl font-semibold'>{data[0]?.timing.slice(0,10)}</span> <span className='text-[#018280] text-2xl ml-2'>{data[0]?.time / 60} : {data[0]?.time%60 == 0 ? "00" : data[0]?.time%60}</span>
                     </div>
                     <div className='flex gap-12 items-center'>
                         <div className='ml-3'>
