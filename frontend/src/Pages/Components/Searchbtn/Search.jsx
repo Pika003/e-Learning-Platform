@@ -85,6 +85,20 @@ function Search() {
   };
 
   const handleEnroll = async (courseName, id) => {
+    let check = await fetch(
+      `/api/course/${courseName}/${id}/verify/student/${ID}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify({}),
+      }
+    );
+    const res = await check.json();
+
+    if(res.statusCode === 200){
+
     const data = await fetch(`/api/payment/course/${id}/${courseName}`, {
       method: "POST",
       headers: {
@@ -171,6 +185,9 @@ function Search() {
 
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
+    }else{
+      alert(res.message)
+    }
   };
 
   return (

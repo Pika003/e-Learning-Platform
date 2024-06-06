@@ -292,7 +292,8 @@ const stdEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
             title: "$liveClasses.title",
             timing: "$liveClasses.timing",
             link: "$liveClasses.link",
-            status: "$liveClasses.status"
+            status: "$liveClasses.status",
+            time: "$time"
           }
         }
       }
