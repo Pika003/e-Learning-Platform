@@ -147,7 +147,8 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
     }
   ])
   
-  if(timeConflict.length === 0){
+  console.log(timeConflict);
+  if(!timeConflict.length == 0){
     throw new ApiError(400, "Already enrolled in course with similar time.")
   }
 
@@ -400,11 +401,11 @@ const canStudentEnroll = asyncHandler(async(req,res)=>{
     }
   ])
   
-  if(timeConflict.length === 0){
+  if(!timeConflict.length == 0){
     throw new ApiError(400, "Already enrolled in course with similar time.")
   }
 
-  return res.status(200).json(200, {}, "student can enroll")
+  return res.status(200).json(new ApiResponse(200, {}, "student can enroll"))
 })
 
 export {getCourse, getcourseTeacher, addCourseTeacher, addCourseStudent, enrolledcourseSTD, enrolledcourseTeacher, addClass, stdEnrolledCoursesClasses, teacherEnrolledCoursesClasses, canStudentEnroll} 
