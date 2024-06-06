@@ -150,7 +150,7 @@ function Search() {
             );
 
             let res = await response.json();
-            // console.log(res);
+            console.log(res);
             setPopup(true);
           } catch (error) {
             console.log(error);

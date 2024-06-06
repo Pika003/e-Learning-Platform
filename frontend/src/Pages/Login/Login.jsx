@@ -91,6 +91,8 @@ export default function Login() {
           }else{
             navigate(`/rejected/${userType}/${userid}`)
           }
+        }else{
+          setErr('You are ban from our platform!');
         }
 
       } else if (response.status === 401) {
@@ -168,9 +170,13 @@ export default function Login() {
 
             <div className="signup-link">
               <span>Don't have an account? </span>
-              <NavLink to="/signup" className="link">
+              <NavLink to="/signup" className="link text-yellow-400 text-semibold text-md ">
                 signup
               </NavLink>
+            </div>
+
+            <div className="text-yellow-400 text-semibold pt-3" onClick={()=>navigate('/forgetpassword')} >
+              Forget Password?
             </div>
 
             {/* btns */}

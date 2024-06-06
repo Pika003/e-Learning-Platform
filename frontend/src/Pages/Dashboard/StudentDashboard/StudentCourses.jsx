@@ -42,6 +42,14 @@ function StudentCourses() {
       setsubD(res.data.data)})
   }
 
+  const price = {
+    math: 700,
+    physics: 800,
+    computer: 1000,
+    chemistry: 600,
+    biology: 500,
+  };
+
   const Image = {
     "physics" : "https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/8e9bf690d23d886f63466a814cfbec78187f91d2",
     "chemistry" : "https://www.figma.com/file/6b4R8evBkii6mI53IA4vSS/image/3e546b344774eb0235acc6bf6dad7814a59d6e95",
@@ -60,6 +68,7 @@ function StudentCourses() {
               <p>{sub.coursename.toUpperCase()}</p>
             </div>
             <p className='mt-5 text-gray-300 text-sm text-center px-2 '>{sub.description}</p>
+            <p className='mt-5 text-gray-300 text-sm text-center px-2 '>Fees : Rs. {price[sub.coursename]}</p>
           </div>
         ))}
     </div>

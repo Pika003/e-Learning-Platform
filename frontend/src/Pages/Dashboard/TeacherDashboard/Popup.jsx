@@ -3,17 +3,26 @@ import { useParams } from 'react-router-dom';
 
 function Popup({onClose, subject}) {
   const [desc, setDesc] = useState('');
+  const [time, setTime] = useState('');
   const { ID } = useParams();
 
   const addCourse = async()=>{
+    console.log(time)
     if(desc == ''){
       alert('Fill The Description');
     }else{
       onClose();
 
+      let FTime = time.slice(0,2);
+      let LTime = time.slice(3,5);
+      const MTime = eval(FTime*60 + 1*LTime);
+      
+      console.log(MTime);
+
       const data = {
         coursename: subject.toLowerCase(),
-        description: desc
+        description: desc,
+        time: MTime,
       }
 
       const response = await fetch(`/api/course/${subject}/create/${ID}`, {
@@ -50,8 +59,8 @@ function Popup({onClose, subject}) {
               />
             </div>
             <div>
-              <label htmlFor="">Teacher : </label>
-              <input type="text" 
+              <label htmlFor="">Timing : </label>
+              <input type="time" value={time} onChange={(e)=> setTime(e.target.value)}
               className="bg-[#32B0AE] p-2 rounded-md w-52 ml-10 border-0 outline-0"
               />
             </div>

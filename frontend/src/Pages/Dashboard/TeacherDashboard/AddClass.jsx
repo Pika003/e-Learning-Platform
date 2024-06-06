@@ -11,7 +11,7 @@ function AddClass({onClose}) {
     const [link, setLink] = useState("");
     const [note, setNote] = useState("");
     const [CourseId, setCourseId] = useState('');
-
+    
     useEffect(() => {
         const getCourses = async () => {
             try {
@@ -75,10 +75,10 @@ function AddClass({onClose}) {
         const currentDate = new Date();
         const givenDate = new Date(date);
         
-        const time = getRandomTime(btime, atime);
+        // const time = getRandomTime(btime, atime);
         // console.log(time);
 
-        let DateTime = `${date}T${time}:00Z`;
+        let DateTime = `${date}T00:00:00Z`;
 
         const data = {
             title: note,
@@ -91,7 +91,7 @@ function AddClass({onClose}) {
             alert('choose a valid Date!');
         }else if(eval(atime < btime)){
             alert('choose a valid time!');
-        }else if(note == '' || date == '' || link == '' || atime == '' || btime == ''){
+        }else if(note == '' || date == '' || link == ''){
             alert('All fields are required !');
         }else{
 
@@ -139,7 +139,7 @@ function AddClass({onClose}) {
                 <p className=' text-2xl '>Create next class</p>
                 <select value={CourseId} onChange={(e)=>setCourseId(e.target.value)} className=' text-gray-900 rounded-md w-28 px-2 border-0 outline-0'>
                     {courses && (
-                        courses.map(course => <option key={course._id} value={course._id}>{course.coursename}</option>)
+                        courses.map(course => <option key={course._id} value={course._id} >{course.coursename}</option>)
                     )}
                 </select>
             </div>
@@ -147,7 +147,7 @@ function AddClass({onClose}) {
             <div className='flex items-center justify-around my-20 mx-5'>
                 <div className='flex gap-5'>
                     <label htmlFor="" className='text-xl'>Date : </label>
-                    <input value={date} onChange={(e)=> setDate(e.target.value)} type="date" className='border-0 outline-0 text-gray-900 py-1 px-3 rounded-sm'/>
+                    <input value={date} onChange={(e)=> setDate(e.target.value)} type="date" className='border-0 outline-0 text-gray-900 py-1 px-3 rounded-sm w-96'/>
                 </div>
 
                 {/* <div className='flex gap-5'>
@@ -155,12 +155,12 @@ function AddClass({onClose}) {
                     <input value={time} onChange={(e)=> setTime(e.target.value)} type="time" className='border-0 outline-0 text-gray-900 py-1 px-3 rounded-sm'/>
                 </div> */}
 
-                <div className='flex gap-5'>
+                {/* <div className='flex gap-5'>
                     <label htmlFor="" className='text-xl'>Time : </label>
                     <input value={btime} onChange={(e)=> setBTime(e.target.value)} type="time" className='border-0 outline-0 text-gray-900 py-1 px-3 rounded-sm'/>
                     <label htmlFor="" className='text-xl'>To</label>
                     <input value={atime} onChange={(e)=> setATime(e.target.value)} type="time" className='border-0 outline-0 text-gray-900 py-1 px-3 rounded-sm'/>
-                </div>
+                </div> */}
             </div>
 
             <div className='m-10 flex items-center justify-center gap-20 mb-20'>
