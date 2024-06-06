@@ -13,7 +13,8 @@ description: {
 },
 
 time:{
-    type:Date
+    type:Number,
+    required:true
 },
 
 liveClasses: [{

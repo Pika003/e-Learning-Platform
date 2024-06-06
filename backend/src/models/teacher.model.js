@@ -139,7 +139,7 @@ teacherSchema.methods.generateRefreshToken = function(){
 }
 
 
-studentSchema.methods.generateResetToken =async function(){
+teacherSchema.methods.generateResetToken =async function(){
 
     const reset=crypto.randomBytes(20).toString('hex') ;
 
