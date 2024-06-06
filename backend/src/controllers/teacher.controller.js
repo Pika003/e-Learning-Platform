@@ -316,7 +316,7 @@ const forgetPassword=asyncHandler(async(req,res)=>{
  
     await User.save();
  
-    const resetToken=`${process.env.FRONTEND_URL}/forgetpassword/${User.forgetPasswordToken}`
+    const resetToken=`${process.env.FRONTEND_URL}/teacher/forgetpassword/${User.forgetPasswordToken}`
    
     const subject='RESET PASSWORD'
  
@@ -350,8 +350,12 @@ const forgetPassword=asyncHandler(async(req,res)=>{
  
  const  resetPassword= asyncHandler(async (req, res) => {
      const { token } = req.params;
-     const { password } = req.body;
- 
+     const { password,confirmPassword} = req.body;
+
+     if(password != confirmPassword){
+         throw new ApiError(400,"password does not match")
+     }
+         
      console.log("flag",token,password);
  
      try {

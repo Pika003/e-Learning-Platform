@@ -57,24 +57,34 @@ const addCourseTeacher = asyncHandler(async(req,res)=>{
 
     
 
-    const{coursename,description} = req.body
+    const{coursename,description, time} = req.body
+
+    if(!time){
+      throw new ApiError(400, "Time of the course is required.")
+    }
 
     if ([coursename,description].some((field) => field?.trim() === "")) {
       throw new ApiError(400, "All fields are required");
     }
 
-    const existingCourse = await course.findOne({
-      coursename,
-      enrolledteacher: loggedTeacher._id
-  });
+    const startTime = time - 60;
+    const endTime = time + 60;
 
-  if (existingCourse) {
-      throw new ApiError(400, "A course with the same name already exists for this teacher");
-  }
+    const timeConflict = await course.findOne({
+          time: { $gt: startTime, $lt: endTime },
+          enrolledteacher: loggedTeacher._id
+      });
+    
+
+    if(timeConflict){
+        throw new ApiError(400,"course already exists for the same time")
+    }
+
 
     const newCourse = await course.create({
       coursename,
       description,
+      time,
       enrolledteacher: loggedTeacher._id,
     })
 
@@ -104,11 +114,51 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
   }
 
   const courseID = req.params.courseID
-
+  
   if(!courseID){
     throw new ApiError(400, "select a course")
   }
- //condition if student already enrolled in that course [ADD LATER]
+
+  const alreadyEnrolled = await course.findOne({
+    _id: courseID,
+    enrolledStudent: loggedStudent._id
+  });
+  if(alreadyEnrolled){
+    throw new ApiError(400,"already enrolled in this course")
+  }
+
+  const thecourse = await course.findById(courseID)
+
+  const sbgte = thecourse.time - 60;
+  const sblte = thecourse.time +60;
+
+  const timeConflict = await course.aggregate( [
+    {
+      $match: {
+        enrolledStudent: loggedStudent._id
+      }
+    },
+    {
+      $match: {
+        time: {
+          $gt: sbgte,
+          $lt: sblte
+        }
+      }
+    }
+  ])
+
+  console.log(timeConflict);
+  
+  if(timeConflict){
+    throw new ApiError(400, "Already enrolled in course with similar time.")
+  }
+
+  
+
+  
+  
+  
  
   const selectedCourse = await course.findByIdAndUpdate(courseID, 
     {
@@ -163,7 +213,7 @@ const enrolledcourseSTD = asyncHandler(async(req,res)=>{
 })
 
 
-const enrolledcourseTeacer = asyncHandler(async(req,res)=>{
+const enrolledcourseTeacher = asyncHandler(async(req,res)=>{
   const teacherID = req.params.id
 
   if(!teacherID){
@@ -309,7 +359,7 @@ const teacherEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
 })
 
 
-export {getCourse, getcourseTeacher, addCourseTeacher, addCourseStudent, enrolledcourseSTD, enrolledcourseTeacer, addClass, stdEnrolledCoursesClasses, teacherEnrolledCoursesClasses} 
+export {getCourse, getcourseTeacher, addCourseTeacher, addCourseStudent, enrolledcourseSTD, enrolledcourseTeacher, addClass, stdEnrolledCoursesClasses, teacherEnrolledCoursesClasses} 
 
 
 
