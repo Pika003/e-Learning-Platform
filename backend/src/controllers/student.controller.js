@@ -361,9 +361,12 @@ const forgetPassword=asyncHandler(async(req,res)=>{
 
 const  resetPassword= asyncHandler(async (req, res) => {
     const { token } = req.params;
-    const { password } = req.body;
+    const { password,confirmPassword} = req.body;
 
-    console.log("flag",token,password);
+    if(password != confirmPassword){
+        throw new ApiError(400,"password does not match")
+    }
+        
 
     try {
         const user = await student.findOne({

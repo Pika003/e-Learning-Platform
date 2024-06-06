@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-
 import { useNavigate, useParams } from 'react-router-dom';
 
-const ResetPassword = () => {
+const ResetTeacher = () => {
   const [data, setData] = useState({
     password: '',
     confirmPassword: ''
   });
 
-  const navigate=useNavigate()
-
-  const { token }=useParams()
+  const { token } = useParams();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,22 +43,24 @@ const ResetPassword = () => {
       return;
     }
     
-    const response= axios.post(`/api/student/forgetpassword/${token}`,{password:data.password,confirmPassword:data.confirmPassword})
-     toast.promise(response,{
-        loading:"wait for processing",
-        success:(response)=> response?.data?.message,
-        error:"Time limit Reached Try again"
-        
-     }) 
+    try {
+      const response = axios.post(`/api/teacher/forgetpassword/${token}`, {
+        password: data.password,
+        confirmPassword: data.confirmPassword
+      });
 
-     if(response.data.success){
-       ()=>navigate('http://localhost:5173/login')
-     }
-   
-    return (await response).data;
+      toast.promise(response, {
+        loading: "Wait for processing",
+        success: (response) => response?.data?.message,
+        error: "Time limit reached. Try again."
+      });
 
-
-
+      if ((await response).data.success) {
+        navigate('/login');
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
+    }
   };
 
   return (
@@ -68,10 +68,11 @@ const ResetPassword = () => {
         
       <form 
         noValidate 
-        className="w-96 text-xl bg-cyan-900 p-10  shadow-[0_0_10px_white] flex flex-col gap-5 text-white font-semibold"
+        className="w-96 text-xl bg-cyan-900 p-20  shadow-[0_0_10px_white] flex flex-col gap-5 text-white font-semibold"
         onSubmit={handleSubmit}
       >
         <h1 className=' font-semibold text-2xl text-white'>This link is valid for 15 mins otherwise password will not updated</h1>
+        
         <label 
           htmlFor="password" 
           className="text-2xl text-white font-semibold rounded-md"
@@ -103,9 +104,10 @@ const ResetPassword = () => {
           onChange={handleChange}
           className="bg-transparent border-2 border-white py-3 px-4 focus:outline-none focus:border-yellow-500 rounded-lg"
         />
+        
         <button 
           type="submit" 
-          className="mt-5 bg-yellow-500 text-cyan-900 py-1 px-2 rounded-lg font-semibold hover:bg-yellow-600 transition duration-300"
+          className="mt-5 bg-yellow-500 text-cyan-900  py-1 px-2   rounded-lg font-semibold hover:bg-yellow-600 transition duration-300 cursor-pointer"
         >
           Submit
         </button>
@@ -114,4 +116,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default ResetTeacher;

@@ -29,10 +29,14 @@ import TeacherCourses from './Pages/Dashboard/TeacherDashboard/TeacherCourses'
 import SearchData from './Pages/Home/Search/Search'
 import ErrorPage from './Pages/ErrorPage/ErrorPage'
 import Forgetpassword from './Pages/ForgetPassword/Forgetpassword'
+import ResetPassword from './Pages/ForgetPassword/ResetPassword'
+import { Toaster } from 'react-hot-toast'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
+    
     <Route path='/' element={<Layout/>}>
+      
       <Route path='/' element={<Landing/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/Signup' element={<Signup/>}/>
@@ -60,17 +64,19 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path='/forgetPassword' element={<Forgetpassword/>}/>
-      
-      <Route path='/forgetPassword/:token' element={''}/>
+      <Route path='/student/forgetPassword/:token' element={<ResetPassword/>}/>
+      <Route path='/teacher/forgetPassword/:token' element={<Forgetpassword/>}/>
 
     
       <Route path='*' element={<ErrorPage/>}/>
     </Route>
+    
  )
 )
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <Toaster/>
     <RouterProvider router={router} />
   </React.StrictMode>,
 )
