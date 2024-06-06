@@ -91,6 +91,8 @@ export default function Login() {
           }else{
             navigate(`/rejected/${userType}/${userid}`)
           }
+        }else{
+          setErr('You are ban from our platform!');
         }
 
       } else if (response.status === 401) {
