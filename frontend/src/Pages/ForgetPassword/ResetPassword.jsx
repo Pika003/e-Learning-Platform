@@ -53,14 +53,11 @@ const ResetPassword = () => {
         
      }) 
 
-     if(response.data.success){
-       ()=>navigate('http://localhost:5173/login')
+     if((await response).data.success){
+       navigate('/login')
      }
    
-    return (await response).data;
-
-
-
+  
   };
 
   return (

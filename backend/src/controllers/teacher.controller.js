@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { Teacher, Teacherdocs } from "../models/teacher.model.js"; 
 import { ApiResponse } from "../utils/ApiResponse.js";
-import nodemailer from "nodemailer";
+import { Sendmail } from "../utils/Nodemailer.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { student } from "../models/student.model.js";
 
@@ -298,7 +298,7 @@ const teacherdocuments = asyncHandler(async(req, res)=>{
     .json(new ApiResponse(200, teacherDocs, "teacher documents fetched"))
 })
 
-const forgetPassword=asyncHandler(async(req,res)=>{
+const ForgetPassword=asyncHandler(async(req,res)=>{
 
     const { Email } =  req.body
  
@@ -348,7 +348,7 @@ const forgetPassword=asyncHandler(async(req,res)=>{
  
  
  
- const  resetPassword= asyncHandler(async (req, res) => {
+ const  ResetPassword= asyncHandler(async (req, res) => {
      const { token } = req.params;
      const { password,confirmPassword} = req.body;
 
@@ -387,4 +387,4 @@ const forgetPassword=asyncHandler(async(req,res)=>{
      }
  });
 
-export { signup, mailVerified, login, logout, addTeacherDetails, getTeacher, teacherdocuments,forgetPassword,resetPassword};
+export { signup, mailVerified, login, logout, addTeacherDetails, getTeacher, teacherdocuments,ForgetPassword,ResetPassword};

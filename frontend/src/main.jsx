@@ -31,6 +31,8 @@ import ErrorPage from './Pages/ErrorPage/ErrorPage'
 import Forgetpassword from './Pages/ForgetPassword/Forgetpassword'
 import ResetPassword from './Pages/ForgetPassword/ResetPassword'
 import { Toaster } from 'react-hot-toast'
+import ResetTeacher from './Pages/ForgetPassword/ResetTeacher'
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -65,7 +67,7 @@ const router = createBrowserRouter(
 
       <Route path='/forgetPassword' element={<Forgetpassword/>}/>
       <Route path='/student/forgetPassword/:token' element={<ResetPassword/>}/>
-      <Route path='/teacher/forgetPassword/:token' element={<Forgetpassword/>}/>
+      <Route path='/teacher/forgetPassword/:token' element={<ResetTeacher/>}/>
 
     
       <Route path='*' element={<ErrorPage/>}/>
