@@ -327,7 +327,7 @@ const forgetPassword=asyncHandler(async(req,res)=>{
 
    await User.save();
 
-   const resetToken=`${process.env.FRONTEND_URL}/forgetpassword/${User.forgetPasswordToken}`
+   const resetToken=`${process.env.FRONTEND_URL}/student/forgetpassword/${User.forgetPasswordToken}`
   
    const subject='RESET PASSWORD'
 

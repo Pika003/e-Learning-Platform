@@ -28,6 +28,7 @@ import TeacherClasses from './Pages/Dashboard/TeacherDashboard/TeacherClasses'
 import TeacherCourses from './Pages/Dashboard/TeacherDashboard/TeacherCourses'
 import SearchData from './Pages/Home/Search/Search'
 import ErrorPage from './Pages/ErrorPage/ErrorPage'
+import Forgetpassword from './Pages/ForgetPassword/Forgetpassword'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -57,6 +58,12 @@ const router = createBrowserRouter(
         <Route path='/Teacher/Dashboard/:ID/Classes' element={<TeacherClasses/>}/>
         <Route path='/Teacher/Dashboard/:ID/Courses' element={<TeacherCourses/>}/>
       </Route>
+
+      <Route path='/forgetPassword' element={<Forgetpassword/>}/>
+      
+      <Route path='/forgetPassword/:token' element={''}/>
+
+    
       <Route path='*' element={<ErrorPage/>}/>
     </Route>
  )

@@ -168,9 +168,13 @@ export default function Login() {
 
             <div className="signup-link">
               <span>Don't have an account? </span>
-              <NavLink to="/signup" className="link">
+              <NavLink to="/signup" className="link text-yellow-400 text-semibold text-md ">
                 signup
               </NavLink>
+            </div>
+
+            <div className="text-yellow-400 text-semibold text-md" onClick={()=>navigate('/forgetpassword')} >
+              forgetpassword?
             </div>
 
             {/* btns */}
