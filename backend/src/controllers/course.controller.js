@@ -147,10 +147,8 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
       }
     }
   ])
-
-  console.log(timeConflict);
   
-  if(timeConflict){
+  if(timeConflict.length === 0){
     throw new ApiError(400, "Already enrolled in course with similar time.")
   }
 
