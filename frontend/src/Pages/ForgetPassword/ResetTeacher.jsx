@@ -36,12 +36,12 @@ const ResetTeacher = () => {
       return;
     }
 
-    // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     
-    // if (!passwordRegex.test(password)) {
-    //   toast.error("Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.");
-    //   return;
-    // }
+    if (!passwordRegex.test(password)) {
+      toast.error("Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.");
+      return;
+    }
     
     try {
       const response = axios.post(`/api/teacher/forgetpassword/${token}`, {
@@ -68,14 +68,14 @@ const ResetTeacher = () => {
         
       <form 
         noValidate 
-        className="w-96 text-xl bg-cyan-900 p-20  shadow-[0_0_10px_white] flex flex-col gap-5 text-white font-semibold"
+        className="w-[27rem] text-xl bg-cyan-900 p-12 shadow-[0_0_10px_white] flex flex-col gap-5 text-white font-semibold rounded-md"
         onSubmit={handleSubmit}
       >
-        <h1 className=' font-semibold text-2xl text-white'>This link is valid for 15 mins otherwise password will not updated</h1>
+        <h1 className=' font-semibold text-center text-xl mb-3 text-white'>This link is valid for 15 mins otherwise password will not updated</h1>
         
         <label 
           htmlFor="password" 
-          className="text-2xl text-white font-semibold rounded-md"
+          className="text-1xl text-white font-semibold rounded-md"
         >
           New Password
         </label>
@@ -91,7 +91,7 @@ const ResetTeacher = () => {
 
         <label 
           htmlFor="confirmPassword" 
-          className="text-2xl text-white font-semibold rounded-md"
+          className="text-1xl text-white font-semibold rounded-md"
         >
           Confirm Password
         </label>
@@ -111,6 +111,7 @@ const ResetTeacher = () => {
         >
           Submit
         </button>
+        <p className='text-sm text-red-400'>* Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.</p>
       </form>
     </div>
   );

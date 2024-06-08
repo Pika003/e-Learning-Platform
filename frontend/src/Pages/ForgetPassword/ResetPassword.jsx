@@ -38,12 +38,12 @@ const ResetPassword = () => {
       return;
     }
 
-    // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     
-    // if (!passwordRegex.test(password)) {
-    //   toast.error("Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.");
-    //   return;
-    // }
+    if (!passwordRegex.test(password)) {
+      toast.error("Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.");
+      return;
+    }
     
     const response= axios.post(`/api/student/forgetpassword/${token}`,{password:data.password,confirmPassword:data.confirmPassword})
      toast.promise(response,{

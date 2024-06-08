@@ -76,7 +76,7 @@ const addCourseTeacher = asyncHandler(async(req,res)=>{
     
 
     if(timeConflict){
-        throw new ApiError(400,"course already exists for the same time")
+        throw new ApiError(400,`course already exists for the same time : ${time/60}:${time%60}`)
     }
 
 
@@ -149,7 +149,7 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
   
   console.log(timeConflict);
   if(!timeConflict.length == 0){
-    throw new ApiError(400, "Already enrolled in course with similar time.")
+    throw new ApiError(400, `Already enrolled in course with similar time. ${thecourse.time/60}:${thecourse.time%60}`)
   }
 
   const selectedCourse = await course.findByIdAndUpdate(courseID, 
@@ -403,7 +403,7 @@ const canStudentEnroll = asyncHandler(async(req,res)=>{
   ])
   
   if(!timeConflict.length == 0){
-    throw new ApiError(400, "Already enrolled in course with similar time.")
+    throw new ApiError(400, `Already enrolled in course with similar time ${thecourse.time/60}:${thecourse.time%60}`)
   }
 
   return res.status(200).json(new ApiResponse(200, {}, "student can enroll"))
