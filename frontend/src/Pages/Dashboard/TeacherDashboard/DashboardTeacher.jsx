@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Withdrawal from "./Withdrawal";
+import { TbMessage2Star } from "react-icons/tb";
 
 function DashboardTeacher() {
   const { ID } = useParams();
@@ -8,6 +9,7 @@ function DashboardTeacher() {
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState([]);
   const [popup, setPopup] = useState(false);
+  const [notification, setNotification] = useState(false);
   const [amount, setAmount] = useState(0);
   const [subjectForm, setsubjectForm] = useState('Math');
   const [Tdec, setTeacherDetails] = useState(null);
@@ -116,7 +118,7 @@ function DashboardTeacher() {
   return (
     <>
       <div className="m-5 ml-60 text-white flex flex-col gap-7">
-        <div className="text-[1.1rem] w-[30rem] flex gap-60 items-center border-b-2 pb-5 mb-5">
+        <div className="text-[1.1rem] w-[30rem] flex gap-60 items-center">
           {/* <p>Amount: <span className=" text-green-500">Rs. {amount}</span></p> */}
           <div className="bg-[#1671D8] p-3 rounded-md cursor-pointer">
             Details
@@ -127,7 +129,12 @@ function DashboardTeacher() {
           >
             Remuneration
           </div>
+          <div className="flex items-center gap-2 ml-28 bg-[#1671D8] p-3 rounded-md cursor-pointer" onClick={()=>setNotification(prev => !prev)}>
+            <span>Notifications</span>
+            <TbMessage2Star />
+          </div>
         </div>
+        <hr />
         <div className="flex gap-32">
           <div className="flex flex-col gap-5">
             <p>Name: <span className="text-black">{data.Firstname} {data.Lastname}</span></p>
@@ -155,6 +162,18 @@ function DashboardTeacher() {
                   </p>
                 ))}
             </div>
+          </div>
+          <div className="ml-28">
+            {notification && (
+              //show all notifications
+              // example
+              <div>
+                <p>course : Math</p>
+                <p>Timing : sun,Mon,tue</p>
+                <p>status : pending</p>
+                <p>message : sbcxbbdjbd</p>
+              </div>
+            )}
           </div>
         </div>
 
