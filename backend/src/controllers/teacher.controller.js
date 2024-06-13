@@ -5,6 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { Sendmail } from "../utils/Nodemailer.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { student } from "../models/student.model.js";
+import nodemailer from "nodemailer";
 
 const verifyEmail = async (Email, Firstname, createdTeacherId) => {
     try {
@@ -19,7 +20,7 @@ const verifyEmail = async (Email, Firstname, createdTeacherId) => {
             }
         });
         const mailOptions = {
-            from: "elearningsnu@gmail.com",
+            from: "kadyanparag@gmail.com",
             to: Email,
             subject: "Verify your E-mail",
             html: `<div style="text-align: center;">
@@ -39,6 +40,7 @@ const verifyEmail = async (Email, Firstname, createdTeacherId) => {
             }
         });
     } catch (error) {
+        console.log("kadyan",error);
         throw new ApiError(400, "Failed to send email verification");
     }
 };

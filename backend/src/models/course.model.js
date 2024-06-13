@@ -12,14 +12,15 @@ description: {
     required: true
 },
 
-time:{
-    type:Number,
-    required:true
+isapproved: {
+    type: Boolean,
+    default: false
 },
 
 liveClasses: [{
     title: String,
-    timing: Date, 
+    timing: Number,
+    date:Date,
     link: String,
     status: {
         type: String,
@@ -38,6 +39,23 @@ enrolledStudent: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'student' 
   }],
+
+schedule: [{
+    day: {
+        type: Number,
+        enum: [0, 1, 2, 3, 4, 5, 6]
+    },
+    starttime: {
+        type: Number,
+        min: 0,
+        max: 24 * 60 
+    },
+    endtime: {
+        type: Number,
+        min: 0,
+        max: 24 * 60 
+    }
+}],
 
 
 

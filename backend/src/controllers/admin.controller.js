@@ -5,6 +5,7 @@ import { admin } from "../models/admin.model.js";
 import { student, studentdocs } from "../models/student.model.js";
 import { Teacher, Teacherdocs } from "../models/teacher.model.js";
 import { contact } from "../models/contact.model.js";
+import { course } from "../models/course.model.js";
 
 
 const adminSignUp = asyncHandler(async(req,res)=>{
@@ -176,8 +177,6 @@ const approveStudent = asyncHandler(async(req,res)=>{
     const toApprove = req.body.Isapproved
 
     const remarks = req.body.remarks || null
-    console.log(remarks)
-    
 
     if (!toApprove || (toApprove != "approved" && toApprove != "rejected" && toApprove !== "reupload")) {
         throw new ApiError(400, "Please choose 'approve' or 'reject' or 'reupload'");
@@ -383,4 +382,82 @@ const readMessage = asyncHandler(async(req,res)=>{
     .json( new ApiResponse(200, isdone, "status updated successfully"))
 })
 
-export {adminSignUp, adminLogin, forApproval, approveStudent, approveTeacher, checkStudentDocuments, checkTeacherDocuments, adminLogout, sendmessage, allmessages,readMessage}
+const toapproveCourse = asyncHandler(async(req,res)=>{
+
+    const adminID = req.params.adminID
+
+    if(!adminID){
+        throw new ApiError(400, "not authorized")
+    }
+
+    const loggedAdmin = await admin.findById(adminID)
+
+    if(!loggedAdmin){
+        throw new ApiError(400, "admin not found")
+    }
+
+    const courseForApproval = await course.find({isapproved:false}) 
+
+    return res.status(200).json(new ApiResponse(200,courseForApproval,"fetched successfully"))
+
+})
+
+
+
+const approveCourse = asyncHandler(async(req,res)=>{
+
+    const adminID = req.params.adminID
+
+    if(!adminID){
+        throw new ApiError(400, "not authorized")
+    }
+
+    const loggedAdmin = await admin.findById(adminID)
+
+    if(!loggedAdmin){
+        throw new ApiError(400, "admin not found")
+    }
+
+
+    const courseID = req.params.courseID
+
+    if(!courseID){
+        throw new ApiError(400, "course id is required")
+    }
+
+    const toApprove = req.body.Isapproved
+    // const remarks = req.body.remarks || null
+    // console.log(remarks)
+    
+
+    // if (!toApprove || (toApprove != "approved" && toApprove != "rejected" && toApprove !== "reupload")) {
+    //     throw new ApiError(400, "Please choose 'approve' or 'reject' or 'reupload'");
+    // }
+
+    // const theCourse = await student.findOneAndUpdate({_id: courseID}, {$set: {Isapproved:toApprove, Remarks: remarks}},  { new: true })
+
+    if(toApprove){
+        const theCourse = await course.findOneAndUpdate({_id: courseID}, {$set: {isapproved:toApprove}},  { new: true })
+
+        if(!theCourse){
+            throw new ApiError(400,"faild to approve or reject")
+        }
+
+        return res
+        .status(200)
+        .json(new ApiResponse(200, theCourse, `Task done successfully`))
+    }
+
+    else{
+        const theCourse = await course.findByIdAndDelete({_id: courseID}, {new:true})
+
+        return res
+        .status(200)
+        .json(new ApiResponse(200, theCourse, `Task done`))
+    }
+    
+
+   
+
+})
+export {adminSignUp, adminLogin, forApproval, approveStudent, approveTeacher, checkStudentDocuments, checkTeacherDocuments, adminLogout, sendmessage, allmessages,readMessage, toapproveCourse, approveCourse}
