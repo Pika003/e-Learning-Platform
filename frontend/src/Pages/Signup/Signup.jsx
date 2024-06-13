@@ -39,10 +39,10 @@ const Signup = () => {
       newErrors.email = 'Invalid email format';
     }
 
-    if (!Password.trim()) {
-      newErrors.password = 'Password is required';
-    }else if (Password.trim().length < 5) {
-      newErrors.password = 'Password length must be at least 6 characters';
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    
+    if (!passwordRegex.test(Password)) {
+      newErrors.password = 'Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -179,6 +179,7 @@ const Signup = () => {
         <img src={Images} alt="" className="imgs" />
       </div>
     </div>
+    <p className='text-sm text-red-400 absolute bottom-3 left-3'>* Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.</p>
     </>
   );
 };

@@ -5,8 +5,7 @@ function AddClass({onClose}) {
     const { ID } = useParams();
     const [courses, setCourses] = useState([]);
     const [error, setError] = useState([]);
-    const [btime, setBTime] = useState("");
-    const [atime, setATime] = useState("");
+    const [time, setTime] = useState("");
     const [date, setDate] = useState("");
     const [link, setLink] = useState("");
     const [note, setNote] = useState("");
@@ -35,50 +34,13 @@ function AddClass({onClose}) {
             }
         };
         getCourses();
-    },[]);
-
-    function getRandomTime(startTime, endTime) {
-        // Convert time to minutes since midnight
-        function timeToMinutes(time) {
-            const [hours, minutes] = time.split(':').map(Number);
-            return hours * 60 + minutes;
-        }
-    
-        // Convert minutes since midnight to time string
-        function minutesToTime(minutes) {
-            const hours = Math.floor(minutes / 60);
-            const mins = minutes % 60;
-            return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
-        }
-    
-        const startMinutes = timeToMinutes(startTime);
-        const endMinutes = timeToMinutes(endTime);
-    
-        // Generate an array of possible minutes (either :00 or :30) between start and end times
-        const possibleTimes = [];
-        for (let minutes = startMinutes; minutes <= endMinutes; minutes += 30) {
-            const mins = minutes % 60;
-            if (mins === 0 || mins === 30) {
-                possibleTimes.push(minutes);
-            }
-        }
-    
-        // Pick a random time from the possible times
-        const randomIndex = Math.floor(Math.random() * possibleTimes.length);
-        const randomMinutes = possibleTimes[randomIndex];
-    
-        // Convert the random minutes back to time format
-        return minutesToTime(randomMinutes);
-    } 
+    },[]); 
 
     const addCourses = async () => {
         const currentDate = new Date();
         const givenDate = new Date(date);
-        
-        // const time = getRandomTime(btime, atime);
-        // console.log(time);
 
-        let DateTime = `${date}T00:00:00Z`;
+        let DateTime = `${date}T${time}:00Z`;
 
         const data = {
             title: note,
@@ -89,8 +51,6 @@ function AddClass({onClose}) {
 
         if(currentDate > givenDate){
             alert('choose a valid Date!');
-        }else if(eval(atime < btime)){
-            alert('choose a valid time!');
         }else if(note == '' || date == '' || link == ''){
             alert('All fields are required !');
         }else{
@@ -122,14 +82,6 @@ function AddClass({onClose}) {
         console.log(error);
     };
 
-    /*const handaleSubmit = () =>{
-        console.log(`${date}T${time}:00Z`);
-
-        let A = '2024-04-24T06:45:00Z'
-        console.log("Date: ",A.slice(0,10));
-        console.log("Time: ",A.slice(12,19))
-    }*/
-
   return (
     <div className='fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center'>
         <div className='w-[60%] h-[70%] bg-blue-gray-700 text-white rounded-md'>
@@ -150,17 +102,10 @@ function AddClass({onClose}) {
                     <input value={date} onChange={(e)=> setDate(e.target.value)} type="date" className='border-0 outline-0 text-gray-900 py-1 px-3 rounded-sm w-96'/>
                 </div>
 
-                {/* <div className='flex gap-5'>
+                <div className='flex gap-5'>
                     <label htmlFor="" className='text-xl'>Time : </label>
-                    <input value={time} onChange={(e)=> setTime(e.target.value)} type="time" className='border-0 outline-0 text-gray-900 py-1 px-3 rounded-sm'/>
-                </div> */}
-
-                {/* <div className='flex gap-5'>
-                    <label htmlFor="" className='text-xl'>Time : </label>
-                    <input value={btime} onChange={(e)=> setBTime(e.target.value)} type="time" className='border-0 outline-0 text-gray-900 py-1 px-3 rounded-sm'/>
-                    <label htmlFor="" className='text-xl'>To</label>
-                    <input value={atime} onChange={(e)=> setATime(e.target.value)} type="time" className='border-0 outline-0 text-gray-900 py-1 px-3 rounded-sm'/>
-                </div> */}
+                    <input value={time} onChange={(e)=> setTime(e.target.value)} type="text" placeholder='between 9-12' className='border-0 outline-0 text-gray-900 py-1 px-3 rounded-sm'/>
+                </div>
             </div>
 
             <div className='m-10 flex items-center justify-center gap-20 mb-20'>

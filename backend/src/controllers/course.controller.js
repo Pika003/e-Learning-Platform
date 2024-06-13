@@ -166,6 +166,35 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
     throw new ApiError(400,"already enrolled in this course")
   }
 
+<<<<<<< HEAD
+=======
+  const thecourse = await course.findById(courseID)
+
+  const sbgte = thecourse.time - 60;
+  const sblte = thecourse.time +60;
+
+  const timeConflict = await course.aggregate( [
+    {
+      $match: {
+        enrolledStudent: loggedStudent._id
+      }
+    },
+    {
+      $match: {
+        time: {
+          $gt: sbgte,
+          $lt: sblte
+        }
+      }
+    }
+  ])
+  
+  console.log(timeConflict);
+  if(!timeConflict.length == 0){
+    throw new ApiError(400, `Already enrolled in course with similar time. ${thecourse.time/60}:${thecourse.time%60}`)
+  }
+
+>>>>>>> 3877b8c4aa4db65a28f919802ecbcdd570b51fe4
   const selectedCourse = await course.findByIdAndUpdate(courseID, 
     {
       $push: {
@@ -470,6 +499,34 @@ const canStudentEnroll = asyncHandler(async(req,res)=>{
     throw new ApiError(400,"already enrolled in this course")
   }
 
+<<<<<<< HEAD
+=======
+  const thecourse = await course.findById(courseID)
+
+  const sbgte = thecourse.time - 60;
+  const sblte = thecourse.time +60;
+
+  const timeConflict = await course.aggregate( [
+    {
+      $match: {
+        enrolledStudent: loggedStudent._id
+      }
+    },
+    {
+      $match: {
+        time: {
+          $gt: sbgte,
+          $lt: sblte
+        }
+      }
+    }
+  ])
+  
+  if(!timeConflict.length == 0){
+    throw new ApiError(400, `Already enrolled in course with similar time ${thecourse.time/60}:${thecourse.time%60}`)
+  }
+
+>>>>>>> 3877b8c4aa4db65a28f919802ecbcdd570b51fe4
   return res.status(200).json(new ApiResponse(200, {}, "student can enroll"))
 })
 

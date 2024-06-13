@@ -14,7 +14,7 @@
     border-radius: 15px;
     /* box-shadow: 2px 4px 10px black; */
     margin: auto;
-    margin-top: 30px; 
+    margin-top: 20px; 
 }
 
 .logo-1{
@@ -33,13 +33,13 @@
 }
 
 .Sub-head{
-     margin-top: 15px;
+     margin-top: 10px;
      font-size: 14px;
 }
 
 .inpts{
     text-align: center;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .input-x{
@@ -78,7 +78,7 @@
     background-color:#157776;
     display:block;
     text-align: center;
-    margin-top: 25px;
+    margin-top: 20px;
     margin-left: 5.5rem;
     width:50%;
     padding: 10px;

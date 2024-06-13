@@ -11,9 +11,9 @@ const Admin = () => {
   const [TeacherData, setTeacherData] = useState([]);
   const [adminID, setAdminID] = useState(null);
   const [error, setErrors] = useState("");
-  const [messages, setMessages] = useState(true);
   const [allmsg, setAllMsg] = useState(null);
   const [open, setOpen] = useState(false);
+  const [courseReq, setCourseReq] = useState(false);
 
   useEffect(()=>{
     const getAllMsg = async () => {
@@ -129,11 +129,13 @@ const Admin = () => {
           All New Request
         </h1>
 
-        {messages && (
-          <div onClick={()=> setOpen(prev => !prev)} className=" absolute right-10 top-[6.5rem] text-center cursor-pointer">
-            <h4 className="text-white bg-green-500 p-4 w-32">Messages</h4>
-          </div>
-        )}
+        <div onClick={()=> setOpen(prev => !prev)} className=" absolute right-10 top-[6.5rem] text-center cursor-pointer">
+            <h4 className="text-white bg-green-800 p-4 w-32">Messages</h4>
+        </div>
+        
+        <div onClick={()=> setCourseReq(prev => !prev)} className=" absolute right-52 top-[6.5rem] text-center cursor-pointer">
+            <h4 className="text-white bg-blue-800 p-4 w-44">Course Requests</h4>
+        </div>
 
         {open && (
           <div className="mt-3 w-[30rem] absolute right-10 bg-gray-700 text-gray-100 p-5">
@@ -145,6 +147,18 @@ const Admin = () => {
               </div>
             ))}
 
+          </div>
+        )}
+
+        {courseReq && (
+          <div className="mt-3 w-[30rem] absolute right-10 bg-gray-700 text-gray-100 p-5">
+
+            {/* ----- Aditya -------- */}
+            <p>show all course request</p>
+            <p>Teacher Name</p>
+            <p>Course Name</p>
+            <p>Timing</p>
+            <span>Accept Reject Msg</span>
           </div>
         )}
 
