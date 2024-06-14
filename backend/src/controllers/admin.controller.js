@@ -6,6 +6,7 @@ import { student, studentdocs } from "../models/student.model.js";
 import { Teacher, Teacherdocs } from "../models/teacher.model.js";
 import { contact } from "../models/contact.model.js";
 import { course } from "../models/course.model.js";
+import {Sendmail} from "../utils/Nodemailer.js"
 
 
 const adminSignUp = asyncHandler(async(req,res)=>{
@@ -131,7 +132,6 @@ const forApproval = asyncHandler(async(req,res)=>{
         throw new ApiError(400, "admin not found")
     }
 
-    // check if email verified or not
 
     const studentsforApproval = await student.find({
         Isverified: true
@@ -170,11 +170,14 @@ const approveStudent = asyncHandler(async(req,res)=>{
 
     const studentID = req.params.studentID
 
+
     if(!studentID){
         throw new ApiError(400, "student id is required")
     }
 
     const toApprove = req.body.Isapproved
+
+    const email = req.body.email
 
     const remarks = req.body.remarks || null
 
@@ -187,6 +190,11 @@ const approveStudent = asyncHandler(async(req,res)=>{
     if(!theStudent){
         throw new ApiError(400,"faild to approve or reject || student not found")
     }
+
+    
+    console.log("email", email);
+
+    await Sendmail(email, `Document Verification Status`, `<h1>Your document verification status is on: ${toApprove},  ${remarks}</h1>`)
 
     return res
     .status(200)
@@ -216,7 +224,7 @@ const approveTeacher = asyncHandler(async(req,res)=>{
     }
 
     const toApprove = req.body.Isapproved
-
+    const email = req.body.email
     const remarks = req.body.remarks || null
 
     if (!toApprove || (toApprove !== "approved" && toApprove !== "rejected" && toApprove !== "reupload")) {
@@ -228,6 +236,8 @@ const approveTeacher = asyncHandler(async(req,res)=>{
     if(!theTeacher){
         throw new ApiError(400,"faild to approve or reject || student not found")
     }
+
+    await Sendmail(email, `Document Verification Status`, `<h1>Your document verification status is on: ${toApprove},  ${remarks}</h1>`)
 
     return res
     .status(200)

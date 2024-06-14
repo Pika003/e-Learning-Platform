@@ -246,15 +246,21 @@ const addClass = asyncHandler(async(req,res) => {
 
   const loggedTeacher = req.teacher
 
-  if ([title, timing, date, link, status].some((field) => field?.trim() === "")) {
+  if(!timing || !date){
+    throw new ApiError(400, "All fields are required");
+  }
+
+  if ([title, link, status].some((field) => field?.trim() === "")) {
   throw new ApiError(400, "All fields are required");
   }
 
   const {courseId, teacherId } = req.params
+  const dateObject = new Date(date);
 
   const enrolledTeacher = await course.findOne({
   _id: courseId,
-  enrolledteacher: teacherId
+  enrolledteacher: teacherId,
+  isapproved:true,
   })
   
 
@@ -264,34 +270,34 @@ const addClass = asyncHandler(async(req,res) => {
 
   const cst = timing - 60;
   const cet = timing + 60;
+
   const conflictClass = await course.aggregate([
     {
       '$match': {
-        'enrolledteacher': teacherId
-      }
-    }, {
-      '$unwind': '$liveClasses'
+        'enrolledteacher': loggedTeacher._id,
+      },
+    },
+    {
+      '$unwind': '$liveClasses',
     },
     {
       '$match': {
-        "liveClasses.date": date
-      }
-    },
-    {
-      '$match': {
+        'liveClasses.date': dateObject,
         'liveClasses.timing': {
-          '$gte': cst, 
-          '$lte': cet
-        }
-      }
-    }, {
+          '$gte': cst,
+          '$lte': cet,
+        },
+      },
+    },
+    {
       '$project': {
-        '_id': 0, 
-        'courseName': '$courseName', 
-        'liveClasses': 1
-      }
-    }
-  ])
+        '_id': 0,
+        'courseName': '$courseName',
+        'liveClasses': 1,
+      },
+    },
+  ]);
+
 
   if(conflictClass.length>0){
     throw new ApiError(400, "You already have another class for similar timing.")
@@ -313,8 +319,11 @@ const addClass = asyncHandler(async(req,res) => {
 })
 
 
+
 const stdEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
   const Student = req.Student
+
+  
 
   const classes = await course.aggregate([
     {
@@ -347,6 +356,7 @@ const stdEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
       }
     }
   ]);
+
 
   if(!classes){
     throw new ApiError(400, "couldn't fetch the classes")
