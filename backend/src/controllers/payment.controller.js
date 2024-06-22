@@ -5,7 +5,7 @@ import {instance}  from "../app.js"
 import crypto from "crypto"
 import {payment} from "../models/payment.model.js"
 import { Teacher } from "../models/teacher.model.js";
-import { log } from "console";
+
 
 const coursePayment = asyncHandler(async(req,res)=>{
     const {fees, } = req.body

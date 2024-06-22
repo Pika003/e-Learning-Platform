@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import logo from '../../Images/logo.svg'
+import Course from "./Course";
+import axios from "axios";
 
 const Admin = () => {
   const { data } = useParams();
   const navigator = useNavigate();
+
 
   const [StudentData, setStudentData] = useState([]);
   const [TeacherData, setTeacherData] = useState([]);
@@ -13,7 +16,7 @@ const Admin = () => {
   const [error, setErrors] = useState("");
   const [allmsg, setAllMsg] = useState(null);
   const [open, setOpen] = useState(false);
-  const [courseReq, setCourseReq] = useState(false);
+
 
   useEffect(()=>{
     const getAllMsg = async () => {
@@ -49,8 +52,7 @@ const Admin = () => {
         body: JSON.stringify(data),
       });
 
-      console.log(response)
-
+   
       if(type == "student"){
         setStudentData(pre => pre.filter((pre) => pre._id !== ID));
 
@@ -83,7 +85,7 @@ const Admin = () => {
           throw new Error("Failed to fetch data");
         } else {
           const result = await response.json();
-           console.log(result)
+         
           setStudentData(result.data.studentsforApproval);
           setTeacherData(result.data.teachersforApproval);
           setAdminID(result.data.admin._id);
@@ -94,6 +96,17 @@ const Admin = () => {
     };
     getData();
   }, []);
+
+
+
+  
+
+
+
+
+
+
+
 
 
   return (
@@ -133,7 +146,7 @@ const Admin = () => {
             <h4 className="text-white bg-green-800 p-4 w-32">Messages</h4>
         </div>
         
-        <div onClick={()=> setCourseReq(prev => !prev)} className=" absolute right-52 top-[6.5rem] text-center cursor-pointer">
+        <div onClick={()=>navigator(`/admin/course/${data}`)} className=" absolute right-52 top-[6.5rem] text-center cursor-pointer">
             <h4 className="text-white bg-blue-800 p-4 w-44">Course Requests</h4>
         </div>
 
@@ -149,20 +162,9 @@ const Admin = () => {
 
           </div>
         )}
-
-        {courseReq && (
-          <div className="mt-3 w-[30rem] absolute right-10 bg-gray-700 text-gray-100 p-5">
-
-            {/* ----- Aditya -------- */}
-            <p>show all course request</p>
-            <p>Teacher Name</p>
-            <p>Course Name</p>
-            <p>Timing</p>
-            <span>Accept Reject Msg</span>
-          </div>
-        )}
-
-      </div>
+</div>
+       
+      
       <div className="flex items-start justify-center gap-20">
         <div className="rounded-md">
           <h4 className="text-white bg-blue-gray-900 p-4 w-40">Student Request</h4>

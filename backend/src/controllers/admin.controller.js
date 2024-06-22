@@ -406,9 +406,11 @@ const toapproveCourse = asyncHandler(async(req,res)=>{
         throw new ApiError(400, "admin not found")
     }
 
-    const courseForApproval = await course.find({isapproved:false})
+   
+    
+    const courseForApproval = await course.find({isapproved:false}).populate("enrolledteacher") 
 
-    return res.status(200).json(new ApiResponse(200,courseForApproval,"fetched successfully"))
+    return res.status(200).json(new ApiResponse(200, courseForApproval,"fetched successfully"))
 
 })
 
@@ -457,7 +459,7 @@ const approveCourse = asyncHandler(async(req,res)=>{
 
         return res
         .status(200)
-        .json(new ApiResponse(200, theCourse, `Task done successfully`))
+        .json(new ApiResponse(200, theCourse, `Course approved successfully`))
     }
 
     else{
@@ -467,7 +469,7 @@ const approveCourse = asyncHandler(async(req,res)=>{
 
         return res
         .status(200)
-        .json(new ApiResponse(200, theCourse, `Task done`))
+        .json(new ApiResponse(200,{},`Course rejected successfully`))
     }
     
 
