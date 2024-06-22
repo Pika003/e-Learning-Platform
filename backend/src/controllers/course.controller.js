@@ -69,15 +69,40 @@ const addCourseTeacher = asyncHandler(async(req,res)=>{
       throw new ApiError(400, "All fields are required");
     }
 
-    // const timeConflict = await course.findOne({
-    //       time: { $gt: startTime, $lt: endTime },
-    //       enrolledteacher: loggedTeacher._id
-    //   });
-    
+    const schedules = await course.aggregate([
+      {
+        $match:{
+          enrolledteacher:loggedTeacher._id
+        }
+      },
+      {
+        '$unwind': '$schedule'
+      }, {
+        '$project': {
+          'schedule': 1, 
+          '_id': 0
+        }
+      }
+    ])
 
-    // if(timeConflict){
-    //     throw new ApiError(400,"course already exists for the same time")
-    // }
+    let isconflict = false;
+    for (let i = 0; i < schedule.length; i++) {
+      for (const sch of schedules) {
+        if (sch.schedule.day === schedule[i].day) {
+          if (
+            (schedule[i].starttime >= sch.schedule.starttime && schedule[i].starttime < sch.schedule.endtime) ||
+            (schedule[i].endtime > sch.schedule.starttime && schedule[i].endtime <= sch.schedule.endtime) ||
+            (schedule[i].starttime <= sch.schedule.starttime && schedule[i].endtime >= sch.schedule.endtime)
+          ) {
+            isconflict = true;
+          }
+        }
+      }
+    }
+    
+    if(isconflict){
+      throw new ApiError(400, "Already enrolled in a course with the same timing.")
+    }
 
 
     const newCourse = await course.create({
