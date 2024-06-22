@@ -181,9 +181,9 @@ function Popup({ onClose, subject }) {
     const selectedDays = Object.keys(day)
       .filter((d) => day[d])
       .map((d) => ({
-        Day: dayIndex[d],
-        StartTime: dayValue[d] ? convertTimeToMinutes(dayValue[d]) : null,
-        EndTime: dayValue[d] ? convertTimeToMinutes(dayValue[d]) + dateGap * 60 : null,
+        day: dayIndex[d],
+        starttime: dayValue[d] ? convertTimeToMinutes(dayValue[d]) : null,
+        endtime: dayValue[d] ? convertTimeToMinutes(dayValue[d]) + dateGap * 60 : null,
       }));
 
     const hasMissingTime = selectedDays.some((d) => d.StartTime === null);

@@ -108,6 +108,7 @@ function DashboardTeacher() {
 
         const res = await response.json();
         setCourses(res.data);
+        console.log(res.data);
       } catch (error) {
         setError(error.message);
       }
@@ -129,10 +130,10 @@ function DashboardTeacher() {
           >
             Remuneration
           </div>
-          <div className="flex items-center gap-2 ml-28 bg-[#1671D8] p-3 rounded-md cursor-pointer" onClick={()=>setNotification(prev => !prev)}>
+          {/* <div className="flex items-center gap-2 ml-28 bg-[#1671D8] p-3 rounded-md cursor-pointer" onClick={()=>setNotification(prev => !prev)}>
             <span>Notifications</span>
             <TbMessage2Star />
-          </div>
+          </div> */}
         </div>
         <hr />
         <div className="flex gap-32">
@@ -148,7 +149,8 @@ function DashboardTeacher() {
             <div className="flex gap-3 flex-col">
               <p className="bg-[#1671D8] py-1 px-2 w-fit">Courses</p>
               {courses &&
-                courses.map((course) => (
+                courses.filter((course) => course.isapproved)
+                .map((course) => (
                   <p
                     key={course._id}
                     // className=" bg-[#1671D8] py-1 px-2 rounded-xl w-fit"

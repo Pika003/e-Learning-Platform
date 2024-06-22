@@ -46,8 +46,6 @@ const addCourseTeacher = asyncHandler(async(req,res)=>{
 
     const teacherParams = req.params.id
 
-    const daysArray = req.body.daysArray
-
     if(!teacherParams){
       throw new ApiError(400,"Invalid user")
     }
@@ -59,6 +57,8 @@ const addCourseTeacher = asyncHandler(async(req,res)=>{
     
 
     const{coursename,description, schedule} = req.body
+
+    console.log(schedule)
 
 
     if(!schedule){
@@ -86,6 +86,8 @@ const addCourseTeacher = asyncHandler(async(req,res)=>{
       schedule,
       enrolledteacher: loggedTeacher._id,
     })
+
+    console.log(newCourse)
 
     if(!newCourse){
       throw new ApiError(400, "couldnt create course")
@@ -118,7 +120,7 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
     throw new ApiError(400, "select a course")
   }
 
-  const thecourse = await course.findById("666acc85b93e2a03f212b8ed")
+  const thecourse = await course.findById(courseID) //
 
   const EC = thecourse.schedule
 

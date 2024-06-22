@@ -230,7 +230,8 @@ function AddClass({ onClose }) {
           <p className='text-2xl'>Create next class</p>
           <select value={CourseId} onChange={(e) => setCourseId(e.target.value)} className='text-gray-900 rounded-md w-28 px-2 border-0 outline-0'>
             {courses && (
-              courses.map((course,index) => (
+              courses.filter((course) => course.isapproved)
+              .map((course,index) => (
                 <option value={course._id}>{course.coursename}</option>
               ))
             )}

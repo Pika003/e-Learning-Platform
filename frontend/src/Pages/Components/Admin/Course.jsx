@@ -8,7 +8,7 @@ const Course = () => {
   const [courseReq, setCourseReq] = useState([]);
 
   const { data } = useParams();
-
+  const navigator = useNavigate();
 
 
     // useEffect((data)=>{
@@ -30,11 +30,11 @@ const Course = () => {
 
   const formatDay = (day) => {
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    return daysOfWeek[new Date(day).getDay()];
+    return daysOfWeek[day];
   };
 
   const formatTime = (time) => {
-    const hours = Math.floor(time / 100);
+    const hours = Math.floor(time / 60);
     const minutes = 0;
 
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
@@ -83,10 +83,11 @@ const Course = () => {
   // };
   const handleAccept = async (id, info) => {
     console.log(id);
+    console.log(info.Email)
     try {
       const response = await axios.post(`/api/admin/${data}/approve/course/${id}`, {
         Isapproved: true,
-        Email: info.Email,
+        email: info.Email,
         Firstname: info.enrolledteacher,
       }, {
         headers: {
@@ -111,7 +112,7 @@ const Course = () => {
     try {
       const response = await axios.post(`/api/admin/${data}/approve/course/${id}`, {
         Isapproved: false,
-        Email: info.Email,
+        email: info.Email,
         Firstname: info.enrolledteacher,
       }, {
         headers: {
@@ -160,18 +161,15 @@ const Course = () => {
     <div className='h-[100vh]'>
            {/* Navbar */}
       <nav className="h-16 sm:h-20 md:h-24 lg:h-24  w-full bg-[#042439] flex justify-between items-center px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
-        <NavLink to='/'>
+     
         <div className="flex items-center gap-4">
-          <img
-            src={logo}
-            alt="logo"
-            className="w-14 sm:h-12 md:h-14 lg:h-16 xl:h-18"
-          />
-          <h1 className="text-2xl text-[#4E84C1] font-bold">
-            Shiksharthee
-          </h1>
+          <div className="flex items-center">
+            <h1 onClick={()=>  navigator(`/admin/${data}`)} className="text-lg sm:text-xl md:text-2xl lg:text-3xl  text-blue-700 font-bold font-mono ml-2">
+            ◀ Back
+            </h1>
+          </div>
         </div>
-        </NavLink>
+
         <div className="flex items-center">
           <div className="relative mr-4">
             <IoIosNotificationsOutline className="h-8 w-8 text-white" />
@@ -188,11 +186,11 @@ const Course = () => {
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {courseReq.map((req, index) => (
               <div key={index} className="bg-gray-800 p-4 rounded-md shadow-[0_0_10px_white]">
-                <h2 className="text-lg text-yellow-500 font-bold">{req.coursename}</h2>
-                <p className="text-yellow-700 text-xl font-semibold">{req.description}</p>
+                <h2 className="text-lg text-yellow-500 font-bold">{req.coursename.toUpperCase()}</h2>
+                <p className="text-yellow-700 font-semibold">{req.description}</p>
                 <div className="flex items-center mt-2">
-                  <p className="text-yellow-300">Enrolled Teacher:</p>
-                  <p className="text-white font-semibold">{req.enrolledteacher.Firstname}{req.enrolledteacher.Lirstname}</p>
+                  <p className="text-yellow-300">Enrolled Teacher : </p>
+                  <p className="text-white font-semibold pl-1"> {req.enrolledteacher.Firstname}  {req.enrolledteacher.Lastname}</p>
                  
                 </div>
                 <div className="flex  flex-col justify-start mt-2">
@@ -200,7 +198,7 @@ const Course = () => {
                   <div className="text-white">
                     {req.schedule.map((scheduleItem, idx) => (
                       <div key={idx}>
-                        <p className="text-yellow-300">Day: {formatDay(scheduleItem.day)}</p>
+                        <p className="text-yellow-800">Day: {formatDay(scheduleItem.day)}</p>
                         <p className="text-yellow-300">Start Time: {formatTime(scheduleItem.starttime)}</p>
                         <p className="text-yellow-300">End Time: {formatTime(scheduleItem.endtime)}</p>
                       </div>
@@ -208,7 +206,7 @@ const Course = () => {
                   </div>
                 </div>
                 <div className="flex items-center mt-2">
-                  <p className="text-gray-400 mr-2">Approval Status:</p>
+                  <p className="text-yellow-300 mr-2">Approval Status:</p>
                   <p className={`text-white ${req.isapproved ? 'text-green-500' : 'text-red-500'}`}>
                     {req.isapproved ? 'Approved' : 'Pending'}
                   </p>

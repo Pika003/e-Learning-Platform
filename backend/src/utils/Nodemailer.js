@@ -25,11 +25,11 @@ const transporter = nodemailer.createTransport({
   console.log(email,subject,message);
   try {
     const info = await transporter.sendMail(receiver);
-    console.log('Forget password email sent:', info.response);
+    console.log('email sent:', info.response);
     return { success: true, message: 'Forget password email sent successfully' };
 } catch (error) {
-    console.error('Error sending forget password email:', error);
-    return { success: false, error: 'Error sending forget password email' };
+    console.error('Error sending  email:', error);
+    return { success: false, error: 'Error sending  email' };
 }
 
 }
