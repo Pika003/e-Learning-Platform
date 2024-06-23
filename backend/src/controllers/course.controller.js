@@ -439,7 +439,6 @@ const teacherEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
 
 
 const canStudentEnroll = asyncHandler(async(req,res)=>{
- 
   const loggedStudent = req.Student
 
   const studentParams = req.params.id
@@ -458,7 +457,7 @@ const canStudentEnroll = asyncHandler(async(req,res)=>{
     throw new ApiError(400, "select a course")
   }
 
-  const thecourse = await course.findById("666acc85b93e2a03f212b8ed")
+  const thecourse = await course.findById(courseID) //
 
   const EC = thecourse.schedule
 
@@ -505,7 +504,6 @@ const canStudentEnroll = asyncHandler(async(req,res)=>{
   if(alreadyEnrolled){
     throw new ApiError(400,"already enrolled in this course")
   }
-
   return res.status(200).json(new ApiResponse(200, {}, "student can enroll"))
 })
 
