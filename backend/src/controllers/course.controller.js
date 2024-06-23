@@ -421,14 +421,14 @@ const teacherEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
             timing: "$liveClasses.timing",
             link: "$liveClasses.link",
             status: "$liveClasses.status",
-            time: "$time",
-            date: "$date"
+            date: "$liveClasses.date"
           }
         }
       }
     }
   ]);
 
+  console.log(classes[0].liveClasses);
   if(!classes){
    throw new ApiError(400, "couldn't fetch the classes")
   }
