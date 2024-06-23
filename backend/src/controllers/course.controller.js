@@ -428,7 +428,6 @@ const teacherEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
     }
   ]);
 
-  console.log(classes[0].liveClasses);
   if(!classes){
    throw new ApiError(400, "couldn't fetch the classes")
   }
