@@ -19,6 +19,7 @@ function search() {
         biology: 500,
     };
 
+    const daysName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     
     let SearchTeacher = async()=>{
         let Subject = data.toLowerCase();
@@ -66,11 +67,11 @@ function search() {
             <div className='overflow-auto '>
                 { course && (
                     course.map((Data)=>(
-                    <div key={Data._id} className='relative bg-blue-600 p-4 gap-6 mb-3 flex items-center rounded-sm w-[75rem]'>
-                        <div className='text-white bg-blue-900 p-2 rounded-md'>
-                        {Data.coursename} 
+                    <div key={Data._id} className='relative bg-blue-600 p-4 gap-6 h-20 mb-3 flex items-start rounded-sm w-[75rem]'>
+                        <div className='text-blue-900 font-bold'>
+                        {Data.coursename.toUpperCase()} 
                         </div>
-                        <div onClick={()=>openTeacherDec(Data.enrolledteacher.Teacherdetails, Data.enrolledteacher.Firstname, Data.enrolledteacher.Lastname, Data.coursename)} className='text-gray-300 cursor-pointer'>{Data.enrolledteacher.Firstname}  {Data.enrolledteacher.Lastname}</div>
+                        <div onClick={()=>openTeacherDec(Data.enrolledteacher.Teacherdetails, Data.enrolledteacher.Firstname, Data.enrolledteacher.Lastname, Data.coursename)} className='text-gray-300 cursor-pointer font-bold'>{Data.enrolledteacher.Firstname}  {Data.enrolledteacher.Lastname}</div>
                         <div className='text-gray-900'><span className=' text-gray-900'>Desc :</span> {Data.description}</div>
 
                         <div>{Data.enrolledStudent.length}/20</div>
@@ -78,7 +79,14 @@ function search() {
                         <div className='absolute right-4'>
                             <div onClick={()=> alert('Pls login to enroll it')} className='text-white bg-blue-900 py-2 px-3 cursor-not-allowed'>Enroll Now</div>
                         </div>
-                        
+                        <div className="absolute bottom-2">
+                            <span className='mt-2 font-bold'>Timing : </span>
+                            {'[ '}
+                            {Data.schedule.map(daytime => {
+                            return `${daysName[daytime.day]} ${Math.floor(daytime.starttime / 60)}:${daytime.starttime % 60 === 0 ? "00" : daytime.starttime % 60} - ${Math.floor(daytime.endtime/60)}:${daytime.endtime % 60 === 0 ? "00" : daytime.endtime % 60}`;
+                            }).join(', ')}
+                            {' ]'}
+                        </div>
                     </div>
                     ))
                 )}

@@ -165,7 +165,7 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
     }
   ])
 
-  let isconflict
+  let isconflict = false;
   for (let i = 0; i < EC.length; i++) {
     for (const schedule of schedules) {
       if (schedule.schedule.day === EC[i].day) {
@@ -179,7 +179,7 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
       }
     }
   }
-  isconflict = false;
+
   
   if(isconflict){
     throw new ApiError(400, "Already enrolled in a course with the same timing.")
@@ -476,7 +476,7 @@ const canStudentEnroll = asyncHandler(async(req,res)=>{
     }
   ])
 
-  let isconflict
+  let isconflict = false;
   for (let i = 0; i < EC.length; i++) {
     for (const schedule of schedules) {
       if (schedule.schedule.day === EC[i].day) {
@@ -490,7 +490,7 @@ const canStudentEnroll = asyncHandler(async(req,res)=>{
       }
     }
   }
-  isconflict = false;
+
   
   if(isconflict){
     throw new ApiError(400, "Already enrolled in a course with the same timing.")

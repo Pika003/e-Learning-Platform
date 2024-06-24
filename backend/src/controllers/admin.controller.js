@@ -194,7 +194,18 @@ const approveStudent = asyncHandler(async(req,res)=>{
     
     console.log("email", email);
 
-    await Sendmail(email, `Document Verification Status`, `<h1>Your document verification status is on: ${toApprove},  ${remarks}</h1>`)
+    await Sendmail(email, `Document Verification Status`, 
+        `<html>
+            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <h1 style="color: #4CAF50; text-align: center;">Document Verification Status!</h1>
+            <p style="font-size: 16px; text-align: center;">We have completed the verification process for the documents you submitted. Your document verification status is: ${toApprove}</p>
+            <p style="font-size: 16px;">Remarks: ${remarks}</p>
+            <p style="font-size: 16px;">Best regards,</p>
+            <p style="font-size: 16px;"><strong>The Shiksharthee Team</strong></p>
+            <p style="font-size: 14px;">&copy; 2024 Shiksharthee. All rights reserved.</p>
+            </body>
+        </html>`
+    )
 
     return res
     .status(200)
@@ -237,7 +248,18 @@ const approveTeacher = asyncHandler(async(req,res)=>{
         throw new ApiError(400,"faild to approve or reject || student not found")
     }
 
-    await Sendmail(email, `Document Verification Status`, `<h1>Your document verification status is on: ${toApprove},  ${remarks}</h1>`)
+    await Sendmail(email, `Document Verification Status`, 
+        `<html>
+            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <h1 style="color: #4CAF50; text-align: center;">Document Verification Status!</h1>
+            <p style="font-size: 16px; text-align: center;">We have completed the verification process for the documents you submitted. Your document verification status is: ${toApprove}</p>
+            <p style="font-size: 16px;">Remarks: ${remarks}</p>
+            <p style="font-size: 16px;">Best regards,</p>
+            <p style="font-size: 16px;"><strong>The Shiksharthee Team</strong></p>
+            <p style="font-size: 14px;">&copy; 2024 Shiksharthee. All rights reserved.</p>
+            </body>
+        </html>`
+    )
 
     return res
     .status(200)
@@ -455,7 +477,21 @@ const approveCourse = asyncHandler(async(req,res)=>{
             throw new ApiError(400,"faild to approve or reject")
         }
 
-        Sendmail(req.body.email, `Course Approval`, '<h1>Your course is approved</h1>')
+        const Fname = req.body.Firstname;
+
+        Sendmail(req.body.email, `Course Approval Update`, 
+            `<html>
+                <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                <h1 style="color: #4CAF50; text-align: center;">Congratulations!</h1>
+                <p style="font-size: 16px; text-align: center;">Dear ${Fname},</p>
+                <p style="font-size: 16px; text-align: center;">We are delighted to inform you that your course ( ${theCourse.coursename} ) submission has been reviewed and approved by our team.</p>
+                <p style="font-size: 16px;">Thank you for being a part of our educational community. We look forward to seeing your course make a positive impact on learners around the world.</p>
+                <p style="font-size: 16px;">Best regards,</p>
+                <p style="font-size: 16px;"><strong>The Shiksharthee Team</strong></p>
+                <p style="font-size: 14px;">&copy; 2024 Shiksharthee. All rights reserved.</p>
+                </body>
+            </html>
+        `)
 
         return res
         .status(200)
@@ -464,8 +500,21 @@ const approveCourse = asyncHandler(async(req,res)=>{
 
     else{
         const theCourse = await course.findByIdAndDelete({_id: courseID}, {new:true})
+        const Fname = req.body.Firstname;
 
-        Sendmail(req.body.email, `Course Approval`, '<h1>Your course is rejected</h1>')
+        Sendmail(req.body.email, `Course Approval Update`, 
+            `<html>
+                <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                <h1 style="color: #4CAF50; text-align: center;">Course Submission Update!</h1>
+                <p style="font-size: 16px; text-align: center;">Dear ${Fname},</p>
+                <p style="font-size: 16px; text-align: center;">After a thorough evaluation, we regret to inform you that your course, <strong>( ${theCourse.coursename} )</strong>, does not meet the requirements for approval at this time.</p>
+                <p style="font-size: 16px;">Thank you for your understanding and continued commitment to providing quality education.</p>
+                <p style="font-size: 16px;">Best regards,</p>
+                <p style="font-size: 16px;"><strong>The Shiksharthee Team</strong></p>
+                <p style="font-size: 14px;">&copy; 2024 Shiksharthee. All rights reserved.</p>
+                </body>
+            </html>
+        `)
 
         return res
         .status(200)

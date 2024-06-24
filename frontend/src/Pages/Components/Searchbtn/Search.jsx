@@ -23,6 +23,8 @@ function Search() {
     biology: 500,
   };
 
+  const daysName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
   const closePopup = () => {
     setPopup(false);
     window.location.reload();
@@ -41,7 +43,7 @@ function Search() {
     })
 
     const res = await data.json();
-    // console.log(res.data);
+    console.log(res.data);
     setTeacherDetails(res.data);
     setOpenTM(true);
   }
@@ -80,6 +82,7 @@ function Search() {
     const response = await Data.json();
     if (response.statusCode === 200) {
       setCourse(response.data);
+      // console.log(response.data);
     }
     setData("");
   };
@@ -96,6 +99,8 @@ function Search() {
       }
     );
     const res = await check.json();
+
+    console.log(res);
 
     if(res.statusCode === 200){
 
@@ -208,17 +213,17 @@ function Search() {
           Find Teacher
         </button>
       </div>
-      <div className="overflow-auto h-56">
+      <div className="overflow-auto">
         {course &&
           course.map((Data) => (
             <div
               key={Data._id}
-              className="relative bg-blue-600 p-4 gap-6 mb-3 flex items-center rounded-sm max-w-4xl"
+              className="relative bg-blue-600 p-4 gap-6 mb-3 flex  rounded-sm max-w-4xl h-20 items-start"
             >
-              <div className="text-white bg-blue-900 p-2 rounded-md">
-                {Data.coursename}
+              <div className="h-fit font-bold text-blue-900">
+                {Data.coursename.toUpperCase()}
               </div>
-              <div onClick={()=>openTeacherDec(Data.enrolledteacher.Teacherdetails, Data.enrolledteacher.Firstname, Data.enrolledteacher.Lastname, Data.coursename)} className="text-gray-300 cursor-pointer">
+              <div onClick={()=>openTeacherDec(Data.enrolledteacher.Teacherdetails, Data.enrolledteacher.Firstname, Data.enrolledteacher.Lastname, Data.coursename)} className="text-gray-300 cursor-pointer font-bold">
                 {Data.enrolledteacher.Firstname} {Data.enrolledteacher.Lastname}
               </div>
               <div className="text-gray-900">
@@ -243,6 +248,14 @@ function Search() {
                   Already Full
                 </div>
               )}
+              <div className="absolute bottom-2">
+                <span className='mt-2 font-bold'>Timing : </span>
+                {'[ '}
+                {Data.schedule.map(daytime => {
+                  return `${daysName[daytime.day]} ${Math.floor(daytime.starttime / 60)}:${daytime.starttime % 60 === 0 ? "00" : daytime.starttime % 60} - ${Math.floor(daytime.endtime/60)}:${daytime.endtime % 60 === 0 ? "00" : daytime.endtime % 60}`;
+                }).join(', ')}
+                {' ]'}
+              </div>
             </div>
           ))}
       </div>

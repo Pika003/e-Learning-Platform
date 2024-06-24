@@ -74,7 +74,7 @@ function StudentDashboard() {
       </div>
 
       {/* sidebar */}
-      <div className='bg-[#071645] w-52 h-[88.5vh] absolute top-20'>
+      <div className='bg-[#071645] w-52 min-h-[120vh] max-h-[130vh] absolute top-20'>
         <div className='flex flex-col gap-5 text-xl items-center text-white mt-8 mb-10'>
           <img src="https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png" alt="profile_img" width={50} />
           <p>{data.Firstname} {data.Lastname}</p>

@@ -16,7 +16,7 @@ const DateTime = ({setDate, allowedDays}) => {
     if (!allowedDay) return false;
 
     const minutes = date.getHours() * 60 + date.getMinutes();
-    return minutes >= allowedDay.starttime && minutes <= allowedDay.endtime;
+    return minutes >= allowedDay.starttime && minutes <= allowedDay.endtime - 60;
   };
 
   const filterTime = (time) => {

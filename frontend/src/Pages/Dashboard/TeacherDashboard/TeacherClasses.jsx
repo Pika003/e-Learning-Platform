@@ -48,7 +48,7 @@ function TeacherClasses() {
                 <div key={clas.timing} className='flex items-center mb-5'>
                     <img src="https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png" alt="profile_img" width={30} />
                     <div className='ml-5 mr-10 font-bold'>
-                        <p className=' text-lg'>{clas.coursename}<span className='text-black text-sm ml-3'>{clas.date.slice(0,10)}  {clas.timing/60}:{clas.timing%60 === 0 ? "00":clas.timing%60}</span></p>
+                        <p className=' text-lg'>{clas.coursename}<span className='text-black text-sm ml-3'>{clas.date.slice(0,10)}  {Math.floor(clas.timing/60)}:{clas.timing%60 === 0 ? "00":clas.timing%60}</span></p>
                         
                         <span className='text-blue-500 text-sm ml-3'>{clas.title.slice(0,35)} ...</span>
                     </div>
