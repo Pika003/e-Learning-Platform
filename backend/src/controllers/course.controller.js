@@ -3,7 +3,7 @@ import {asyncHandler} from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js"; 
 import {ApiResponse} from "../utils/ApiResponse.js";
 import { Teacher } from "../models/teacher.model.js";
-
+import {Sendmail} from "../utils/Nodemailer.js"
 
 
 const getCourse = asyncHandler(async(req,res)=>{
@@ -215,7 +215,21 @@ const addCourseStudent = asyncHandler(async(req,res)=>{
       }
     }, {
       new: true
-    })
+  })
+
+  await Sendmail(loggedStudent.Email, `Payment Confirmation for Course Purchase`, 
+    `<html>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <h1 style="color: #4CAF50; text-align: center;">Payment Successful!</h1>
+        <p style="font-size: 16px; text-align: center;">Dear ${loggedStudent.Firstname},</p>
+        <p style="font-size: 16px; text-align: center;">We are pleased to inform you that your payment for the course has been successfully processed.</p>
+         <p style="font-size: 16px;">You can start accessing the course immediately by logging into your account.</p>
+        <p style="font-size: 16px;">Best regards,</p>
+        <p style="font-size: 16px;"><strong>The Shiksharthee Team</strong></p>
+        <p style="font-size: 14px;">&copy; 2024 Shiksharthee. All rights reserved.</p>
+        </body>
+    </html>`
+  )
 
   return res
   .status(200)
@@ -363,6 +377,7 @@ const stdEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
     },
     {
       $sort: {
+        "liveClasses.date": 1,
         "liveClasses.timing": 1
       }
     },
@@ -407,6 +422,7 @@ const teacherEnrolledCoursesClasses = asyncHandler(async(req,res)=>{
     },
     {
       $sort: {
+        "liveClasses.date": 1,
         "liveClasses.timing": 1
       }
     },

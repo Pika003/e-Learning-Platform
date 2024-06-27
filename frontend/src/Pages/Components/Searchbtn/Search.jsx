@@ -272,7 +272,7 @@ function Search() {
                   <p>Experience : <span className='text-white'>{Tdec.Experience} years</span></p>
                   <p>Course : <span className='text-white'>{tname.sub.toUpperCase()}</span></p>
                   {/* <p>Course Duration : <span className='text-white'>6 Months</span></p> */}
-                  <p>Fees : <span className='text-white'>Rs. {price[tname.sub]}</span></p>
+                  {/* <p>Fees : <span className='text-white'>Rs. {price[tname.sub]}</span></p> */}
                   </div>
               </div>
           </div>

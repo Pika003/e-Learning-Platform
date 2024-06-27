@@ -25,6 +25,8 @@ function DashboardTeacher() {
     biology: 500,
   };
 
+  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -158,24 +160,27 @@ function DashboardTeacher() {
                   >
                     {course.coursename} :{" "}
                     <span className="text-black">
-                      {" "}
-                      Rs. {price[course.coursename]} per student
+                      {" [ "}{course.schedule.map(days => `${daysOfWeek[days.day]} ${Math.floor(days.starttime/60)}:${(days.starttime%60 === 0 ? "00":days.starttime%60)} - ${Math.floor(days.endtime/60)}:${(days.endtime%60 === 0 ? "00" : days.endtime%60)}`).join(', ')}{" ] "}
+                    </span>
+                    <span className="text-black font-bold">
+                      {" => "}
+                      Rs. {price[course.coursename]} per student / per month
                     </span>
                   </p>
                 ))}
             </div>
           </div>
           <div className="ml-28">
-            {notification && (
-              //show all notifications
-              // example
+            {/* {notification && (
+              show all notifications
+              example
               <div>
                 <p>course : Math</p>
                 <p>Timing : sun,Mon,tue</p>
                 <p>status : pending</p>
                 <p>message : sbcxbbdjbd</p>
               </div>
-            )}
+            )} */}
           </div>
         </div>
 

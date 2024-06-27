@@ -44,17 +44,29 @@ function TeacherClasses() {
             <h1 className='absolute bottom-72 left-60 text-[#1671D8] text-2xl mt-4 mb-4 font-semibold'>Weekly Schedule</h1>
 
             <div className='h-[17rem] w-[30rem] overflow-auto '>
-            {data.map((clas) =>
+            {data.filter(clas => {
+            const classDate = new Date(clas.date.slice(0, 10));
+            const today = new Date();
+            const oneWeekFromNow = new Date();
+            oneWeekFromNow.setDate(today.getDate() + 7);
+
+            return classDate >= today && classDate <= oneWeekFromNow;
+            }).map(clas => (
                 <div key={clas.timing} className='flex items-center mb-5'>
                     <img src="https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png" alt="profile_img" width={30} />
                     <div className='ml-5 mr-10 font-bold'>
-                        <p className=' text-lg'>{clas.coursename}<span className='text-black text-sm ml-3'>{clas.date.slice(0,10)}  {Math.floor(clas.timing/60)}:{clas.timing%60 === 0 ? "00":clas.timing%60}</span></p>
-                        
-                        <span className='text-blue-500 text-sm ml-3'>{clas.title.slice(0,35)} ...</span>
+                        <p className=' text-lg'>
+                            {clas.coursename}
+                            <span className='text-black text-sm ml-3'>
+                                {clas.date.slice(0, 10)}  {Math.floor(clas.timing / 60)}:{clas.timing % 60 === 0 ? "00" : clas.timing % 60}
+                            </span>
+                        </p>
+                        <span className='text-blue-500 text-sm ml-3'>{clas.title.slice(0, 35)} ...</span>
                     </div>
                     <p className='text-sm bg-[#4E84C1] p-2 rounded-lg'>{clas.status}</p>
                 </div>
-            )}
+            ))}
+
             </div>
 
             {data.length > 0 && (
@@ -70,7 +82,7 @@ function TeacherClasses() {
                         <div className='flex gap-12 items-center'>
                             <div className='ml-3'>
                                 <p>Your next Class</p>
-                                <p className='text-[#018280] text-3xl font-semibold'>{data[0]?.coursename}</p>
+                                <p className='text-[#018280] text-3xl font-semibold'>{data[0]?.coursename.toUpperCase()}</p>
                                 <p className=' text-light-blue-700'>{data[0]?.title.slice(0, 25)} ...</p>
                             </div>
                             <img src={Camera} alt="Camera" width={70} />

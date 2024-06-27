@@ -35,7 +35,7 @@ const Course = () => {
 
   const formatTime = (time) => {
     const hours = Math.floor(time / 60);
-    const minutes = 0;
+    const minutes = time % 60;
 
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
   };

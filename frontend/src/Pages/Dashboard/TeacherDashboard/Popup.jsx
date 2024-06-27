@@ -186,7 +186,7 @@ function Popup({ onClose, subject }) {
         endtime: dayValue[d] ? convertTimeToMinutes(dayValue[d]) + dateGap * 60 : null,
       }));
 
-    const hasMissingTime = selectedDays.some((d) => d.StartTime === null);
+    const hasMissingTime = selectedDays.some((d) => d.starttime === null);
 
     if (hasMissingTime) {
       alert('Please fill in the time for all selected days.');
@@ -194,8 +194,8 @@ function Popup({ onClose, subject }) {
     }
 
     const invalidTimeRange = selectedDays.some((d) => {
-      const startTime = d.StartTime;
-      const endTime = d.EndTime;
+      const startTime = d.starttime;
+      const endTime = d.endtime;
       if (startTime >= endTime) {
         alert('Start time must be earlier than end time.');
         return true;
@@ -213,6 +213,11 @@ function Popup({ onClose, subject }) {
 
     if (desc === '') {
       alert('Fill the description.');
+      return;
+    }
+
+    if(selectedDays.length === 0){
+      alert('pls! select any day and time.');
       return;
     }
 

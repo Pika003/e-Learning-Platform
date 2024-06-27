@@ -82,7 +82,7 @@ function StudentCourses() {
               </div>
             )}
         
-            <p className='mt-5 text-gray-300 text-sm text-center px-2 '>Fees : Rs. {price[sub.coursename]}</p>
+            {/* <p className='mt-5 text-gray-300 text-sm text-center px-2 '>Fees : Rs. {price[sub.coursename]}</p> */}
           </div>
         ))}
     </div>
