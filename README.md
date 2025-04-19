@@ -47,7 +47,7 @@ Develop a comprehensive online learning platform with three user types (Student,
    - Integrated video conferencing tool (similar to Google Meet) for real-time teacher-student interaction.
 
 #### 6. *Communication:*
-   - In-platform messaging system for communication between teachers and students.
+   - An in-platform messaging system for communication between teachers and students.
 
 #### 7. *Payment Integration:*
    - Integrate a secure payment gateway for course purchases.
@@ -74,9 +74,28 @@ Develop a comprehensive online learning platform with three user types (Student,
   - JWT (JSON Web Tokens) for secure authentication.
 
 #### *Video Conferencing:*
-  - Integrate WebRTC for real-time video communication.
-  - Or just using google meet link
 
-#### *Payment Integration:*
-  - Stripe or PayPal or razorpay for secure and seamless payments
+---
+
+## 🛠️ Installation & Running Locally
+
+Follow the steps below to run the project on your local machine.
+
+### ✅ Prerequisites
+
+- [Node.js](https://nodejs.org/) (v14 or above)
+- [MongoDB](https://www.mongodb.com/) (local or Atlas cloud)
+- [Git](https://git-scm.com/)
+
+---
+
+### 📦 Clone the Repository
+
+```bash
+git clone https://github.com/Pika003/e-Learning-Platform.git
+cd e-Learning-Platform
+  - Fill the env file with your credentials
+npm install
+npm run dev
+
 
